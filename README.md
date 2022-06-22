@@ -55,6 +55,10 @@ Puis la bonne version de PHPMyAdmin 5.2.0
 
 Nous ne l'utilisons pas sur notre serveur dev ni prod
 
+**! N'oubliez pas de rajouter PHP 8.1.7 dans vos variables d'environment !**
+
+### Installation de Symfony
+
 
 
 
