@@ -13,7 +13,9 @@ Nous allons partir de la configuration de notre server de dev
 - GMP activé : https://www.php.net/manual/fr/book.gmp.php
 - Toutes les erreurs activées
 
+#### Configuration serveur :
 
+![Configuration serveur de dev](https://github.com/mikhawa/presence-cf2m/raw/main/datas/img/screenshot-2022.06.22-10_02_36.png "FR")
 
 
 
