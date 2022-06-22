@@ -59,8 +59,32 @@ Nous ne l'utilisons pas sur notre serveur dev ni prod
 
 ### Installation de Symfony
 
+Dans la console :
 
+        php -v
+        # donne 8.1.7
+        composer selfupdate
+        # met à jour (2.3.7 à ce jour)
+        composer install
+        # installe les dépendances
+        npm -v
+        # donne 8.10.0
+        npm update -g npm
+        # on met à jour
+        node -v
+        # donne 16.15.1
 
+Si autre version de node, téléchargez `nvm` : https://github.com/coreybutler/nvm-windows/releases
+
+        nvm ls
+        nvm on
+
+Node.js devrait être à jour
+
+        yarn
+        npm run build
+        # construction du public
+        
 
 
 
