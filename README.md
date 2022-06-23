@@ -145,3 +145,5 @@ https://startbootstrap.com/template/sb-admin
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
 
+Création de `templates/template.sbadmin.html.twig`
+
