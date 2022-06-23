@@ -6,7 +6,7 @@ Application web de relevé des présences stagiaires avec statistiques
 - [La configuration des serveurs de dev](https://github.com/mikhawa/presence-cf2m#la-configuration-des-serveurs-de-dev) - à voir
 - [La configuration locale](https://github.com/mikhawa/presence-cf2m#la-configuration-locale) - à faire
 - [Installation de Symfony](https://github.com/mikhawa/presence-cf2m#installation-de-symfony) - à faire
-- [Création du contrôleur général](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-du-contr%C3%B4leur-g%C3%A9n%C3%A9ral) - à titre informatif
+- [Démarrage du serveur](https://github.com/mikhawa/presence-cf2m#d%C3%A9marrage-du-serveur) - à faire
 - [Création du contrôleur général](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-du-contr%C3%B4leur-g%C3%A9n%C3%A9ral) - à titre informatif
 
 ### Prérequis
@@ -103,6 +103,8 @@ Node.js devrait être à jour
 
 ### Démarrage du serveur
 
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
 Installez le certificat openSSL (https):
 
     symfony server:ca:install
@@ -122,4 +124,4 @@ https://127.0.0.1:8000/
 
         php bin/console make:controller
 
-Création de `src/Controller/PublicController.php`
+Création de `src/Controller/PublicController.php` et de `templates/public/index.html.twig`

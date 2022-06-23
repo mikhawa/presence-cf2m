@@ -8,11 +8,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PublicController extends AbstractController
 {
-    #[Route('/', name: 'app_public')]
+    #[Route('/', name: 'app_homepage')]
     public function index(): Response
     {
-        return $this->render('public/index.html.twig', [
-            'controller_name' => 'PublicController',
+        return $this->render('public/homepage.html.twig', [
+
         ]);
     }
 }
