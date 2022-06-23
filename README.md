@@ -98,6 +98,23 @@ Node.js devrait être à jour
         yarn
         npm run build
         # construction du public
+
+
+
+### Démarrage du serveur
+
+Installez le certificat openSSL (https):
+
+    symfony server:ca:install
+
+Démarrage du projet:
+
+    symfony serve -d
+
+Vous pouvez y accéder à l'URL indiquée, généralement du type :
+
+https://127.0.0.1:8000/
+
         
 ### Création du contrôleur général
 
