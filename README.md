@@ -148,3 +148,22 @@ https://startbootstrap.com/template/sb-admin
 Création de `templates/template.sbadmin.html.twig`
 
 Ajout des JS et CSS dans les `assets`
+
+Modification de
+
+    assets/app.js
+    ...
+    import './styles/app.css';
+    import './styles/styles.css';
+    
+    // start the Stimulus application
+    import './bootstrap';
+    import './scripts';
+    import './datatables-simple-demo';
+
+Puis création des assets pour le dossier `public`
+
+    npm run build
+
+Les dépendances front-end sont mises dans le dossier caché sur github `public/build` et chargées par `templates/base.html.twig`
+
