@@ -1,6 +1,14 @@
 # presence-cf2m
 Application web de relevé des présences stagiaires avec statistiques
 
+## Arborescence
+
+- [La configuration des serveurs de dev](https://github.com/mikhawa/presence-cf2m#la-configuration-des-serveurs-de-dev) - à voir
+- [La configuration locale](https://github.com/mikhawa/presence-cf2m#la-configuration-locale) - à faire
+- [Installation de Symfony](https://github.com/mikhawa/presence-cf2m#installation-de-symfony) - à faire
+- [Création du contrôleur général](https://github.com/mikhawa/presence-cf2m#installation-de-symfony) - à titre informatif
+- 
+
 ### Prérequis
 
 #### La configuration des serveurs de dev
@@ -85,6 +93,6 @@ Node.js devrait être à jour
         npm run build
         # construction du public
         
-
+## Création du contrôleur général
 
 
