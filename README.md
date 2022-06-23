@@ -8,6 +8,9 @@ Application web de relevé des présences stagiaires avec statistiques
 - [Installation de Symfony](https://github.com/mikhawa/presence-cf2m#installation-de-symfony) - à faire
 - [Démarrage du serveur](https://github.com/mikhawa/presence-cf2m#d%C3%A9marrage-du-serveur) - à faire
 - [Création du contrôleur général](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-du-contr%C3%B4leur-g%C3%A9n%C3%A9ral) - à titre informatif
+- [Mise en place d'un template gratuit](https://github.com/mikhawa/presence-cf2m#d%C3%A9marrage-du-serveur) - à voir et discuter
+- [Transformation du modèle en Twig](https://github.com/mikhawa/presence-cf2m#d%C3%A9marrage-du-serveur) - à voir et discuter
+
 
 ### Prérequis
 
@@ -125,3 +128,20 @@ https://127.0.0.1:8000/
         php bin/console make:controller
 
 Création de `src/Controller/PublicController.php` et de `templates/public/index.html.twig`
+
+### Mise en place d'un template gratuit
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
+Mise en place d'un template d'administration gratuit à transformer en modèle Twig. Emplacement du modèle compressé :
+
+    datas/templates/free-startbootstrap-sb-admin-gh-pages.zip
+
+On peut le tester à cette URL :
+
+https://startbootstrap.com/template/sb-admin
+
+### Transformation du modèle en Twig
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
