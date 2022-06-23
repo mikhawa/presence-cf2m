@@ -147,3 +147,4 @@ https://startbootstrap.com/template/sb-admin
 
 Création de `templates/template.sbadmin.html.twig`
 
+Ajout des JS et CSS dans les `assets`
