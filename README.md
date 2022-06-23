@@ -6,12 +6,14 @@ Application web de relevé des présences stagiaires avec statistiques
 - [La configuration des serveurs de dev](https://github.com/mikhawa/presence-cf2m#la-configuration-des-serveurs-de-dev) - à voir
 - [La configuration locale](https://github.com/mikhawa/presence-cf2m#la-configuration-locale) - à faire
 - [Installation de Symfony](https://github.com/mikhawa/presence-cf2m#installation-de-symfony) - à faire
-- [Création du contrôleur général](https://github.com/mikhawa/presence-cf2m#installation-de-symfony) - à titre informatif
-- 
+- [Création du contrôleur général](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-du-contr%C3%B4leur-g%C3%A9n%C3%A9ral) - à titre informatif
+- [Création du contrôleur général](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-du-contr%C3%B4leur-g%C3%A9n%C3%A9ral) - à titre informatif
 
 ### Prérequis
 
 #### La configuration des serveurs de dev
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
 
 Nous allons partir de la configuration de notre server de dev sur notre hébergeur.
 
@@ -21,17 +23,19 @@ Nous allons partir de la configuration de notre server de dev sur notre héberge
 - GMP activé : https://www.php.net/manual/fr/book.gmp.php
 - Toutes les erreurs activées
 
-#### Configuration serveur hébergeur :
+#### Configuration serveur sur l'hébergeur :
 
 ##### APACHE - PHP
 
 ![Configuration serveur de dev](https://github.com/mikhawa/presence-cf2m/raw/main/datas/img/screenshot-2022.06.22-10_02_36.png "FR")
 
-##### MariaDB
+#### MariaDB
 
 10.3.34-MariaDB-1:10.3.34
 
-#### La configuration locale
+### La configuration locale
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
 
 Sous Windows, d'abord installer la dernière version de WAMP (sauf si vous l'utilisez déjà ou une version proche) sur le site :
 
@@ -67,6 +71,8 @@ Nous ne l'utilisons pas sur notre serveur dev ni prod
 
 ### Installation de Symfony
 
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
 Dans la console :
 
         php -v
@@ -93,6 +99,10 @@ Node.js devrait être à jour
         npm run build
         # construction du public
         
-## Création du contrôleur général
+### Création du contrôleur général
 
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
 
+        php bin/console make:controller
+
+Création de `src/Controller/PublicController.php`
