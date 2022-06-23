@@ -8,8 +8,8 @@ Application web de relevé des présences stagiaires avec statistiques
 - [Installation de Symfony](https://github.com/mikhawa/presence-cf2m#installation-de-symfony) - à faire
 - [Démarrage du serveur](https://github.com/mikhawa/presence-cf2m#d%C3%A9marrage-du-serveur) - à faire
 - [Création du contrôleur général](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-du-contr%C3%B4leur-g%C3%A9n%C3%A9ral) - à titre informatif
-- [Mise en place d'un template gratuit](https://github.com/mikhawa/presence-cf2m#d%C3%A9marrage-du-serveur) - à voir et discuter
-- [Transformation du modèle en Twig](https://github.com/mikhawa/presence-cf2m#d%C3%A9marrage-du-serveur) - à voir et discuter
+- [Mise en place d'un template gratuit](https://github.com/mikhawa/presence-cf2m#mise-en-place-dun-template-gratuit) - à voir et discuter
+- [Transformation du modèle en Twig](https://github.com/mikhawa/presence-cf2m#transformation-du-mod%C3%A8le-en-twig) - à titre informatif
 
 
 ### Prérequis
