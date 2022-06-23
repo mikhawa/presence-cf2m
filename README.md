@@ -10,6 +10,7 @@ Application web de relevé des présences stagiaires avec statistiques
 - [Création du contrôleur général](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-du-contr%C3%B4leur-g%C3%A9n%C3%A9ral) - à titre informatif
 - [Mise en place d'un template gratuit](https://github.com/mikhawa/presence-cf2m#mise-en-place-dun-template-gratuit) - à voir et discuter
 - [Transformation du modèle en Twig](https://github.com/mikhawa/presence-cf2m#transformation-du-mod%C3%A8le-en-twig) - à titre informatif
+- [Création d'un utilisateur](https://github.com/mikhawa/presence-cf2m#transformation-du-mod%C3%A8le-en-twig) - à titre informatif
 
 
 ### Prérequis
@@ -166,4 +167,12 @@ Puis création des assets pour le dossier `public`
     npm run build
 
 Les dépendances front-end sont mises dans le dossier caché sur github `public/build` et chargées par `templates/base.html.twig`
+
+Pour le moment, seul la page d'accueil a été mise en page (notre connexion) :
+
+    templates/public/homepage.html.twig
+
+### Création d'un utilisateur
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
 
