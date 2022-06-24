@@ -15,6 +15,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\GeneratedValue]
     #[ORM\Column(
         type: 'integer',
+        unique: true,
         options: ["unsigned" => true],
     )]
     private $id;
@@ -34,15 +35,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 100)]
     private $thesurname;
 
-    #[ORM\Column(type: 'string', length: 180, nullable: true)]
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
     private $themail;
 
-    #[ORM\Column(type: 'string', length: 25)]
+    #[ORM\Column(type: 'string', length: 25, unique: true)]
     private $theuid;
 
     #[ORM\Column(
         type: 'integer',
-        length: 5,
         options: [
             "unsigned" => true,
             "default" => 0
@@ -53,6 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(
         type: 'string',
         length: 11,
+        unique: true,
     )]
     private $thenationalid;
 
