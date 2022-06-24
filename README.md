@@ -289,5 +289,5 @@ Pour l'entité User, il vaut mieux faire les modifications dans Symfony car il a
 
 Nous pouvons voir dans notre DB dans la table `user` que les champs ne correspondent pas tout à fait à ce que nous souhaiterions (unsigned, unique, etc) :
 
-![DB presencescf2m](https://raw.githubusercontent.com/mikhawa/presence-cf2m/main/datas/img/screenshot-localhost_8080-2022.06.24-11_52_21.png "presencescf2m")
-![DB presencescf2m](https://raw.githubusercontent.com/mikhawa/presence-cf2m/main/datas/img/screenshot-localhost_8080-2022.06.24-11_52_21.png "presencescf2m")
+![Table user](https://raw.githubusercontent.com/mikhawa/presence-cf2m/main/datas/img/screenshot-localhost_8080-2022.06.24-12_07_58.png "Table user")
+![Index user](https://raw.githubusercontent.com/mikhawa/presence-cf2m/main/datas/img/screenshot-localhost_8080-2022.06.24-12_08_28.png "Index user")
