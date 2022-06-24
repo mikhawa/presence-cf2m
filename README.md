@@ -342,4 +342,5 @@ Les fichiers créés / modifiés :
 - config/packages/security.yaml
 - templates/security/login.html.twig
 
-[Voir les fichiers après cette étape](https://github.com/mikhawa/presence-cf2m/blob/ef1e2ff266b96f4be26d30a8312b64fe6ddedd06/src/Entity/User.php)
+[Voir les fichiers après cette étape](https://github.com/mikhawa/presence-cf2m/commit/650018d5325567ded4bce8faf1598535f9a1d851)
+
