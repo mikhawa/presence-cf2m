@@ -291,3 +291,10 @@ Nous pouvons voir dans notre DB dans la table `user` que les champs ne correspon
 
 ![Table user](https://raw.githubusercontent.com/mikhawa/presence-cf2m/main/datas/img/screenshot-localhost_8080-2022.06.24-12_07_58.png "Table user")
 ![Index user](https://raw.githubusercontent.com/mikhawa/presence-cf2m/main/datas/img/screenshot-localhost_8080-2022.06.24-12_08_28.png "Index user")
+
+Nous allons donc remédier à cela en utilisant les attributs de références que vous trouverez ici : 
+
+https://www.doctrine-project.org/projects/doctrine-orm/en/2.11/reference/attributes-reference.html
+
+Et les appliquer sur `src/Entity/User.php`
+
