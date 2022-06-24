@@ -298,3 +298,7 @@ https://www.doctrine-project.org/projects/doctrine-orm/en/2.11/reference/attribu
 
 Et les appliquer sur `src/Entity/User.php`
 
+Puis, régénérons les getters et setters avec
+
+    php bin/console make:entity --regenerate
+

@@ -13,7 +13,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(
+        type: 'integer',
+        options: ["unsigned" => true],
+    )]
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
@@ -37,10 +40,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 25)]
     private $theuid;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(
+        type: 'integer',
+        length: 5,
+        options: [
+            "unsigned" => true,
+            "default" => 0
+        ],
+    )]
     private $thestatus;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(
+        type: 'string',
+        length: 11,
+    )]
     private $thenationalid;
 
     public function getId(): ?int
