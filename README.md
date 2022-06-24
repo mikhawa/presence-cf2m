@@ -15,7 +15,7 @@ Application web de relevé des présences stagiaires avec statistiques
 - [Création du fichier .env.local](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-du-fichier-envlocal) - **à faire**
 - [Création de la DB locale](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-de-la-db-locale) - **à faire**
 - [Première migration](https://github.com/mikhawa/presence-cf2m#premi%C3%A8re-migration) - **à faire**
-- [Amélioration de l'entité User](https://github.com/mikhawa/presence-cf2m#premi%C3%A8re-migration) - à titre formatif / informatif
+- [Amélioration de l'entité User](https://github.com/mikhawa/presence-cf2m#am%C3%A9lioration-de-lentit%C3%A9-user) - à titre formatif / informatif
 
 
 
@@ -285,4 +285,9 @@ Pour savoir si le lien entre le fichier `src/Entity/User.php` et la table `user`
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
 
-Pour l'entité User, il vaut mieux faire les modifications dans Symfony car il a un rôle particulier
+Pour l'entité User, il vaut mieux faire les modifications dans Symfony car il a un rôle particulier.
+
+Nous pouvons voir dans notre DB dans la table `user` que les champs ne correspondent pas tout à fait à ce que nous souhaiterions (unsigned, unique, etc) :
+
+![DB presencescf2m](https://raw.githubusercontent.com/mikhawa/presence-cf2m/main/datas/img/screenshot-localhost_8080-2022.06.24-11_52_21.png "presencescf2m")
+![DB presencescf2m](https://raw.githubusercontent.com/mikhawa/presence-cf2m/main/datas/img/screenshot-localhost_8080-2022.06.24-11_52_21.png "presencescf2m")
