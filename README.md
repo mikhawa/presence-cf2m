@@ -211,3 +211,9 @@ Fichiers créés/modifiés :
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
 
+On rajoute les champs nécessaires à l'entité `User` avec :
+
+    php bin/console make:entity User
+
+Ce sont des valeurs par défaut, on va pouvoir les adapter suivant nos besoins.
+

@@ -25,6 +25,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
+    #[ORM\Column(type: 'string', length: 100)]
+    private $thename;
+
+    #[ORM\Column(type: 'string', length: 100)]
+    private $thesurname;
+
+    #[ORM\Column(type: 'string', length: 180, nullable: true)]
+    private $themail;
+
+    #[ORM\Column(type: 'string', length: 25)]
+    private $theuid;
+
+    #[ORM\Column(type: 'integer')]
+    private $thestatus;
+
+    #[ORM\Column(type: 'integer')]
+    private $thenationalid;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,5 +111,77 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getThename(): ?string
+    {
+        return $this->thename;
+    }
+
+    public function setThename(string $thename): self
+    {
+        $this->thename = $thename;
+
+        return $this;
+    }
+
+    public function getThesurname(): ?string
+    {
+        return $this->thesurname;
+    }
+
+    public function setThesurname(string $thesurname): self
+    {
+        $this->thesurname = $thesurname;
+
+        return $this;
+    }
+
+    public function getThemail(): ?string
+    {
+        return $this->themail;
+    }
+
+    public function setThemail(?string $themail): self
+    {
+        $this->themail = $themail;
+
+        return $this;
+    }
+
+    public function getTheuid(): ?string
+    {
+        return $this->theuid;
+    }
+
+    public function setTheuid(string $theuid): self
+    {
+        $this->theuid = $theuid;
+
+        return $this;
+    }
+
+    public function getThestatus(): ?int
+    {
+        return $this->thestatus;
+    }
+
+    public function setThestatus(int $thestatus): self
+    {
+        $this->thestatus = $thestatus;
+
+        return $this;
+    }
+
+    public function getThenationalid(): ?int
+    {
+        return $this->thenationalid;
+    }
+
+    public function setThenationalid(int $thenationalid): self
+    {
+        $this->thenationalid = $thenationalid;
+
+        return $this;
     }
 }
