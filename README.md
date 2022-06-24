@@ -11,6 +11,7 @@ Application web de relevé des présences stagiaires avec statistiques
 - [Mise en place d'un template gratuit](https://github.com/mikhawa/presence-cf2m#mise-en-place-dun-template-gratuit) - à voir et discuter
 - [Transformation du modèle en Twig](https://github.com/mikhawa/presence-cf2m#transformation-du-mod%C3%A8le-en-twig) - à titre informatif
 - [Création d'un utilisateur](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dun-utilisateur) - à titre informatif
+- [Compléter l'entité User](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dun-utilisateur) - à titre informatif
 
 
 ### Prérequis
@@ -77,6 +78,14 @@ Nous ne l'utilisons pas sur notre serveur dev ni prod
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
 
+S'il vous manque des gestionnaires de paquets vous pouvez les trouver ici :
+
+- https://getcomposer.org/download/
+- https://nodejs.org/en/download/
+- https://github.com/nvm-sh/nvm
+- https://yarnpkg.com/getting-started/install
+
+
 Dans la console :
 
         php -v
@@ -88,8 +97,7 @@ Dans la console :
         npm -v
         # donne 8.10.0
         npm update -g npm
-        # donne 8.13.1
-        # on met à jour
+        # on met à jour : donne 8.13.1
         node -v
         # donne 16.15.1
         # au 23/06/2022
@@ -101,10 +109,15 @@ Si autre version de node, téléchargez `nvm` : https://github.com/coreybutler/n
 
 Node.js devrait être à jour
 
-        yarn
+#### Important, doit pouvoir installer `webpack-encore` :
+
         npm run build
         # construction du public
 
+Pour installer `yarn` si vous le souhaitez (un autre gestionnaire JS de package) :
+
+    npm i -g corepack
+    yarn
 
 
 ### Démarrage du serveur
@@ -174,6 +187,8 @@ Pour le moment, seul la page d'accueil a été mise en page (notre connexion) :
 
     templates/public/homepage.html.twig
 
+[Voir les modifications et fichiers créés à cette étape - commit](https://github.com/mikhawa/presence-cf2m/commit/50ac472a37fefde48dfa44f69e6a1bbe518782c7)
+
 ### Création d'un utilisateur
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
@@ -189,4 +204,10 @@ Fichiers créés/modifiés :
     src/Entity/User.php
     src/Repository/UserRepository.php
     config/packages/security.yaml
+
+[Voir les modifications et fichiers créés à cette étape - commit](https://github.com/mikhawa/presence-cf2m/commit/4cd38e097754f10a28ac296c7aadce64daa5e8e7)
+
+### Compléter l'entité User
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
 
