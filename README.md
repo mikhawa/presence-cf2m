@@ -328,3 +328,18 @@ Et voici une table qui correspond mieux à nos besoins (vous remarquerez qu'il n
 ### Création d'une authentification
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
+Nous allons créer une zone d'authentification sur `User`
+
+    php bin/console make:auth
+
+Avec la page de login même si nous en avons déjà une, elle servira à adapter notre accueil
+
+Les fichiers créés / modifiés :
+
+- src/Security/UserAuthenticator.php
+- src/Controller/SecurityController.php
+- config/packages/security.yaml
+- templates/security/login.html.twig
+
+[Voir les fichiers après cette étape](https://github.com/mikhawa/presence-cf2m/blob/ef1e2ff266b96f4be26d30a8312b64fe6ddedd06/src/Entity/User.php)
