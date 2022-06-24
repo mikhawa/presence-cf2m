@@ -88,9 +88,11 @@ Dans la console :
         npm -v
         # donne 8.10.0
         npm update -g npm
+        # donne 8.13.1
         # on met à jour
         node -v
         # donne 16.15.1
+        # au 23/06/2022
 
 Si autre version de node, téléchargez `nvm` : https://github.com/coreybutler/nvm-windows/releases
 
