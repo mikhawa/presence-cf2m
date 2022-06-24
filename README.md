@@ -16,7 +16,7 @@ Application web de relevé des présences stagiaires avec statistiques
 - [Création de la DB locale](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-de-la-db-locale) - **à faire**
 - [Première migration](https://github.com/mikhawa/presence-cf2m#premi%C3%A8re-migration) - **à faire**
 - [Amélioration de l'entité User](https://github.com/mikhawa/presence-cf2m#am%C3%A9lioration-de-lentit%C3%A9-user) - à titre formatif / informatif
-- [Création d'une authentification](https://github.com/mikhawa/presence-cf2m#am%C3%A9lioration-de-lentit%C3%A9-user) - à titre formatif / informatif
+- [Création d'une authentification](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dune-authentification) - à titre formatif / informatif
 
 
 
