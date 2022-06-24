@@ -302,3 +302,5 @@ Puis, régénérons les getters et setters avec
 
     php bin/console make:entity --regenerate
 
+[Voir le fichier User après cette étape](https://github.com/mikhawa/presence-cf2m/blob/ef1e2ff266b96f4be26d30a8312b64fe6ddedd06/src/Entity/User.php)
+
