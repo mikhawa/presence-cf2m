@@ -15,6 +15,7 @@ Application web de relevé des présences stagiaires avec statistiques
 - [Création du fichier .env.local](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-du-fichier-envlocal) - **à faire**
 - [Création de la DB locale](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-de-la-db-locale) - **à faire**
 - [Première migration](https://github.com/mikhawa/presence-cf2m#premi%C3%A8re-migration) - **à faire**
+- [Amélioration de l'entité User](https://github.com/mikhawa/presence-cf2m#premi%C3%A8re-migration) - à titre formatif / informatif
 
 
 
@@ -272,3 +273,16 @@ Doctrine nous demande si on veut vraiment mettre à jour la DB, on pourrait perd
 
 Allons voir notre DB :
 
+![DB presencescf2m](https://raw.githubusercontent.com/mikhawa/presence-cf2m/main/datas/img/screenshot-localhost_8080-2022.06.24-11_52_21.png "presencescf2m")
+
+3 tables sont présentes, notre table `user`, la table de gestion des messages `messenger_messages`, et celle contenant nos migrations : `doctrine_migration_versions`
+
+Pour savoir si le lien entre le fichier `src/Entity/User.php` et la table `user` est à jour, vous pouvez vérifier dans la console avec :
+
+    php bin/console doctrine:migrations:status
+
+### Amélioration de l'entité User
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
+Pour l'entité User, il vaut mieux faire les modifications dans Symfony car il a un rôle particulier
