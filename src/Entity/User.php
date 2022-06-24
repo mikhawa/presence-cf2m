@@ -187,12 +187,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getThenationalid(): ?int
+    public function getThenationalid(): ?string
     {
         return $this->thenationalid;
     }
 
-    public function setThenationalid(int $thenationalid): self
+    public function setThenationalid(string $thenationalid): self
     {
         $this->thenationalid = $thenationalid;
 
