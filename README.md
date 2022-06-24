@@ -3,15 +3,16 @@ Application web de relevé des présences stagiaires avec statistiques
 
 ## Arborescence
 
-- [La configuration des serveurs de dev](https://github.com/mikhawa/presence-cf2m#la-configuration-des-serveurs-de-dev) - à voir
-- [La configuration locale](https://github.com/mikhawa/presence-cf2m#la-configuration-locale) - à faire
-- [Installation de Symfony](https://github.com/mikhawa/presence-cf2m#installation-de-symfony) - à faire
-- [Démarrage du serveur](https://github.com/mikhawa/presence-cf2m#d%C3%A9marrage-du-serveur) - à faire
+- [La configuration des serveurs de dev](https://github.com/mikhawa/presence-cf2m#la-configuration-des-serveurs-de-dev) - **à faire**
+- [La configuration locale](https://github.com/mikhawa/presence-cf2m#la-configuration-locale) - **à faire**
+- [Installation de Symfony](https://github.com/mikhawa/presence-cf2m#installation-de-symfony) - **à faire**
+- [Démarrage du serveur](https://github.com/mikhawa/presence-cf2m#d%C3%A9marrage-du-serveur) - **à faire**
 - [Création du contrôleur général](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-du-contr%C3%B4leur-g%C3%A9n%C3%A9ral) - à titre formatif / informatif
 - [Mise en place d'un template gratuit](https://github.com/mikhawa/presence-cf2m#mise-en-place-dun-template-gratuit) - à voir et discuter
 - [Transformation du modèle en Twig](https://github.com/mikhawa/presence-cf2m#transformation-du-mod%C3%A8le-en-twig) - à titre formatif / informatif
 - [Création d'un utilisateur](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dun-utilisateur) - à titre formatif / informatif
 - [Compléter l'entité User](https://github.com/mikhawa/presence-cf2m#compl%C3%A9ter-lentit%C3%A9-user) - à titre formatif / informatif
+- [Création du fichier .env.local](https://github.com/mikhawa/presence-cf2m#compl%C3%A9ter-lentit%C3%A9-user) - **à faire**
 
 
 ### Prérequis
@@ -217,3 +218,10 @@ On rajoute les champs nécessaires à l'entité `User` avec :
 
 Ce sont des valeurs par défaut, on va pouvoir les adapter suivant nos besoins.
 
+[Voir les modifications et fichiers créés à cette étape - commit](https://github.com/mikhawa/presence-cf2m/commit/a6a8ff00740400d26189e8055b78a9ce65d5370e)
+
+### Création du fichier .env.local
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
+Pour pouvoir stocker
