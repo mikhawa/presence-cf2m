@@ -14,7 +14,7 @@ Application web de relevé des présences stagiaires avec statistiques
 - [Compléter l'entité User](https://github.com/mikhawa/presence-cf2m#compl%C3%A9ter-lentit%C3%A9-user) - à titre formatif / informatif
 - [Création du fichier .env.local](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-du-fichier-envlocal) - **à faire**
 - [Création de la DB locale](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-de-la-db-locale) - **à faire**
-- [Création de la DB locale](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-du-fichier-envlocal) - **à faire**
+- [Première migration](https://github.com/mikhawa/presence-cf2m#premi%C3%A8re-migration) - **à faire**
 
 
 
@@ -259,4 +259,16 @@ Vous pouvez maintenant vérifier si votre base de donnée est créée sur PHPMyA
 ### Première migration
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
+Dans la console :
+
+    php bin/console make:migration
+
+Un fichier .php sera créé dans le dossier `migrations`, on peut modifier les requêtes SQL avant d'effectuer la migration, mais pour le moment, exécutons la telle quelle.
+
+    php bin/console doctrine:migrations:migrate
+
+Doctrine nous demande si on veut vraiment mettre à jour la DB, on pourrait perdre des données, nous acceptons.
+
+Allons voir notre DB :
 
