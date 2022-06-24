@@ -12,7 +12,7 @@ Application web de relevé des présences stagiaires avec statistiques
 - [Transformation du modèle en Twig](https://github.com/mikhawa/presence-cf2m#transformation-du-mod%C3%A8le-en-twig) - à titre formatif / informatif
 - [Création d'un utilisateur](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dun-utilisateur) - à titre formatif / informatif
 - [Compléter l'entité User](https://github.com/mikhawa/presence-cf2m#compl%C3%A9ter-lentit%C3%A9-user) - à titre formatif / informatif
-- [Création du fichier .env.local](https://github.com/mikhawa/presence-cf2m#compl%C3%A9ter-lentit%C3%A9-user) - **à faire**
+- [Création du fichier .env.local](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-du-fichier-envlocal) - **à faire**
 
 
 ### Prérequis
@@ -224,4 +224,26 @@ Ce sont des valeurs par défaut, on va pouvoir les adapter suivant nos besoins.
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
 
-Pour pouvoir stocker
+Pour pouvoir stocker nos variables sensibles sans les mettre sur github, dupliquez `.env` sous le nom `.env.local`.
+
+C'est là que vous pourrez passer du mode `dev` à `test` ou `prod`
+
+    .env.local
+    ...
+    APP_ENV=dev
+    ...
+
+C'est également dans ce fichier qu'on va mettre le lien vers notre base de donnée, comme nous travaillons en local pour le moment, vous pouvez commenter / dé-commenter ces lignes et changer les valeurs vers votre serveur MariaDB :
+
+    .env.local
+    ...
+    # DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
+    DATABASE_URL="mysql://root:@127.0.0.1:3306/presencescf2m?charset=utf8mb4"
+    ...
+
+Vérifiez bien d'avoir lancé Wamp et que le port corresponde bien avec celui indiqué (ou changez-le dans le `.env.local`, chez moi, c'est le 3306)
+
+### Création de la DB locale
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
