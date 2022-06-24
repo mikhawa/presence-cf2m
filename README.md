@@ -16,6 +16,7 @@ Application web de relevé des présences stagiaires avec statistiques
 - [Création de la DB locale](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-de-la-db-locale) - **à faire**
 - [Première migration](https://github.com/mikhawa/presence-cf2m#premi%C3%A8re-migration) - **à faire**
 - [Amélioration de l'entité User](https://github.com/mikhawa/presence-cf2m#am%C3%A9lioration-de-lentit%C3%A9-user) - à titre formatif / informatif
+- [Création d'une authentification](https://github.com/mikhawa/presence-cf2m#am%C3%A9lioration-de-lentit%C3%A9-user) - à titre formatif / informatif
 
 
 
@@ -304,3 +305,26 @@ Puis, régénérons les getters et setters avec
 
 [Voir le fichier User après cette étape](https://github.com/mikhawa/presence-cf2m/blob/ef1e2ff266b96f4be26d30a8312b64fe6ddedd06/src/Entity/User.php)
 
+Nous allons ensuite vérifier si on doit faire une migration avec la commande :
+
+    php bin/console doctrine:migrations:diff
+
+On peut ensuite migrer :
+
+    php bin/console doctrine:migrations:migrate
+
+Pour annuler une migration, on peut utiliser cette commande :
+
+    php bin/console doctrine:migrations:execute --down DoctrineMigrations\\Version20220624114100
+
+Et à nouveau l'exécuter comme ceci :
+
+    php bin/console doctrine:migrations:execute --up DoctrineMigrations\\Version20220624114100
+
+Et voici une table qui correspond mieux à nos besoins (vous remarquerez qu'il n'y a que des champs int, pas de smallint ou tinyint)
+
+![user table](https://raw.githubusercontent.com/mikhawa/presence-cf2m/main/datas/img/screenshot-localhost_8080-2022.06.24-13_49_13.png "user table")
+
+### Création d'une authentification
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
