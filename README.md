@@ -13,6 +13,9 @@ Application web de relevé des présences stagiaires avec statistiques
 - [Création d'un utilisateur](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dun-utilisateur) - à titre formatif / informatif
 - [Compléter l'entité User](https://github.com/mikhawa/presence-cf2m#compl%C3%A9ter-lentit%C3%A9-user) - à titre formatif / informatif
 - [Création du fichier .env.local](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-du-fichier-envlocal) - **à faire**
+- [Création de la DB locale](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-de-la-db-locale) - **à faire**
+- [Création de la DB locale](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-du-fichier-envlocal) - **à faire**
+
 
 
 ### Prérequis
@@ -244,6 +247,16 @@ C'est également dans ce fichier qu'on va mettre le lien vers notre base de donn
 Vérifiez bien d'avoir lancé Wamp et que le port corresponde bien avec celui indiqué (ou changez-le dans le `.env.local`, chez moi, c'est le 3306)
 
 ### Création de la DB locale
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
+Dans la console :
+
+    php bin/console doctrine:database:create
+
+Vous pouvez maintenant vérifier si votre base de donnée est créée sur PHPMyAdmin
+
+### Première migration
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
 
