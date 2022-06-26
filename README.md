@@ -25,6 +25,7 @@ Les **à voir et discuter** sont des points que l'on pourrait modifier dans la s
 - [Première migration](https://github.com/mikhawa/presence-cf2m#premi%C3%A8re-migration) - **à faire**
 - [Amélioration de l'entité User](https://github.com/mikhawa/presence-cf2m#am%C3%A9lioration-de-lentit%C3%A9-user) - à titre formatif / informatif
 - [Création d'une authentification](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dune-authentification) - à titre formatif / informatif
+- [Insertion d'un utilisateur dans la DB](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dune-authentification) - **à faire**
 
 
 
@@ -370,5 +371,9 @@ Dans `config/packages/security.yaml` nous modifions les lignes de redirection ap
                 # where to redirect after logout
                 # target: app_any_route
                 target: app_homepage
+
+### Insertion d'un utilisateur dans la DB
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
 
 
