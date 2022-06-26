@@ -1,6 +1,14 @@
 # presence-cf2m
 Application web de relevé des présences stagiaires avec statistiques
 
+### Mise en place du projet
+
+Les **à faire** sont les étapes à faire et vérifier, 
+
+Les **à titre formatif / informatif** sont à regarder si vous le souhaitez, mais sont déjà exécutées dans le code de ce répertoire.
+
+Les **à voir et discuter** sont des points que l'on pourrait modifier dans la structure.
+
 ## Arborescence
 
 - [La configuration des serveurs de dev](https://github.com/mikhawa/presence-cf2m#la-configuration-des-serveurs-de-dev) - **à faire**
@@ -17,6 +25,9 @@ Application web de relevé des présences stagiaires avec statistiques
 - [Première migration](https://github.com/mikhawa/presence-cf2m#premi%C3%A8re-migration) - **à faire**
 - [Amélioration de l'entité User](https://github.com/mikhawa/presence-cf2m#am%C3%A9lioration-de-lentit%C3%A9-user) - à titre formatif / informatif
 - [Création d'une authentification](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dune-authentification) - à titre formatif / informatif
+- [Insertion d'un utilisateur dans la DB](https://github.com/mikhawa/presence-cf2m/insertion-dun-utilisateur-dans-la-db) - **à faire**
+- [Activation du remember me](https://github.com/mikhawa/presence-cf2m/activation-du-remember-me) - à titre formatif / informatif
+- [Répartition du travail](https://github.com/mikhawa/presence-cf2m/activation-du-remember-me) - **À FAIRE**
 
 
 
@@ -328,3 +339,112 @@ Et voici une table qui correspond mieux à nos besoins (vous remarquerez qu'il n
 ### Création d'une authentification
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
+Nous allons créer une zone d'authentification sur `User`
+
+    php bin/console make:auth
+
+Avec la page de login même si nous en avons déjà une, elle servira à adapter notre accueil
+
+Les fichiers créés / modifiés :
+
+- src/Security/UserAuthenticator.php
+- src/Controller/SecurityController.php
+- config/packages/security.yaml
+- templates/security/login.html.twig
+
+[Voir les fichiers après cette étape](https://github.com/mikhawa/presence-cf2m/commit/650018d5325567ded4bce8faf1598535f9a1d851)
+
+Nous allons adapter le formulaire venant de `templates/security/login.html.twig` pour le mettre dans notre page d'accueil `templates/public/homepage.html.twig`
+
+Puis faire de même en modifiant notre `src/Controller/PublicController.php` pour qu'il puisse exécuter les commandes de gestion de la sécurité du `src/Controller/SecurityController.php`
+
+Puis dans le `src/Security/UserAuthenticator.php` nous modifions la route de l'identification :
+
+    ...
+    # public const LOGIN_ROUTE = 'app_login';
+    public const LOGIN_ROUTE = 'app_homepage';
+    ...
+
+Dans `config/packages/security.yaml` nous modifions les lignes de redirection après connexion (Attention en yaml l'indentation est primordiale !) :
+
+    logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+                target: app_homepage
+
+### Insertion d'un utilisateur dans la DB
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
+Nous allons insérer un simple utilisateur pour tester notre connexion avec un utilisateur de base :
+
+Nous allons d'abord crypter son mot de passe `util1`, via la console :
+
+    php bin/console security:hash-password  util1
+
+Nous obtiendrons un code ressemblant à cela correspondant à `util1` :
+
+`$2y$13$SpkGmFgdOZq2H.T34dE2De/6uDkMQN2AgroA96TBMI9bTfY58.iRK`
+
+Ensuite nous allons exécuter du SQL natif depuis la console, **Attention aux antislashes à mettre dans le mot de passe !** :
+
+    php bin/console dbal:run-sql "INSERT INTO user (id, username, roles, password, thename, thesurname, themail, theuid, thestatus, thenationalid) VALUES (NULL, 'util1', '[\"ROLE_USER\"]', '\$2y\$13\$SpkGmFgdOZq2H.T34dE2De\/6uDkMQN2AgroA96TBMI9bTfY58.iRK', 'Util', 'Un', 'mike@cf2m.be', '62b8409f6ca621.51874765', '1', '11111111111');"
+
+Vous devriez pouvoir vous connecter en tant que ROLE_USER avec ces identifiants :
+
+- Login : util1
+- PWD : util1
+
+### Activation du remember me
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
+Nous allons activer le remember me (optionnel), mais intéressant pour les postes fixes qui vont utiliser notre système, pour plus de détails et les différentes options (comme la sécurisation supplémentaire en mettant les clefs dans la base de données etc) :
+
+https://symfony.com/doc/current/security/remember_me.html
+
+Dans `config/packages/security.yaml`
+
+    firewalls:
+        # ...
+        main:
+            # ...
+            remember_me:
+                secret:   '%kernel.secret%' # required
+                lifetime: 2419200 # 4 weeks in seconds
+
+Dans `src/Security/UserAuthenticator.php`
+
+    ...
+    # remember me
+    use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
+    ...
+    public function authenticate(Request $request): Passport
+    {
+        // ...
+        return new Passport(
+            new UserBadge(...),
+            new PasswordCredentials(...),
+            [
+                ...
+                new RememberMeBadge(),
+            ]
+        );
+    }
+
+Nous pouvons maintenant supprimer les fichiers devenus inutiles :
+
+Supprimons le cache avant la suppression :
+
+    php bin/console cache:clear
+
+- src/Controller/SecurityController.php
+- templates/security/login.html.twig
+
+### Répartition du travail
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
+Nous en sommes là !
