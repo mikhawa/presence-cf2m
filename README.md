@@ -25,9 +25,9 @@ Les **à voir et discuter** sont des points que l'on pourrait modifier dans la s
 - [Première migration](https://github.com/mikhawa/presence-cf2m#premi%C3%A8re-migration) - **à faire**
 - [Amélioration de l'entité User](https://github.com/mikhawa/presence-cf2m#am%C3%A9lioration-de-lentit%C3%A9-user) - à titre formatif / informatif
 - [Création d'une authentification](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dune-authentification) - à titre formatif / informatif
-- [Insertion d'un utilisateur dans la DB](https://github.com/mikhawa/presence-cf2m/insertion-dun-utilisateur-dans-la-db) - **à faire**
-- [Activation du remember me](https://github.com/mikhawa/presence-cf2m/activation-du-remember-me) - à titre formatif / informatif
-- [Répartition du travail](https://github.com/mikhawa/presence-cf2m/activation-du-remember-me) - **À FAIRE**
+- [Insertion d'un utilisateur dans la DB](https://github.com/mikhawa/presence-cf2m#insertion-dun-utilisateur-dans-la-db) - **à faire**
+- [Activation du remember me](https://github.com/mikhawa/presence-cf2m#activation-du-remember-me) - à titre formatif / informatif
+- [Répartition du travail](https://github.com/mikhawa/presence-cf2m#r%C3%A9partition-du-travail) - **À FAIRE**
 
 
 
