@@ -356,3 +356,19 @@ Nous allons adapter le formulaire venant de `templates/security/login.html.twig`
 
 Puis faire de même en modifiant notre `src/Controller/PublicController.php` pour qu'il puisse exécuter les commandes de gestion de la sécurité du `src/Controller/SecurityController.php`
 
+Puis dans le `src/Security/UserAuthenticator.php` nous modifions la route de l'identification :
+
+    ...
+    # public const LOGIN_ROUTE = 'app_login';
+    public const LOGIN_ROUTE = 'app_homepage';
+    ...
+
+Dans `config/packages/security.yaml` nous modifions les lignes de redirection après connexion :
+
+    logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+                target: app_homepage
+
+
