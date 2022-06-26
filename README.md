@@ -398,4 +398,38 @@ Vous devriez pouvoir vous connecter en tant que ROLE_USER avec ces identifiants 
 
 ### Activation du remember me
 
-Nous allons activer le remember me (optionnel), mais intéressant pour les postes fixes qui vont utiliser notre système
+Nous allons activer le remember me (optionnel), mais intéressant pour les postes fixes qui vont utiliser notre système, pour plus de détails et les différentes options (comme la sécurisation supplémentaire en mettant les clefs dans la base de données etc) :
+
+https://symfony.com/doc/current/security/remember_me.html
+
+Dans `config/packages/security.yaml`
+
+    firewalls:
+        # ...
+        main:
+            # ...
+            remember_me:
+                secret:   '%kernel.secret%' # required
+                lifetime: 604800 # 1 week in seconds
+
+Dans `src/Security/UserAuthenticator.php`
+
+    ...
+    # remember me
+    use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
+    ...
+    public function authenticate(Request $request): Passport
+    {
+        // ...
+        return new Passport(
+            new UserBadge(...),
+            new PasswordCredentials(...),
+            [
+                ...
+                new RememberMeBadge(),
+            ]
+        );
+    }
+
+Nous pouvons maintenant supprimer les fichiers devenus inutiles :
+
