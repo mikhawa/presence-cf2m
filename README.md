@@ -26,7 +26,7 @@ Les **à voir et discuter** sont des points que l'on pourrait modifier dans la s
 - [Amélioration de l'entité User](https://github.com/mikhawa/presence-cf2m#am%C3%A9lioration-de-lentit%C3%A9-user) - à titre formatif / informatif
 - [Création d'une authentification](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dune-authentification) - à titre formatif / informatif
 - [Insertion d'un utilisateur dans la DB](https://github.com/mikhawa/presence-cf2m/insertion-dun-utilisateur-dans-la-db) - **à faire**
-- [Activation du remember me](https://github.com/mikhawa/presence-cf2m/insertion-dun-utilisateur-dans-la-db) - à titre formatif / informatif
+- [Activation du remember me](https://github.com/mikhawa/presence-cf2m/activation-du-remember-me) - à titre formatif / informatif
 
 
 
