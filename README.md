@@ -1,6 +1,14 @@
 # presence-cf2m
 Application web de relevé des présences stagiaires avec statistiques
 
+### Mise en place du projet
+
+Les **à faire** sont les étapes à faire et vérifier, 
+
+Les **à titre formatif / informatif** sont à regarder si vous le souhaitez, mais sont déjà exécutées dans le code de ce répertoire.
+
+Les **à voir et discuter** sont des points que l'on pourrait modifier dans la structure.
+
 ## Arborescence
 
 - [La configuration des serveurs de dev](https://github.com/mikhawa/presence-cf2m#la-configuration-des-serveurs-de-dev) - **à faire**
