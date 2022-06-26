@@ -25,7 +25,7 @@ Les **à voir et discuter** sont des points que l'on pourrait modifier dans la s
 - [Première migration](https://github.com/mikhawa/presence-cf2m#premi%C3%A8re-migration) - **à faire**
 - [Amélioration de l'entité User](https://github.com/mikhawa/presence-cf2m#am%C3%A9lioration-de-lentit%C3%A9-user) - à titre formatif / informatif
 - [Création d'une authentification](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dune-authentification) - à titre formatif / informatif
-- [Insertion d'un utilisateur dans la DB](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dune-authentification) - **à faire**
+- [Insertion d'un utilisateur dans la DB](https://github.com/mikhawa/presence-cf2m/insertion-dun-utilisateur-dans-la-db) - **à faire**
 
 
 
@@ -364,7 +364,7 @@ Puis dans le `src/Security/UserAuthenticator.php` nous modifions la route de l'i
     public const LOGIN_ROUTE = 'app_homepage';
     ...
 
-Dans `config/packages/security.yaml` nous modifions les lignes de redirection après connexion :
+Dans `config/packages/security.yaml` nous modifions les lignes de redirection après connexion (Attention en yaml l'indentation est primordiale !) :
 
     logout:
                 path: app_logout
