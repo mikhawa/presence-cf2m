@@ -376,4 +376,16 @@ Dans `config/packages/security.yaml` nous modifions les lignes de redirection ap
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
 
+Nous allons insérer un simple utilisateur pour tester notre connexion avec un utilisateur de base :
 
+Nous allons d'abord crypter son mot de passe `util1`, via la console :
+
+    php bin/console security:hash-password
+
+Nous obtiendrons un code ressemblant à cela correspondant à `util1` :
+
+`$2y$13$uCpbnlf/L7c4a6v20DJI/.YXUU0rBpadUzYN/aBWN8xm5SpFA5fxe`
+
+Ensuite nous allons exécuter du SQL natif depuis la console :
+
+    php bin/console dbal:run-sql
