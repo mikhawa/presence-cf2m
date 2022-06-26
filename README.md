@@ -27,6 +27,7 @@ Les **à voir et discuter** sont des points que l'on pourrait modifier dans la s
 - [Création d'une authentification](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dune-authentification) - à titre formatif / informatif
 - [Insertion d'un utilisateur dans la DB](https://github.com/mikhawa/presence-cf2m/insertion-dun-utilisateur-dans-la-db) - **à faire**
 - [Activation du remember me](https://github.com/mikhawa/presence-cf2m/activation-du-remember-me) - à titre formatif / informatif
+- [Répartition du travail](https://github.com/mikhawa/presence-cf2m/activation-du-remember-me) - **À FAIRE**
 
 
 
@@ -398,6 +399,8 @@ Vous devriez pouvoir vous connecter en tant que ROLE_USER avec ces identifiants 
 
 ### Activation du remember me
 
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
 Nous allons activer le remember me (optionnel), mais intéressant pour les postes fixes qui vont utiliser notre système, pour plus de détails et les différentes options (comme la sécurisation supplémentaire en mettant les clefs dans la base de données etc) :
 
 https://symfony.com/doc/current/security/remember_me.html
@@ -410,7 +413,7 @@ Dans `config/packages/security.yaml`
             # ...
             remember_me:
                 secret:   '%kernel.secret%' # required
-                lifetime: 604800 # 1 week in seconds
+                lifetime: 2419200 # 4 weeks in seconds
 
 Dans `src/Security/UserAuthenticator.php`
 
@@ -433,3 +436,15 @@ Dans `src/Security/UserAuthenticator.php`
 
 Nous pouvons maintenant supprimer les fichiers devenus inutiles :
 
+Supprimons le cache avant la suppression :
+
+    php bin/console cache:clear
+
+- src/Controller/SecurityController.php
+- templates/security/login.html.twig
+
+### Répartition du travail
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
+Nous en sommes là !
