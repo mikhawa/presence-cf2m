@@ -380,12 +380,19 @@ Nous allons insérer un simple utilisateur pour tester notre connexion avec un u
 
 Nous allons d'abord crypter son mot de passe `util1`, via la console :
 
-    php bin/console security:hash-password
+    php bin/console security:hash-password  util1
 
 Nous obtiendrons un code ressemblant à cela correspondant à `util1` :
 
-`$2y$13$uCpbnlf/L7c4a6v20DJI/.YXUU0rBpadUzYN/aBWN8xm5SpFA5fxe`
+`$2y$13$SpkGmFgdOZq2H.T34dE2De/6uDkMQN2AgroA96TBMI9bTfY58.iRK`
 
-Ensuite nous allons exécuter du SQL natif depuis la console :
+Ensuite nous allons exécuter du SQL natif depuis la console, **Attention aux antislashes à mettre dans le mot de passe !** :
 
-    php bin/console dbal:run-sql
+    php bin/console dbal:run-sql "INSERT INTO user (id, username, roles, password, thename, thesurname, themail, theuid, thestatus, thenationalid) VALUES (NULL, 'util1', '[\"ROLE_USER\"]', '\$2y\$13\$SpkGmFgdOZq2H.T34dE2De\/6uDkMQN2AgroA96TBMI9bTfY58.iRK', 'Util', 'Un', 'mike@cf2m.be', '62b8409f6ca621.51874765', '1', '11111111111');"
+
+Vous devriez pouvoir vous connecter en tant que ROLE_USER avec ces identifiants :
+
+- Login : util1
+- PWD : util1
+
+
