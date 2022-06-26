@@ -352,3 +352,7 @@ Les fichiers créés / modifiés :
 
 [Voir les fichiers après cette étape](https://github.com/mikhawa/presence-cf2m/commit/650018d5325567ded4bce8faf1598535f9a1d851)
 
+Nous allons adapter le formulaire venant de `templates/security/login.html.twig` pour le mettre dans notre page d'accueil `templates/public/homepage.html.twig`
+
+Puis faire de même en modifiant notre `src/Controller/PublicController.php` pour qu'il puisse exécuter les commandes de gestion de la sécurité du `src/Controller/SecurityController.php`
+
