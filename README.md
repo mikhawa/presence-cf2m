@@ -443,6 +443,44 @@ Supprimons le cache avant la suppression :
 - src/Controller/SecurityController.php
 - templates/security/login.html.twig
 
+# Base de données
+
+J'ai créé à partir d'ici une base de donnée plus complète via workbench.
+
+Voir le dossier [datas\db](https://github.com/QuentinFayt/presence-cf2m/commit/71f962ab804893357b9e5c3ac6dfb0f8b856ee12).
+
+Je vais donc repartir de la base précédemment crée afin de la mettre à jour pour notre base. On peut, aux choix, exporter l'utilisateur déjà créé ou en refaire un.
+
+Cette fois-ci on va donc procédé à la méthode inverse, récupérer une base de données déjà créée.
+
+Pour générer des classes de mapping on va donc récupérer celles de la base de données avec la commande 
+
+    php bin/console doctrine:mapping:import App\\Entity annotation --path=src/Entity
+
+Suivi de
+
+    php bin/console make:entity --regenerate
+
+Pour génerer nos getter et setter, en lui donnant comme paramètre `App\Entity` pour que Symfony nous régénère toutes les entités d'un coup. 
+
+Nous allons par contre devoir récupérer les informations que l'on avait généré pour l'utilisateur (copier coller de [ceci](https://github.com/QuentinFayt/presence-cf2m/blob/ef1e2ff266b96f4be26d30a8312b64fe6ddedd06/src/Entity/User.php)) en gardant la clef `name` généré par le mapping automatique.
+La seule différence est que pour garder la référence aux nouvelles tables il faut rajouter ceci, en rajoutant le `name` préalablement sauvegarder. 
+
+    #[ORM\UniqueConstraint(name:"UNIQ_8D93D649F85E0677", columns: ["username"])]
+
+Ainsi que modifier le fichier
+
+    config\packages\doctrine.yaml
+
+En rajoutant
+
+    doctrine
+      orm
+        App
+          type: attribute
+
+Pour que l'on puisse forcer la lecture des attributs.
+
 ### Répartition du travail
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
