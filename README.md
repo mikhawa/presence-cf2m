@@ -479,6 +479,8 @@ En rajoutant
         App
           type: attribute
 
+Comme vu [ici](https://github.com/mikhawa/presence-cf2m/pull/5/files#diff-111f6160993401b14acfc79685c56d1d62833a9f92887aeba2cb09e746e34fa7)
+
 Pour que l'on puisse forcer la lecture des attributs.
 
 ### Répartition du travail
