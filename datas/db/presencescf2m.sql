@@ -79,21 +79,27 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `presencescf2m`.`stagiaires`
+-- Table `presencescf2m`.`user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `presencescf2m`.`stagiaires` ;
+DROP TABLE IF EXISTS `presencescf2m`.`user` ;
 
-CREATE TABLE IF NOT EXISTS `presencescf2m`.`stagiaires` (
-  `idstagiaires` INT NOT NULL,
-  `nom` VARCHAR(100) NOT NULL,
-  `prenom` VARCHAR(100) NOT NULL,
-  `mail` VARCHAR(180) NOT NULL,
-  `idNational` BIGINT(11) NOT NULL,
-  PRIMARY KEY (`idstagiaires`),
-  UNIQUE INDEX `idstagiaires_UNIQUE` (`idstagiaires` ASC),
-  UNIQUE INDEX `mail_UNIQUE` (`mail` ASC),
-  UNIQUE INDEX `idNational_UNIQUE` (`idNational` ASC))
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `presencescf2m`.`user` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(180) NOT NULL,
+  `roles` LONGTEXT NOT NULL COMMENT '(DC2Type:json)',
+  `password` VARCHAR(255) NOT NULL,
+  `thename` VARCHAR(100) NOT NULL,
+  `thesurname` VARCHAR(100) NOT NULL,
+  `themail` VARCHAR(180) NULL DEFAULT NULL,
+  `theuid` VARCHAR(25) NOT NULL,
+  `thestatus` INT(11) NOT NULL,
+  `thenationalid` BIGINT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `UNIQ_8D93D649F85E0677` (`username` ASC))
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
@@ -108,17 +114,18 @@ CREATE TABLE IF NOT EXISTS `presencescf2m`.`inscriptions` (
   `dateFin` DATETIME NOT NULL DEFAULT current_timestamp,
   `promotions_idpromotion` INT NOT NULL,
   `stagiaires_idstagiaires` INT NOT NULL,
+  `users_id` INT(11) NOT NULL,
   PRIMARY KEY (`idinscription`),
   INDEX `fk_inscriptions_promotions1_idx` (`promotions_idpromotion` ASC),
-  INDEX `fk_inscriptions_stagiaires1_idx` (`stagiaires_idstagiaires` ASC),
+  INDEX `fk_inscriptions_users1_idx` (`users_id` ASC),
   CONSTRAINT `fk_inscriptions_promotions1`
     FOREIGN KEY (`promotions_idpromotion`)
     REFERENCES `presencescf2m`.`promotions` (`idpromotion`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_inscriptions_stagiaires1`
-    FOREIGN KEY (`stagiaires_idstagiaires`)
-    REFERENCES `presencescf2m`.`stagiaires` (`idstagiaires`)
+  CONSTRAINT `fk_inscriptions_users1`
+    FOREIGN KEY (`users_id`)
+    REFERENCES `presencescf2m`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -268,29 +275,6 @@ CREATE TABLE IF NOT EXISTS `presencescf2m`.`messenger_messages` (
   INDEX `IDX_75EA56E0E3BD61CE` (`available_at` ASC),
   INDEX `IDX_75EA56E016BA31DB` (`delivered_at` ASC))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_unicode_ci;
-
-
--- -----------------------------------------------------
--- Table `presencescf2m`.`users`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `presencescf2m`.`users` ;
-
-CREATE TABLE IF NOT EXISTS `presencescf2m`.`users` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(180) NOT NULL,
-  `roles` LONGTEXT NOT NULL COMMENT '(DC2Type:json)',
-  `password` VARCHAR(255) NOT NULL,
-  `thename` VARCHAR(100) NOT NULL,
-  `thesurname` VARCHAR(100) NOT NULL,
-  `themail` VARCHAR(180) NULL DEFAULT NULL,
-  `theuid` VARCHAR(25) NOT NULL,
-  `thestatus` INT(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `UNIQ_8D93D649F85E0677` (`username` ASC))
-ENGINE = InnoDB
-AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
 
