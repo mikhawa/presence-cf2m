@@ -37,5 +37,46 @@ class Inscription
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $theend;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function isTheactive(): ?bool
+    {
+        return $this->theactive;
+    }
+
+    public function setTheactive(bool $theactive): self
+    {
+        $this->theactive = $theactive;
+
+        return $this;
+    }
+
+    public function getThebeginning(): ?\DateTimeInterface
+    {
+        return $this->thebeginning;
+    }
+
+    public function setThebeginning(?\DateTimeInterface $thebeginning): self
+    {
+        $this->thebeginning = $thebeginning;
+
+        return $this;
+    }
+
+    public function getTheend(): ?\DateTimeInterface
+    {
+        return $this->theend;
+    }
+
+    public function setTheend(?\DateTimeInterface $theend): self
+    {
+        $this->theend = $theend;
+
+        return $this;
+    }
+
 
 }
