@@ -25,8 +25,9 @@ Les **à voir et discuter** sont des points que l'on pourrait modifier dans la s
 - [Première migration](https://github.com/mikhawa/presence-cf2m#premi%C3%A8re-migration) - **à faire**
 - [Amélioration de l'entité User](https://github.com/mikhawa/presence-cf2m#am%C3%A9lioration-de-lentit%C3%A9-user) - à titre formatif / informatif
 - [Création d'une authentification](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dune-authentification) - à titre formatif / informatif
-- [Insertion d'un utilisateur dans la DB](https://github.com/mikhawa/presence-cf2m#insertion-dun-utilisateur-dans-la-db) - **à faire**
+- [Insertion d'un utilisateur dans la DB](https://github.com/mikhawa/presence-cf2m#insertion-dun-utilisateur-dans-la-db) - à titre formatif / informatif
 - [Activation du remember me](https://github.com/mikhawa/presence-cf2m#activation-du-remember-me) - à titre formatif / informatif
+- [Contre la force brute](https://github.com/mikhawa/presence-cf2m#activation-du-remember-me) - à titre formatif / informatif
 - [Mise à jour de la DB production](https://github.com/mikhawa/presence-cf2m#mise-%C3%A0-jour-de-la-db-production) - **À FAIRE régulièrement**
 - [Répartition du travail](https://github.com/mikhawa/presence-cf2m#r%C3%A9partition-du-travail) - **À FAIRE**
 
@@ -443,6 +444,38 @@ Supprimons le cache avant la suppression :
 
 - src/Controller/SecurityController.php
 - templates/security/login.html.twig
+
+### Contre la force brute
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
+Nous allons bloquer le nombre de tentatives de connexion par 15 minutes à 3 en installant :
+
+    composer require symfony/rate-limiter
+
+Puis dans le `.env.local`
+
+    ###> symfony/lock ###
+    # Choose one of the stores below
+    # postgresql+advisory://db_user:db_password @localhost/db_name
+    LOCK_DSN=semaphore
+    ###< symfony/lock ###
+
+Ensuite dans le fichier `security.yaml`
+
+    config/packages/security.yaml
+    ...
+    firewalls:
+    ...
+      main:
+      ...
+        login_throttling:
+          max_attempts: 3
+          interval: '15 minutes'
+
+Après 3 essais infructueux :
+
+![rate-limiter](https://raw.githubusercontent.com/mikhawa/presence-cf2m/main/datas/img/screenshot-127.0.0.1_8000-2022.07.01-14_43_51.png "rate-limiter")
 
 ### Mise à jour de la DB production
 
