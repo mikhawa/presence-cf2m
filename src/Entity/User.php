@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[ORM\UniqueConstraint(name: "UNIQ_8D93D649F85E0677", columns: ["username"])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -18,56 +19,56 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         unique: true,
         options: ["unsigned" => true],
     )]
-    private $id;
+    private int $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    private $username;
+    private string $username;
 
     #[ORM\Column(type: 'json')]
-    private $roles = [];
+    private array $roles = [];
 
     #[ORM\Column(type: 'string')]
-    private $password;
+    private string $password;
 
     #[ORM\Column(type: 'string', length: 100)]
-    private $thename;
+    private string $thename;
 
     #[ORM\Column(type: 'string', length: 100)]
-    private $thesurname;
+    private string $thesurname;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    private $themail;
+    private string $themail;
 
     #[ORM\Column(type: 'string', length: 25, unique: true)]
-    private $theuid;
+    private string $theuid;
 
     #[ORM\Column(
         type: 'integer',
         options: [
             "unsigned" => true,
-            "default" => 0
+            "default"  => 0,
         ],
     )]
-    private $thestatus;
+    private int $thestatus;
 
     #[ORM\Column(
         type: 'string',
         length: 11,
         unique: true,
     )]
-    private $thenationalid;
+    private string $thenationalid;
 
-    public function getId(): ?int
+    public function getId() : ?int
     {
         return $this->id;
     }
 
-    public function getUsername(): ?string
+    public function getUsername() : ?string
     {
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(string $username) : self
     {
         $this->username = $username;
 
@@ -79,7 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @see UserInterface
      */
-    public function getUserIdentifier(): string
+    public function getUserIdentifier() : string
     {
         return (string) $this->username;
     }
@@ -87,7 +88,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
-    public function getRoles(): array
+    public function getRoles() : array
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
@@ -96,7 +97,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles(array $roles) : self
     {
         $this->roles = $roles;
 
@@ -106,12 +107,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+    public function getPassword() : string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $password) : self
     {
         $this->password = $password;
 
@@ -121,78 +122,78 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials() : void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
 
-    public function getThename(): ?string
+    public function getThename() : ?string
     {
         return $this->thename;
     }
 
-    public function setThename(string $thename): self
+    public function setThename(string $thename) : self
     {
         $this->thename = $thename;
 
         return $this;
     }
 
-    public function getThesurname(): ?string
+    public function getThesurname() : ?string
     {
         return $this->thesurname;
     }
 
-    public function setThesurname(string $thesurname): self
+    public function setThesurname(string $thesurname) : self
     {
         $this->thesurname = $thesurname;
 
         return $this;
     }
 
-    public function getThemail(): ?string
+    public function getThemail() : ?string
     {
         return $this->themail;
     }
 
-    public function setThemail(?string $themail): self
+    public function setThemail(?string $themail) : self
     {
         $this->themail = $themail;
 
         return $this;
     }
 
-    public function getTheuid(): ?string
+    public function getTheuid() : ?string
     {
         return $this->theuid;
     }
 
-    public function setTheuid(string $theuid): self
+    public function setTheuid(string $theuid) : self
     {
         $this->theuid = $theuid;
 
         return $this;
     }
 
-    public function getThestatus(): ?int
+    public function getThestatus() : ?int
     {
         return $this->thestatus;
     }
 
-    public function setThestatus(int $thestatus): self
+    public function setThestatus(int $thestatus) : self
     {
         $this->thestatus = $thestatus;
 
         return $this;
     }
 
-    public function getThenationalid(): ?string
+    public function getThenationalid() : ?string
     {
         return $this->thenationalid;
     }
 
-    public function setThenationalid(string $thenationalid): self
+    public function setThenationalid(string $thenationalid) : self
     {
         $this->thenationalid = $thenationalid;
 
