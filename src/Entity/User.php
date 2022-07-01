@@ -19,29 +19,53 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(
         type: 'integer',
         unique: true,
-        options: ["unsigned" => true],
+        options: [
+            "unsigned" => true,
+        ],
     )]
     private int $id;
 
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[ORM\Column(
+        type: 'string',
+        length: 180,
+        unique: true,
+    )]
     private string $username;
 
-    #[ORM\Column(type: 'json')]
+    #[ORM\Column(
+        type: 'json',
+    )]
     private array $roles = [];
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(
+        type: 'string',
+    )]
     private string $password;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(
+        type: 'string',
+        length: 100,
+    )]
     private string $thename;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(
+        type: 'string',
+        length: 100,
+    )]
     private string $thesurname;
 
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[ORM\Column(
+        type: 'string',
+        length: 180,
+        unique: true,
+    )]
     private string $themail;
 
-    #[ORM\Column(type: 'string', length: 25, unique: true)]
+    #[ORM\Column(
+        type: 'string',
+        length: 25,
+        unique: true,
+    )]
     private string $theuid;
 
     #[ORM\Column(
@@ -138,7 +162,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials() : void
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        // error not null
+        // $this->theuid = null;
     }
 
     public function getThename() : ?string
