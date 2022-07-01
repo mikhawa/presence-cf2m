@@ -452,6 +452,8 @@ Le plus simple est d'importer le dernier fichier en date (avec les données) se 
 
     datas/db-export-by-date
 
+https://github.com/mikhawa/presence-cf2m/tree/main/datas/db-export-by-date
+
 Elle devrait correspondre aux entités avec les données actuelles
 
 ### Répartition du travail
