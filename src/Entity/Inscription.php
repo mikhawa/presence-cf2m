@@ -13,14 +13,17 @@ class Inscription
     #[ORM\Column(
         type: 'integer',
         unique: true,
-        options: ["unsigned" => true],
+        options: [
+            "unsigned" => true,
+        ],
     )]
     private $id;
 
     #[ORM\Column(
-        type: 'boolean',
+        type: 'integer',
         options: [
-            "default"  => true,
+            "default"  => 1,
+            "unsigned" => true,
         ],
     )]
     private $theactive;
@@ -34,7 +37,10 @@ class Inscription
     )]
     private $thebeginning;
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[ORM\Column(
+        type: 'datetime',
+        nullable: true,
+    )]
     private $theend;
 
     public function getId(): ?int
@@ -42,12 +48,12 @@ class Inscription
         return $this->id;
     }
 
-    public function isTheactive(): ?bool
+    public function getTheactive(): ?int
     {
         return $this->theactive;
     }
 
-    public function setTheactive(bool $theactive): self
+    public function setTheactive(int $theactive): self
     {
         $this->theactive = $theactive;
 
@@ -78,5 +84,6 @@ class Inscription
         return $this;
     }
 
+  
 
 }
