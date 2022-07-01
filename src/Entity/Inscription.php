@@ -43,6 +43,12 @@ class Inscription
     )]
     private $theend;
 
+    #[ORM\ManyToOne(
+        targetEntity: User::class,
+        inversedBy: 'inscriptions',
+    )]
+    private $userid;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -80,6 +86,18 @@ class Inscription
     public function setTheend(?\DateTimeInterface $theend): self
     {
         $this->theend = $theend;
+
+        return $this;
+    }
+
+    public function getUserid(): ?User
+    {
+        return $this->userid;
+    }
+
+    public function setUserid(?User $userid): self
+    {
+        $this->userid = $userid;
 
         return $this;
     }
