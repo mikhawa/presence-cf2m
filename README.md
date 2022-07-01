@@ -27,6 +27,7 @@ Les **à voir et discuter** sont des points que l'on pourrait modifier dans la s
 - [Création d'une authentification](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dune-authentification) - à titre formatif / informatif
 - [Insertion d'un utilisateur dans la DB](https://github.com/mikhawa/presence-cf2m#insertion-dun-utilisateur-dans-la-db) - **à faire**
 - [Activation du remember me](https://github.com/mikhawa/presence-cf2m#activation-du-remember-me) - à titre formatif / informatif
+- [Mise à jour de la DB production](https://github.com/mikhawa/presence-cf2m#r%C3%A9partition-du-travail) - **À FAIRE**
 - [Répartition du travail](https://github.com/mikhawa/presence-cf2m#r%C3%A9partition-du-travail) - **À FAIRE**
 
 
@@ -442,6 +443,16 @@ Supprimons le cache avant la suppression :
 
 - src/Controller/SecurityController.php
 - templates/security/login.html.twig
+
+### Mise à jour de la DB production
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
+Le plus simple est d'importer le dernier fichier en date (avec les données) se trouvant dans :
+
+    datas/db-export-by-date
+
+Elle devrait correspondre aux entités avec les données actuelles
 
 ### Répartition du travail
 
