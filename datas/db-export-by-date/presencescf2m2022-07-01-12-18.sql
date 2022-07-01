@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : ven. 01 juil. 2022 à 12:09
+-- Généré le : ven. 01 juil. 2022 à 12:18
 -- Version du serveur : 10.3.35-MariaDB
 -- Version de PHP : 8.1.7
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `presencescf2m`
 --
+CREATE DATABASE IF NOT EXISTS `presencescf2m` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `presencescf2m`;
 
 -- --------------------------------------------------------
 
