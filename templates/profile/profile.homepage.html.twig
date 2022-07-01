@@ -10,5 +10,24 @@
     {% block navsearch %}{% endblock %}
     {% block navcontent %}{% endblock %}
 {% endblock %}
-{% block content %}{% endblock %}
+{% block content %}
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow-lg border-0 rounded-lg mt-5">
+    <div class="mb-2 p-3">
+        <h4>Vous êtes déjà connecté, {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a></h4>{{ dump(app.user) }}
+    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+    </div>
+</div>
+
+                    {% endblock %}
 
