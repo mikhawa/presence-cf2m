@@ -28,6 +28,7 @@ Les **à voir et discuter** sont des points que l'on pourrait modifier dans la s
 - [Insertion d'un utilisateur dans la DB](https://github.com/mikhawa/presence-cf2m#insertion-dun-utilisateur-dans-la-db) - à titre formatif / informatif
 - [Activation du remember me](https://github.com/mikhawa/presence-cf2m#activation-du-remember-me) - à titre formatif / informatif
 - [Contre la force brute](https://github.com/mikhawa/presence-cf2m#contre-la-force-brute) - à titre formatif / informatif ! Si vous avez forké au début du projet, mettez à jour votre `.env.local` !
+- [Les rôles](https://github.com/mikhawa/presence-cf2m#contre-la-force-brute) - à titre formatif / informatif
 - [Mise à jour de la DB production](https://github.com/mikhawa/presence-cf2m#mise-%C3%A0-jour-de-la-db-production) - **À FAIRE régulièrement**
 - [Répartition du travail](https://github.com/mikhawa/presence-cf2m#r%C3%A9partition-du-travail) - **À FAIRE**
 
@@ -488,6 +489,12 @@ Le plus simple est d'importer le dernier fichier en date (avec les données) se 
 https://github.com/mikhawa/presence-cf2m/tree/main/datas/db-export-by-date
 
 Elle devrait correspondre aux entités avec les données actuelles
+
+### Les rôles
+
+- [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
+
+
 
 ### Répartition du travail
 
