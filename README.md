@@ -473,7 +473,7 @@ Ensuite dans le fichier `security.yaml`
           max_attempts: 3
           interval: '15 minutes'
 
-Après 3 essais infructueux :
+Après 3 essais infructueux, et ce côté serveur (supprimer les cookies ne sert à rien) :
 
 ![rate-limiter](https://raw.githubusercontent.com/mikhawa/presence-cf2m/main/datas/img/screenshot-127.0.0.1_8000-2022.07.01-14_43_51.png "rate-limiter")
 
