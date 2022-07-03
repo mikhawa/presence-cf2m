@@ -28,7 +28,7 @@ Les **à voir et discuter** sont des points que l'on pourrait modifier dans la s
 - [Insertion d'un utilisateur dans la DB](https://github.com/mikhawa/presence-cf2m#insertion-dun-utilisateur-dans-la-db) - à titre formatif / informatif
 - [Activation du remember me](https://github.com/mikhawa/presence-cf2m#activation-du-remember-me) - à titre formatif / informatif
 - [Contre la force brute](https://github.com/mikhawa/presence-cf2m#contre-la-force-brute) - à titre formatif / informatif ! Si vous avez forké au début du projet, mettez à jour votre `.env.local` !
-- [Les rôles](https://github.com/mikhawa/presence-cf2m#contre-la-force-brute) - à titre formatif / informatif
+- [Les rôles](https://github.com/mikhawa/presence-cf2m#les-r%C3%B4les) - à titre formatif / informatif
 - [Mise à jour de la DB production](https://github.com/mikhawa/presence-cf2m#mise-%C3%A0-jour-de-la-db-production) - **À FAIRE régulièrement**
 - [Répartition du travail](https://github.com/mikhawa/presence-cf2m#r%C3%A9partition-du-travail) - **À FAIRE**
 
@@ -494,7 +494,15 @@ Elle devrait correspondre aux entités avec les données actuelles
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
 
+Non connecté, aucun rôle disponible. Les rôles sont cumulatifs et combinables suivant les besoins.
 
+Connecté les rôles sont :
+- `ROLE_USER` est un stagiaire, il n'a pour le moment qu'un accès à son profil.
+- `ROLE_PERSO` est un membre du personnel, permet d'imprimer les feuilles de présence
+- `ROLE_ENCODE` permet l'encodage des présences stagiaires.
+- `ROLE_FORMAT` est un formateur, il peut consulter les statistiques de présences de ses stagiaires pour avertir l'équipe pédagogique en cas de dérive.
+- `ROLE_PEDAGO` permet d'avoir les statistiques de tous les stagiaires, de créer de nouvelles sessions et d'y insérer/supprimer des stagiaires.
+- `ROLE_ADMIN` peut tout faire, y compris supprimer un membre du personnel ou en rajouter et créer de nouvelles formations. Son principal objectif est de vérifier le bon fonctionnement du système et les failles ou attaques subies.
 
 ### Répartition du travail
 
