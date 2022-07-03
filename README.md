@@ -498,7 +498,13 @@ Non connecté, aucun rôle disponible. Les rôles sont cumulatifs et combinables
 
 Connecté les rôles sont :
 - `ROLE_USER` est un stagiaire, il n'a pour le moment qu'un accès à son profil.
+
+Tester le rôle : util1 - util1
+
 - `ROLE_PERSO` est un membre du personnel, permet d'imprimer les feuilles de présence
+
+Tester le rôle : perso1 - perso1
+
 - `ROLE_ENCODE` permet l'encodage des présences stagiaires.
 - `ROLE_FORMAT` est un formateur, il peut consulter les statistiques de présences de ses stagiaires pour avertir l'équipe pédagogique en cas de dérive.
 - `ROLE_PEDAGO` permet d'avoir les statistiques de tous les stagiaires, de créer de nouvelles sessions et d'y insérer/supprimer des stagiaires.
