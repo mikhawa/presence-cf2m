@@ -27,7 +27,7 @@ Les **à voir et discuter** sont des points que l'on pourrait modifier dans la s
 - [Création d'une authentification](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dune-authentification) - à titre formatif / informatif
 - [Insertion d'un utilisateur dans la DB](https://github.com/mikhawa/presence-cf2m#insertion-dun-utilisateur-dans-la-db) - à titre formatif / informatif
 - [Activation du remember me](https://github.com/mikhawa/presence-cf2m#activation-du-remember-me) - à titre formatif / informatif
-- [Contre la force brute](https://github.com/mikhawa/presence-cf2m#contre-la-force-brute) - à titre formatif / informatif
+- [Contre la force brute](https://github.com/mikhawa/presence-cf2m#contre-la-force-brute) - à titre formatif / informatif ! Si vous avez forké au début du projet, mettez à jour votre `.env.local` !
 - [Mise à jour de la DB production](https://github.com/mikhawa/presence-cf2m#mise-%C3%A0-jour-de-la-db-production) - **À FAIRE régulièrement**
 - [Répartition du travail](https://github.com/mikhawa/presence-cf2m#r%C3%A9partition-du-travail) - **À FAIRE**
 
@@ -116,10 +116,10 @@ Dans la console :
         npm -v
         # donne 8.10.0
         npm update -g npm
-        # on met à jour : donne 8.13.1
+        # on met à jour : donne 8.13.2
         node -v
         # donne 16.15.1
-        # au 23/06/2022
+        # au 03/07/2022
 
 Si autre version de node, téléchargez `nvm` : https://github.com/coreybutler/nvm-windows/releases
 
