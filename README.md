@@ -104,6 +104,7 @@ S'il vous manque des gestionnaires de paquets vous pouvez les trouver ici :
 - https://nodejs.org/en/download/
 - https://github.com/nvm-sh/nvm
 - https://yarnpkg.com/getting-started/install
+- https://symfony.com/download
 
 
 Dans la console :
@@ -525,4 +526,8 @@ Tester le rôle : admin1 - admin1
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
 
-Nous en sommes là !
+Notre Trello :
+
+https://trello.com/b/iOtIsBAb/tableau-agile
+
+
