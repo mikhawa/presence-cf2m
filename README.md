@@ -519,6 +519,8 @@ Tester le rôle : pedago1 - pedago1
 
 - `ROLE_ADMIN` peut tout faire, y compris supprimer un membre du personnel ou en rajouter et créer de nouvelles formations. Son principal objectif est de vérifier le bon fonctionnement du système et les failles ou attaques subies.
 
+Tester le rôle : admin1 - admin1
+
 ### Répartition du travail
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)

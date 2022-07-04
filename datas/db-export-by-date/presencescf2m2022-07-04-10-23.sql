@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3307
--- Généré le : lun. 04 juil. 2022 à 09:52
+-- Généré le : lun. 04 juil. 2022 à 10:23
 -- Version du serveur : 10.3.35-MariaDB
 -- Version de PHP : 8.1.7
 
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `UNIQ_8D93D649405C2D18` (`themail`),
   UNIQUE KEY `UNIQ_8D93D64928110ADD` (`theuid`),
   UNIQUE KEY `UNIQ_8D93D6492BF1E44A` (`thenationalid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `user`
@@ -118,7 +118,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`id`, `username`, `roles`, `password`, `thename`, `thesurname`, `themail`, `theuid`, `thestatus`, `thenationalid`) VALUES
 (1, 'util1', '[\"ROLE_USER\"]', '$2y$13$SpkGmFgdOZq2H.T34dE2De/6uDkMQN2AgroA96TBMI9bTfY58.iRK', 'Util', 'Un', 'mike@cf2m.be', '62b8409f6ca621.51874765', 1, '11111111111'),
 (2, 'perso1', '[\"ROLE_USER\",\"ROLE_PERSO\"]', '$2y$13$O8xaIECsZuyniB53IcSoUeRTMgB5bgM7NU99..t5K.oDiVxdDd47O', 'Formateur', 'Un', 'form@cf2m.be', '62c17fd0c96ee9.44589091', 1, '11111111112'),
-(3, 'encode1', '[\"ROLE_USER\",\"ROLE_PERSO\",\"ROLE_ENCODE\"]', '$2y$10$VS/qh7J8TRd/8Tf.BcKK/OKoM2LqxbxBWip7i9p4V1eHR4oXNPcKG', 'Encode', 'Mister', 'encode@cf2m.be', '62c29b139f3a51.05502823', 1, '11111111113');
+(3, 'encode1', '[\"ROLE_USER\",\"ROLE_PERSO\",\"ROLE_ENCODE\"]', '$2y$13$qRPI/dvHLEbXh6m2TqHHf.Yuf9BG8MA/XFe4UibVG.KY0FtRNrpyW', 'Encode', 'Mister', 'encode@cf2m.be', '62c29b139f3a51.05502823', 1, '11111111113'),
+(4, 'format1', '[\"ROLE_USER\",\"ROLE_PERSO\",\"ROLE_FORMAT\"]', '$2y$13$VumT2eim34mS0ozalEbhEeJsG4FEglXP.5iPP2sw0PK1FQ1swfu0y', 'Formateur', 'Un', 'format@cf2m.be', '62c2a043841800.30373161', 1, '11111111114'),
+(5, 'pedago1', '[\"ROLE_USER\",\"ROLE_PERSO\",\"ROLE_FORMAT\",\"ROLE_ENCODE\",\"ROLE_PEDAGO\"]', '$2y$13$fPMsbaU9xqRPEck2BJPL7OPR3UlJfo6FO1dICY41LCB2i6yt9z8kC', 'Pédagogique', 'Un', 'peda@cf2m.be', '62c2a1dd1539a6.95623362', 1, '11111111115'),
+(6, 'admin1', '[\"ROLE_USER\",\"ROLE_PERSO\",\"ROLE_FORMAT\",\"ROLE_ENCODE\",\"ROLE_PEDAGO\",\"ROLE_ADMIN\"]', '$2y$13$1qkyvHheimKOo/d.A2OnXONYw34H/sBxm5/u6JFDgYTy0OTaYjQ/a', 'Admin', 'Un', 'adm@cf2m.be', '62c2a2a50b8bd0.00546715', 1, '11111111116');
 
 --
 -- Contraintes pour les tables déchargées
