@@ -19,10 +19,11 @@
             <div class="col-lg-10">
                 <div class="card shadow-lg border-0 rounded-lg mt-5">
     <div class="mb-2 p-3">
-        <h4>Bienvenue, {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a></h4><p>Vous avez les permissions de <br>
+        <h4>Bienvenue, {{ app.user.username }}</h4><p>Vous avez les permissions de <br>
             {% for roles in app.user.roles %}{{ roles }}
-                {% if not loop.last %} - {% endif %}
+                {% if not loop.last %} <br> {% endif %}
             {% endfor %}</p>
+        <h5><a href="{{ path('app_logout') }}">Déconnexion</a></h5>
         {{ dump(app.user) }}
     </div>
                 </div>
