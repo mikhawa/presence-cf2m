@@ -21,8 +21,8 @@ Les **à voir et discuter** sont des points que l'on pourrait modifier dans la s
 - [Création d'un utilisateur](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dun-utilisateur) - à titre formatif / informatif
 - [Compléter l'entité User](https://github.com/mikhawa/presence-cf2m#compl%C3%A9ter-lentit%C3%A9-user) - à titre formatif / informatif
 - [Création du fichier .env.local](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-du-fichier-envlocal) - **à faire**
-- [Création de la DB locale](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-de-la-db-locale) - **à faire**
-- [Première migration](https://github.com/mikhawa/presence-cf2m#premi%C3%A8re-migration) - **à faire**
+- [Création de la DB locale](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-de-la-db-locale) - à titre formatif / informatif
+- [Première migration](https://github.com/mikhawa/presence-cf2m#premi%C3%A8re-migration) - à titre formatif / informatif
 - [Amélioration de l'entité User](https://github.com/mikhawa/presence-cf2m#am%C3%A9lioration-de-lentit%C3%A9-user) - à titre formatif / informatif
 - [Création d'une authentification](https://github.com/mikhawa/presence-cf2m#cr%C3%A9ation-dune-authentification) - à titre formatif / informatif
 - [Insertion d'un utilisateur dans la DB](https://github.com/mikhawa/presence-cf2m#insertion-dun-utilisateur-dans-la-db) - à titre formatif / informatif
