@@ -2,11 +2,12 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3306
--- Généré le : dim. 03 juil. 2022 à 11:44
+-- Hôte : 127.0.0.1:3307
+-- Généré le : lun. 04 juil. 2022 à 09:52
 -- Version du serveur : 10.3.35-MariaDB
 -- Version de PHP : 8.1.7
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -20,7 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `presencescf2m`
 --
-DROP DATABASE IF EXISTS `presencescf2m`;
 CREATE DATABASE IF NOT EXISTS `presencescf2m` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `presencescf2m`;
 
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `UNIQ_8D93D649405C2D18` (`themail`),
   UNIQUE KEY `UNIQ_8D93D64928110ADD` (`theuid`),
   UNIQUE KEY `UNIQ_8D93D6492BF1E44A` (`thenationalid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `user`
@@ -117,7 +117,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `username`, `roles`, `password`, `thename`, `thesurname`, `themail`, `theuid`, `thestatus`, `thenationalid`) VALUES
 (1, 'util1', '[\"ROLE_USER\"]', '$2y$13$SpkGmFgdOZq2H.T34dE2De/6uDkMQN2AgroA96TBMI9bTfY58.iRK', 'Util', 'Un', 'mike@cf2m.be', '62b8409f6ca621.51874765', 1, '11111111111'),
-(2, 'perso1', '[\"ROLE_USER\",\"ROLE_PERSO\"]', '$2y$13$O8xaIECsZuyniB53IcSoUeRTMgB5bgM7NU99..t5K.oDiVxdDd47O', 'Formateur', 'Un', 'form@cf2m.be', '62c17fd0c96ee9.44589091', 1, '11111111112');
+(2, 'perso1', '[\"ROLE_USER\",\"ROLE_PERSO\"]', '$2y$13$O8xaIECsZuyniB53IcSoUeRTMgB5bgM7NU99..t5K.oDiVxdDd47O', 'Formateur', 'Un', 'form@cf2m.be', '62c17fd0c96ee9.44589091', 1, '11111111112'),
+(3, 'encode1', '[\"ROLE_USER\",\"ROLE_PERSO\",\"ROLE_ENCODE\"]', '$2y$10$VS/qh7J8TRd/8Tf.BcKK/OKoM2LqxbxBWip7i9p4V1eHR4oXNPcKG', 'Encode', 'Mister', 'encode@cf2m.be', '62c29b139f3a51.05502823', 1, '11111111113');
 
 --
 -- Contraintes pour les tables déchargées
@@ -128,6 +129,7 @@ INSERT INTO `user` (`id`, `username`, `roles`, `password`, `thename`, `thesurnam
 --
 ALTER TABLE `inscription`
   ADD CONSTRAINT `FK_5E90F6D658E0A285` FOREIGN KEY (`userid_id`) REFERENCES `user` (`id`);
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

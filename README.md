@@ -506,6 +506,9 @@ Tester le rôle : util1 - util1
 Tester le rôle : perso1 - perso1
 
 - `ROLE_ENCODE` permet l'encodage des présences stagiaires.
+
+Tester le rôle : encode1 - encode1
+
 - `ROLE_FORMAT` est un formateur, il peut consulter les statistiques de présences de ses stagiaires pour avertir l'équipe pédagogique en cas de dérive.
 - `ROLE_PEDAGO` permet d'avoir les statistiques de tous les stagiaires, de créer de nouvelles sessions et d'y insérer/supprimer des stagiaires.
 - `ROLE_ADMIN` peut tout faire, y compris supprimer un membre du personnel ou en rajouter et créer de nouvelles formations. Son principal objectif est de vérifier le bon fonctionnement du système et les failles ou attaques subies.
