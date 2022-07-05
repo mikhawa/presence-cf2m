@@ -11,7 +11,7 @@ class DbConfig {
 
     public function __construct(){
         try {
-            $this->dbConn = new PDO("mysql:host={$this->host};dbname={$this->database}",$this->username,$this->password);
+            $this->dbConn = new PDO("mysql:host={$this->host};port=3307;dbname={$this->database}",$this->username,$this->password);
             $this->dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $this->dbConn;
         } catch(PDOException $e) {
