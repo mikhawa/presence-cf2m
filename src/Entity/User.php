@@ -69,7 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $theuid;
 
     #[ORM\Column(
-        type: 'integer',
+        type: 'smallint',
         options: [
             "unsigned" => true,
             "default"  => 0,
