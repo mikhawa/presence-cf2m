@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PromotionsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PromotionsRepository::class)]
@@ -10,26 +12,67 @@ class Promotions
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(
+        type: 'integer',
+        unique: true,
+        options: [
+            "unsigned" => true,
+        ],
+    )]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 45)]
+    #[ORM\Column(
+        type: 'string',
+        length: 45,
+    )]
     private $promoname;
 
-    #[ORM\Column(type: 'string', length: 16)]
+    #[ORM\Column(
+        type: 'string',
+        length: 16,
+    )]
     private $acronym;
 
-    #[ORM\Column(type: 'date', nullable: true)]
+    #[ORM\Column(
+        type: 'date',
+        nullable: true,
+    )]
     private $startingdate;
 
-    #[ORM\Column(type: 'date', nullable: true)]
+    #[ORM\Column(
+        type: 'date',
+        nullable: true,
+    )]
     private $endingdate;
 
-    #[ORM\Column(type: 'smallint', nullable: true)]
+    #[ORM\Column(
+        type: 'smallint',
+        nullable: true,
+        options: [
+            "unsigned" => true,
+        ],
+
+    )]
     private $nbdays;
 
-    #[ORM\Column(type: 'smallint')]
+    #[ORM\Column(
+        type: 'smallint',
+        options: [
+            "unsigned" => true,
+        ],
+    )]
     private $active;
+
+    #[ORM\OneToMany(
+        mappedBy: 'promotions',
+        targetEntity: Registrations::class,
+    )]
+    private $registrations;
+
+    public function __construct()
+    {
+        $this->registrations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,6 +147,36 @@ class Promotions
     public function setActive(int $active): self
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Registrations>
+     */
+    public function getRegistrations(): Collection
+    {
+        return $this->registrations;
+    }
+
+    public function addRegistration(Registrations $registration): self
+    {
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations[] = $registration;
+            $registration->setPromotions($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegistration(Registrations $registration): self
+    {
+        if ($this->registrations->removeElement($registration)) {
+            // set the owning side to null (unless already changed)
+            if ($registration->getPromotions() === $this) {
+                $registration->setPromotions(null);
+            }
+        }
 
         return $this;
     }

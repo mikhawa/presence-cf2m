@@ -20,7 +20,7 @@ class Registrations
     private $id;
 
     #[ORM\Column(
-        type: 'integer',
+        type: 'smallint',
         options: [
             "default"  => 1,
             "unsigned" => true,
@@ -48,6 +48,12 @@ class Registrations
         inversedBy: 'registrations',
     )]
     private $users;
+
+    #[ORM\ManyToOne(
+        targetEntity: Promotions::class,
+        inversedBy: 'registrations',
+    )]
+    private $promotions;
 
     public function getId(): ?int
     {
@@ -98,6 +104,18 @@ class Registrations
     public function setUsers(?User $users): self
     {
         $this->users = $users;
+
+        return $this;
+    }
+
+    public function getPromotions(): ?Promotions
+    {
+        return $this->promotions;
+    }
+
+    public function setPromotions(?Promotions $promotions): self
+    {
+        $this->promotions = $promotions;
 
         return $this;
     }
