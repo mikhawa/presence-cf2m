@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RegistrationsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RegistrationsRepository::class)]
@@ -54,6 +56,17 @@ class Registrations
         inversedBy: 'registrations',
     )]
     private $promotions;
+
+    #[ORM\OneToMany(
+        mappedBy: 'registrations',
+        targetEntity: Specialevents::class,
+    )]
+    private $specialevents;
+
+    public function __construct()
+    {
+        $this->specialevents = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -116,6 +129,36 @@ class Registrations
     public function setPromotions(?Promotions $promotions): self
     {
         $this->promotions = $promotions;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Specialevents>
+     */
+    public function getSpecialevents(): Collection
+    {
+        return $this->specialevents;
+    }
+
+    public function addSpecialevent(Specialevents $specialevent): self
+    {
+        if (!$this->specialevents->contains($specialevent)) {
+            $this->specialevents[] = $specialevent;
+            $specialevent->setRegistrations($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpecialevent(Specialevents $specialevent): self
+    {
+        if ($this->specialevents->removeElement($specialevent)) {
+            // set the owning side to null (unless already changed)
+            if ($specialevent->getRegistrations() === $this) {
+                $specialevent->setRegistrations(null);
+            }
+        }
 
         return $this;
     }

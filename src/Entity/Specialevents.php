@@ -61,6 +61,15 @@ class Specialevents
     )]
     private $message;
 
+    #[ORM\ManyToOne(
+        targetEntity: Registrations::class,
+        inversedBy: 'specialevents',
+    )]
+    #[ORM\JoinColumn(
+        nullable: false,
+    )]
+    private $registrations;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -134,6 +143,18 @@ class Specialevents
     public function setMessage(string $message): self
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getRegistrations(): ?Registrations
+    {
+        return $this->registrations;
+    }
+
+    public function setRegistrations(?Registrations $registrations): self
+    {
+        $this->registrations = $registrations;
 
         return $this;
     }
