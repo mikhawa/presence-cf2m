@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,10 +24,22 @@ class PublicController extends AbstractController
         ]);
     }
 
+    # Mot de passe oublié
+    #[Route('/pwdForgotten', name: 'app_check')]
+    public function pwdForgotten(): Response
+    {
+        if ($this->getUser()) {
+            $path = $this->redirectToRoute('profile_homepage');
+        } else {
+            $path = $this->render('pwdForgotten/check.html.twig');
+        }
+        return $path;
+    }
+
     # Déconnexion
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        throw new LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }

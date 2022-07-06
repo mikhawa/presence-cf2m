@@ -3,13 +3,6 @@
 {% block title %}{{ parent() }} - Connexion{% endblock %}
 
 {% block classbody %} class="bg-primary"{% endblock %}
-{% block top %}{% endblock %}
-{% block navbar %}
-    {% block navbrand %}{% endblock %}
-    {% block navsidebar %}{% endblock %}
-    {% block navsearch %}{% endblock %}
-    {% block navcontent %}{% endblock %}
-{% endblock %}
 {% block content %}
 <div id="layoutAuthentication">
     <div id="layoutAuthentication_content">
@@ -47,23 +40,18 @@
                                     <input type="hidden" name="_csrf_token"
                                            value="{{ csrf_token('authenticate') }}"
                                     >
-                                    <div class="form-check mb-3">
-                                        <input class="form-check-input" id="inputRememberPassword" type="checkbox"
+                                    <div class="form-check mb-3 d-flex justify-content-center">
+                                        <input class="form-check-input me-2" id="inputRememberPassword" type="checkbox"
                                                name="_remember_me"/>
                                         <label class="form-check-label" for="inputRememberPassword">Se souvenir de vous
                                             sur cette machine</label>
                                     </div>
                                     <div class="text-center">
                                         <input class="btn btn-primary" type="submit" value="Connexion">
+                                        <a class="btn btn-primary" href="{{ path("app_check") }}" role="button">Mot
+                                            de passe
+                                            oublié ?</a>
                                     </div>
-
-                                    </br>
-
-                                    <div class="text-center">
-                                        <a class="btn btn-primary" href="" role="button">Mot de passe oublié ?</a>
-
-                                    </div>
-
                                 </form>
                             </div>
                         </div>
