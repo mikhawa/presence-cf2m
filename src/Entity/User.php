@@ -88,11 +88,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         mappedBy: 'userid',
         targetEntity: Registrations::class,
     )]
-    private $inscriptions;
+    private $registrations;
 
     public function __construct()
     {
-        $this->inscriptions = new ArrayCollection();
+        $this->registrations = new ArrayCollection();
     }
 
     public function getId() : ?int
@@ -241,30 +241,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Registrations>
      */
-    public function getInscriptions(): Collection
+    public function getRegistrations(): Collection
     {
-        return $this->inscriptions;
+        return $this->registrations;
     }
 
-    public function addInscription(Registrations $inscription): self
+    public function addRegistration(Registrations $registration): self
     {
-        if (!$this->inscriptions->contains($inscription)) {
-            $this->inscriptions[] = $inscription;
-            $inscription->setUserid($this);
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations[] = $registration;
+            $registration->setUserid($this);
         }
 
         return $this;
     }
 
-    public function removeInscription(Registrations $inscription): self
+    public function removeRegistration(Registrations $registration): self
     {
-        if ($this->inscriptions->removeElement($inscription)) {
+        if ($this->registrations->removeElement($registration)) {
             // set the owning side to null (unless already changed)
-            if ($inscription->getUserid() === $this) {
-                $inscription->setUserid(null);
+            if ($registration->getUserid() === $this) {
+                $registration->setUserid(null);
             }
         }
 
         return $this;
     }
+
+    
 }

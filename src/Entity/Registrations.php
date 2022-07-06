@@ -49,6 +49,59 @@ class Registrations
     )]
     private $users;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getActive(): ?int
+    {
+        return $this->active;
+    }
+
+    public function setActive(int $active): self
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    public function getStartingdate(): ?\DateTimeInterface
+    {
+        return $this->startingdate;
+    }
+
+    public function setStartingdate(?\DateTimeInterface $startingdate): self
+    {
+        $this->startingdate = $startingdate;
+
+        return $this;
+    }
+
+    public function getEndingdate(): ?\DateTimeInterface
+    {
+        return $this->endingdate;
+    }
+
+    public function setEndingdate(?\DateTimeInterface $endingdate): self
+    {
+        $this->endingdate = $endingdate;
+
+        return $this;
+    }
+
+    public function getUsers(): ?User
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?User $users): self
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
    
 
   
