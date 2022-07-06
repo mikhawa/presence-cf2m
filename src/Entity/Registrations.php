@@ -26,7 +26,7 @@ class Registrations
             "unsigned" => true,
         ],
     )]
-    private $theactive;
+    private $active;
 
     #[ORM\Column(
         type: 'datetime',
@@ -35,72 +35,21 @@ class Registrations
             "default" => "CURRENT_TIMESTAMP",
         ],
     )]
-    private $thebeginning;
+    private $startingdate;
 
     #[ORM\Column(
         type: 'datetime',
         nullable: true,
     )]
-    private $theend;
+    private $endingdate;
 
     #[ORM\ManyToOne(
         targetEntity: User::class,
         inversedBy: 'inscriptions',
     )]
-    private $userid;
+    private $users;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getTheactive(): ?int
-    {
-        return $this->theactive;
-    }
-
-    public function setTheactive(int $theactive): self
-    {
-        $this->theactive = $theactive;
-
-        return $this;
-    }
-
-    public function getThebeginning(): ?\DateTimeInterface
-    {
-        return $this->thebeginning;
-    }
-
-    public function setThebeginning(?\DateTimeInterface $thebeginning): self
-    {
-        $this->thebeginning = $thebeginning;
-
-        return $this;
-    }
-
-    public function getTheend(): ?\DateTimeInterface
-    {
-        return $this->theend;
-    }
-
-    public function setTheend(?\DateTimeInterface $theend): self
-    {
-        $this->theend = $theend;
-
-        return $this;
-    }
-
-    public function getUserid(): ?User
-    {
-        return $this->userid;
-    }
-
-    public function setUserid(?User $userid): self
-    {
-        $this->userid = $userid;
-
-        return $this;
-    }
+   
 
   
 
