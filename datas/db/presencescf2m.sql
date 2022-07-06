@@ -221,11 +221,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `presencescf2m`.`proofOfAbsence`
+-- Table `presencescf2m`.`proofofabsence`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `presencescf2m`.`proofOfAbsence` ;
+DROP TABLE IF EXISTS `presencescf2m`.`proofofabsence` ;
 
-CREATE TABLE IF NOT EXISTS `presencescf2m`.`proofOfAbsence` (
+CREATE TABLE IF NOT EXISTS `presencescf2m`.`proofofabsence` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `file` VARCHAR(255) NOT NULL,
   `firstdaycovered` DATE NOT NULL,
