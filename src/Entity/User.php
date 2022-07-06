@@ -77,12 +77,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private int $thestatus;
 
-    #[ORM\Column(
-        type: 'string',
-        length: 11,
-        unique: true,
-    )]
-    private string $thenationalid;
+
 
     #[ORM\OneToMany(
         mappedBy: 'userid',
@@ -226,17 +221,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getThenationalid() : ?string
-    {
-        return $this->thenationalid;
-    }
-
-    public function setThenationalid(string $thenationalid) : self
-    {
-        $this->thenationalid = $thenationalid;
-
-        return $this;
-    }
+   
 
     /**
      * @return Collection<int, Registrations>
