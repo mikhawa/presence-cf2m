@@ -80,7 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
     #[ORM\OneToMany(
-        mappedBy: 'userid',
+        mappedBy: 'users',
         targetEntity: Registrations::class,
     )]
     private $registrations;
@@ -235,7 +235,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->registrations->contains($registration)) {
             $this->registrations[] = $registration;
-            $registration->setUserid($this);
+            $registration->setUsers($this);
         }
 
         return $this;
@@ -245,8 +245,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->registrations->removeElement($registration)) {
             // set the owning side to null (unless already changed)
-            if ($registration->getUserid() === $this) {
-                $registration->setUserid(null);
+            if ($registration->getUsers() === $this) {
+                $registration->setUsers(null);
             }
         }
 

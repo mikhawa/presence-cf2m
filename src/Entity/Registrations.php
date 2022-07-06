@@ -45,7 +45,7 @@ class Registrations
 
     #[ORM\ManyToOne(
         targetEntity: User::class,
-        inversedBy: 'inscriptions',
+        inversedBy: 'registrations',
     )]
     private $users;
 
