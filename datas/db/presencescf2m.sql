@@ -55,11 +55,11 @@ CREATE TABLE IF NOT EXISTS `presencescf2m`.`promotions` (
   `endingdate` DATE NOT NULL,
   `nbdays` TINYINT UNSIGNED NOT NULL,
   `active` TINYINT NOT NULL COMMENT '0 => inactive | 1 => active | 2 => terminée',
-  `options_idoption` INT NOT NULL,
+  `options_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_promotions_options1_idx` (`options_idoption` ASC),
+  INDEX `fk_promotions_options1_idx` (`options_id` ASC),
   CONSTRAINT `fk_promotions_options1`
-    FOREIGN KEY (`options_idoption`)
+    FOREIGN KEY (`options_id`)
     REFERENCES `presencescf2m`.`options` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -129,24 +129,24 @@ CREATE TABLE IF NOT EXISTS `presencescf2m`.`registrations` (
   `startingdate` DATETIME NOT NULL DEFAULT current_timestamp,
   `endingdate` DATETIME NOT NULL DEFAULT current_timestamp,
   `users_id` INT(11) NOT NULL,
-  `followups_idSuvi` INT NOT NULL,
-  `promotions_idpromotion` INT NOT NULL,
+  `followups_id` INT NOT NULL,
+  `promotions_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_inscriptions_users1_idx` (`users_id` ASC),
-  INDEX `fk_registrations_followups1_idx` (`followups_idSuvi` ASC),
-  INDEX `fk_registrations_promotions1_idx` (`promotions_idpromotion` ASC),
+  INDEX `fk_registrations_followups1_idx` (`followups_id` ASC),
+  INDEX `fk_registrations_promotions1_idx` (`promotions_id` ASC),
   CONSTRAINT `fk_inscriptions_users1`
     FOREIGN KEY (`users_id`)
     REFERENCES `presencescf2m`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_registrations_followups1`
-    FOREIGN KEY (`followups_idSuvi`)
+    FOREIGN KEY (`followups_id`)
     REFERENCES `presencescf2m`.`followups` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_registrations_promotions1`
-    FOREIGN KEY (`promotions_idpromotion`)
+    FOREIGN KEY (`promotions_id`)
     REFERENCES `presencescf2m`.`promotions` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -179,20 +179,20 @@ CREATE TABLE IF NOT EXISTS `presencescf2m`.`specialevents` (
   `arrivaltime` TIME NULL,
   `departuretime` TIME NULL,
   `message` VARCHAR(500) NULL,
-  `specialeventtype_idtypeNonPresence` INT NOT NULL,
   `registrations_id` INT UNSIGNED NOT NULL,
+  `specialeventtype_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `iddepart_UNIQUE` (`id` ASC),
-  INDEX `fk_specialevents_specialeventtype1_idx` (`specialeventtype_idtypeNonPresence` ASC),
   INDEX `fk_specialevents_registrations1_idx` (`registrations_id` ASC),
-  CONSTRAINT `fk_specialevents_specialeventtype1`
-    FOREIGN KEY (`specialeventtype_idtypeNonPresence`)
-    REFERENCES `presencescf2m`.`specialeventtype` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_specialevents_specialeventtype1_idx` (`specialeventtype_id` ASC),
   CONSTRAINT `fk_specialevents_registrations1`
     FOREIGN KEY (`registrations_id`)
     REFERENCES `presencescf2m`.`registrations` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_specialevents_specialeventtype1`
+    FOREIGN KEY (`specialeventtype_id`)
+    REFERENCES `presencescf2m`.`specialeventtype` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -208,12 +208,12 @@ CREATE TABLE IF NOT EXISTS `presencescf2m`.`attendancesheets` (
   `file` VARCHAR(150) NOT NULL,
   `startingdeekdate` DATE NOT NULL,
   `endingweekdate` DATE NOT NULL,
-  `promotions_idpromotion` INT NOT NULL,
+  `promotions_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `idfeuillesPresences_UNIQUE` (`id` ASC),
-  INDEX `fk_feuillesPresences_promotions1_idx` (`promotions_idpromotion` ASC),
-  CONSTRAINT `fk_feuillesPresences_promotions1`
-    FOREIGN KEY (`promotions_idpromotion`)
+  INDEX `fk_attendancesheets_promotions1_idx` (`promotions_id` ASC),
+  CONSTRAINT `fk_attendancesheets_promotions1`
+    FOREIGN KEY (`promotions_id`)
     REFERENCES `presencescf2m`.`promotions` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
