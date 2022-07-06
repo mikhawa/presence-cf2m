@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Inscription;
+use App\Entity\Registrations;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Inscription>
+ * @extends ServiceEntityRepository<Registrations>
  *
- * @method Inscription|null find($id, $lockMode = null, $lockVersion = null)
- * @method Inscription|null findOneBy(array $criteria, array $orderBy = null)
- * @method Inscription[]    findAll()
- * @method Inscription[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Registrations|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Registrations|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Registrations[]    findAll()
+ * @method Registrations[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class InscriptionRepository extends ServiceEntityRepository
+class RegistrationsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Inscription::class);
+        parent::__construct($registry, Registrations::class);
     }
 
-    public function add(Inscription $entity, bool $flush = false): void
+    public function add(Registrations $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class InscriptionRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Inscription $entity, bool $flush = false): void
+    public function remove(Registrations $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class InscriptionRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Inscription[] Returns an array of Inscription objects
+//     * @return Registrations[] Returns an array of Registrations objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class InscriptionRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Inscription
+//    public function findOneBySomeField($value): ?Registrations
 //    {
 //        return $this->createQueryBuilder('i')
 //            ->andWhere('i.exampleField = :val')

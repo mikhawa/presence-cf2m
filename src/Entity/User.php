@@ -86,7 +86,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(
         mappedBy: 'userid',
-        targetEntity: Inscription::class,
+        targetEntity: Registrations::class,
     )]
     private $inscriptions;
 
@@ -239,14 +239,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Inscription>
+     * @return Collection<int, Registrations>
      */
     public function getInscriptions(): Collection
     {
         return $this->inscriptions;
     }
 
-    public function addInscription(Inscription $inscription): self
+    public function addInscription(Registrations $inscription): self
     {
         if (!$this->inscriptions->contains($inscription)) {
             $this->inscriptions[] = $inscription;
@@ -256,7 +256,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeInscription(Inscription $inscription): self
+    public function removeInscription(Registrations $inscription): self
     {
         if ($this->inscriptions->removeElement($inscription)) {
             // set the owning side to null (unless already changed)

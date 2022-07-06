@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\InscriptionRepository;
+use App\Repository\RegistrationsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: InscriptionRepository::class)]
-class Inscription
+#[ORM\Entity(repositoryClass: RegistrationsRepository::class)]
+class Registrations
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
