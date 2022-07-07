@@ -23,6 +23,9 @@
             {% for roles in app.user.roles %}{{ roles }}
                 {% if not loop.last %} <br> {% endif %}
             {% endfor %}</p>
+        {% if is_granted('ROLE_PERSO') %}
+        <p> -> <a href="{{ path("app_print") }}">print</a> - future page d'impression des feuilles de présence, non accessible aux stagiaires, sert pour le moment à d'essais graphiques pour une administration</p>
+        {% endif %}
         <h5><a href="{{ path('app_logout') }}">Déconnexion</a></h5>
         {{ dump(app.user) }}
     </div>
