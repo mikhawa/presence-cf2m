@@ -12,7 +12,7 @@ import './styles/styles.css';
 // start the Stimulus application
 import './bootstrap';
 import './scripts';
-import './datatables-demo';
+import './datatables-simple-demo';
 import './chart-area-demo';
 import './chart-bar-demo';
 import './chart-pie-demo';
