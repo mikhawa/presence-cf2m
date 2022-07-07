@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Repository\UserRepository;
 use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -26,13 +28,25 @@ class PublicController extends AbstractController
 
     # Mot de passe oublié
     #[Route('/pwdForgotten', name: 'app_check')]
-    public function pwdForgotten(): Response
+    public function pwdForgotten(UserRepository $repository, Request $request): Response
     {
-        if ($this->getUser()) {
+        if ($request->isMethod("POST")) {
+            $userFound = $repository->findUserByEmail($request->request->get("email"));
+            if ($userFound) {
+                $path = $this->render("pwdForgotten/checked.html.twig",
+                    [
+                        "userFound" => $userFound[0],
+                    ]
+                );
+            } else {
+                $path = $this->render('pwdForgotten/check.html.twig');
+            }
+        } elseif ($this->getUser()) {
             $path = $this->redirectToRoute('profile_homepage');
         } else {
             $path = $this->render('pwdForgotten/check.html.twig');
         }
+
         return $path;
     }
 
