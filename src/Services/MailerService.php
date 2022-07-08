@@ -15,12 +15,12 @@ class MailerService
     /**
      * @var MailerInterface
      */
-    private $mailer;
+    private MailerInterface $mailer;
 
     /**
      * @var Environment
      */
-    private $twig;
+    private Environment $twig;
 
     /**
      * MailerService constructor.
