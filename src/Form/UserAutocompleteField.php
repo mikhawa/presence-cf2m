@@ -16,13 +16,13 @@ class UserAutocompleteField extends AbstractType
     {
         $resolver->setDefaults([
             'class' => User::class,
-            'placeholder' => 'Choose a User',
-            //'choice_label' => 'name',
+            'placeholder' => 'Choisissez un stagiaire',
+            'choice_label' => 'username',
 
-            'query_builder' => function(UserRepository $userRepository) {
-                return $userRepository->createQueryBuilder('user');
-            },
-            //'security' => 'ROLE_SOMETHING',
+            //'query_builder' => function(UserRepository $userRepository) {
+              //  return $userRepository->findByExampleField($val);
+            //},
+            'security' => 'ROLE_FORMAT',
         ]);
     }
 
