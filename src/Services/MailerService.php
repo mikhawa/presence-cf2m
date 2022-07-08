@@ -35,24 +35,22 @@ class MailerService
     }
 
     /**
-     * @param string $subject
      * @param string $from
      * @param string $to
      * @param string $template
-     * @param array $parameters
      * @throws TransportExceptionInterface
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function send(string $subject, string $from, string $to, string $template, array $parameters): void
+    public function send(string $subject, string $from, string $to, string $template): void
     {
         $email = (new Email())
+            ->subject($subject)
             ->from($from)
             ->to($to)
-            ->subject($subject)
             ->html(
-                $this->twig->render($template, $parameters),
+                $this->twig->render($template),
                 charset: 'text/html'
             );
 

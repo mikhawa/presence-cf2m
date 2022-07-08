@@ -35,13 +35,10 @@ class PublicController extends AbstractController
         if ($request->isMethod("POST")) {
             $userFound = $repository->findUserByEmail($request->request->get("email"));
             if ($userFound) {
-                /*$path = $this->render("pwdForgotten/checked.html.twig",
-                    [
-                        "userFound" => $userFound[0],
-                    ]
-                );*/
-                
-
+                $mailerService->send(subject: "thanks",
+                    from: "manuel.mouzelard@hotmail.com", to: $request->request->get("email"), template: 'pwdForgotten/check.html.twig'
+                );
+                $path = $this->redirectToRoute('profile_homepage');
             } else {
                 $path = $this->render('pwdForgotten/check.html.twig');
             }
