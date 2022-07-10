@@ -19,7 +19,7 @@ class PrintController extends AbstractController
     #[Route('/print', name: 'app_print')]
     public function index(): Response
     {
-        return $this->render('print/index.html.twig', [
+        return $this->render('print/index.print.html.twig', [
             'controller_name' => 'PrintController',
 
         ]);
@@ -34,9 +34,6 @@ class PrintController extends AbstractController
         $form = $this->createForm(
             UserSearchType::class,
             $user,
-            [
-                'method' => 'POST',
-            ]
         );
 
         $form->handleRequest($request);
