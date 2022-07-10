@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,15 +13,8 @@ class UserSearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username')
-            ->add('roles')
-            ->add('password')
-            ->add('thename')
-            ->add('thesurname')
-            ->add('themail')
-            ->add('theuid')
-            ->add('thestatus')
-        ;
+            ->add('username',UserAutocompleteField::class);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

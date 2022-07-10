@@ -5,7 +5,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserSearchType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,25 +25,30 @@ class PrintController extends AbstractController
         ]);
     }
 
-    public function new(Request $request): Response
+    #[Route('/search', name: 'app_user_search', methods: ['POST'])]
+    public function search(EntityManagerInterface $entityManager, Request $request): Response
     {
-        // just set up a fresh $task object (remove the example data)
-        $task = new User();
 
-        $form = $this->createForm(UserSearchType::class, $task);
+        $user = new User();
+
+        $form = $this->createForm(
+            UserSearchType::class,
+            $user,
+            [
+                'method' => 'POST',
+            ]
+        );
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
+
             $task = $form->getData();
 
-            // ... perform some action, such as saving the task to the database
-
-            return $this->redirectToRoute('task_success');
+            return new Response($task);
+            exit();
         }
 
-        return $this->renderForm('task/new.html.twig', [
+        return $this->renderForm('search.form.html.twig', [
             'form' => $form,
         ]);
     }
