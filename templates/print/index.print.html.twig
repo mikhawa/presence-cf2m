@@ -15,6 +15,7 @@
 
         <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <div class="group">
+
                 {% if is_granted('ROLE_FORMAT') %}
                     {{ render(controller('App\\Controller\\PrintController::search')) }}
                 {% endif %}

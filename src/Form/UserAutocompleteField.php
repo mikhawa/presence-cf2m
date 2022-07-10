@@ -18,6 +18,7 @@ class UserAutocompleteField extends AbstractType
             'class' => User::class,
             'placeholder' => 'Choisissez un stagiaire',
             'choice_label' => 'username',
+            'autocomplete' => false,
 
            /* 'query_builder' => function(UserRepository $userRepository, $value=""){
                 return $userRepository->searchUserByName($value);

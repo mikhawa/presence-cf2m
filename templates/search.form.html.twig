@@ -1,4 +1,3 @@
-{{ form_start(form, {'method': 'POST'}) }}
+{{ form_start(form, {'action': path('app_ajax'),'method': 'POST', 'full_name':'userid'}) }}
     {{ form_widget(form, ) }}
-<button class="btn btn-primary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
 {{ form_end(form) }}

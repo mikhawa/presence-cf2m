@@ -26,7 +26,7 @@ class PrintController extends AbstractController
     }
 
     #[Route('/search', name: 'app_user_search', methods: ['POST','GET'])]
-    public function search(EntityManagerInterface $entityManager, Request $request): Response
+    public function search(EntityManagerInterface $entityManager): Response
     {
 
         $user = new User();
@@ -36,14 +36,6 @@ class PrintController extends AbstractController
             $user,
         );
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $task = $form->getData();
-
-            return new Response($task);
-            exit();
-        }
 
         return $this->renderForm('search.form.html.twig', [
             'form' => $form,
