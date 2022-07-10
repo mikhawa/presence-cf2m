@@ -25,7 +25,7 @@ class PrintController extends AbstractController
         ]);
     }
 
-    #[Route('/search', name: 'app_user_search', methods: ['POST'])]
+    #[Route('/search', name: 'app_user_search', methods: ['POST','GET'])]
     public function search(EntityManagerInterface $entityManager, Request $request): Response
     {
 
