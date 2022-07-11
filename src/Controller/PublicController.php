@@ -7,10 +7,14 @@ use LogicException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Services\MailerService;
+use Twig\error\LoaderError;
+use Twig\error\RuntimeError;
+use Twig\error\SyntaxError;
 
 class PublicController extends AbstractController
 {
@@ -29,14 +33,21 @@ class PublicController extends AbstractController
     }
 
     # Mot de passe oublié
+
+    /**
+     * @throws SyntaxError
+     * @throws TransportExceptionInterface
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     #[Route('/pwdForgotten', name: 'app_check')]
     public function pwdForgotten(UserRepository $repository, Request $request, MailerService $mailerService): Response
     {
         if ($request->isMethod("POST")) {
             $userFound = $repository->findUserByEmail($request->request->get("email"));
             if ($userFound) {
-                $mailerService->send(subject: "thanks",
-                    from: "manuel.mouzelard@hotmail.com", to: $request->request->get("email"), template: 'pwdForgotten/check.html.twig'
+                $mailerService->toSend(subject: "thanks",
+                    from: "manuel.mouzelard@hotmail.com", to: $request->request->get("email"), template: 'pwdForgotten/checked.html.twig',
                 );
                 $path = $this->redirectToRoute('profile_homepage');
             } else {
@@ -47,6 +58,7 @@ class PublicController extends AbstractController
         } else {
             $path = $this->render('pwdForgotten/check.html.twig');
         }
+
 
         return $path;
     }

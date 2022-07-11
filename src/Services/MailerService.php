@@ -35,15 +35,16 @@ class MailerService
     }
 
     /**
+     * @param string $subject
      * @param string $from
      * @param string $to
      * @param string $template
-     * @throws TransportExceptionInterface
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
+     * @throws TransportExceptionInterface
      */
-    public function send(string $subject, string $from, string $to, string $template): void
+    public function toSend(string $subject, string $from, string $to, string $template): void
     {
         $email = (new Email())
             ->subject($subject)
@@ -55,5 +56,6 @@ class MailerService
             );
 
         $this->mailer->send($email);
+
     }
 }
