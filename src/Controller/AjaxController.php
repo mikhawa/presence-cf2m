@@ -15,16 +15,14 @@ class AjaxController extends AbstractController
     #[Route(
         '/stagiaire/',
         name: 'app_ajax',
-        methods: 'POST'
+        methods: 'GET',
     )]
     public function index(Request $user,EntityManagerInterface $entityManager): Response
     {
-        $idUser = $user->get("request['parameters']");
-        var_dump($idUser);
-        // $thestagiaire = $entityManager->getRepository(User::class)->find();
+        $idUser = $user->get("user_search")['username']['autocomplete'];
+        $thestagiaire = $entityManager->getRepository(User::class)->find($idUser);
         return $this->render('ajax/index.html.twig', [
-            'controller_name' => $user,
-            'user'=>$idUser
+            'user'=>$thestagiaire
         ]);
     }
 }
