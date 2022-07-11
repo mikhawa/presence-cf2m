@@ -30,15 +30,15 @@ USE `presencescf2m` ;
 DROP TABLE IF EXISTS `presencescf2m`.`options` ;
 
 CREATE TABLE IF NOT EXISTS `presencescf2m`.`options` (
-  `idoption` INT NOT NULL AUTO_INCREMENT,
-  `nom` VARCHAR(45) NOT NULL,
-  `acronyme` VARCHAR(10) NOT NULL,
-  `couleur` VARCHAR(7) NULL DEFAULT '#FFFFFF',
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `optionname` VARCHAR(45) NOT NULL,
+  `acronym` VARCHAR(10) NOT NULL,
+  `color` VARCHAR(7) NULL DEFAULT '#FFFFFF',
   `picto` VARCHAR(45) NULL,
   `active` TINYINT(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT 'Active => 1 | Non active => 2',
-  PRIMARY KEY (`idoption`),
-  UNIQUE INDEX `Nom_UNIQUE` (`nom` ASC),
-  UNIQUE INDEX `acronyme_UNIQUE` (`acronyme` ASC))
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `Nom_UNIQUE` (`optionname` ASC),
+  UNIQUE INDEX `acronyme_UNIQUE` (`acronym` ASC))
 ENGINE = InnoDB;
 
 
@@ -48,33 +48,50 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `presencescf2m`.`promotions` ;
 
 CREATE TABLE IF NOT EXISTS `presencescf2m`.`promotions` (
-  `idpromotion` INT NOT NULL,
-  `nom` VARCHAR(45) NOT NULL,
-  `acronyme` VARCHAR(16) NOT NULL,
-  `dateDebut` DATE NOT NULL,
-  `dateFin` DATE NOT NULL,
-  `nbJours` TINYINT UNSIGNED NOT NULL,
-  `options_idoption` INT NOT NULL,
-  PRIMARY KEY (`idpromotion`),
-  INDEX `fk_promotions_options1_idx` (`options_idoption` ASC),
+  `id` INT NOT NULL,
+  `promoName` VARCHAR(45) NOT NULL,
+  `acronym` VARCHAR(16) NOT NULL,
+  `startingdate` DATE NOT NULL,
+  `endingdate` DATE NOT NULL,
+  `nbdays` TINYINT UNSIGNED NOT NULL,
+  `active` TINYINT NOT NULL COMMENT '0 => inactive | 1 => active | 2 => terminée',
+  `options_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_promotions_options1_idx` (`options_id` ASC),
   CONSTRAINT `fk_promotions_options1`
-    FOREIGN KEY (`options_idoption`)
-    REFERENCES `presencescf2m`.`options` (`idoption`)
+    FOREIGN KEY (`options_id`)
+    REFERENCES `presencescf2m`.`options` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `presencescf2m`.`conges`
+-- Table `presencescf2m`.`holiday`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `presencescf2m`.`conges` ;
+DROP TABLE IF EXISTS `presencescf2m`.`holiday` ;
 
-CREATE TABLE IF NOT EXISTS `presencescf2m`.`conges` (
-  `idconges` INT NOT NULL,
-  `jour` DATE NOT NULL,
-  PRIMARY KEY (`idconges`),
-  UNIQUE INDEX `jour_UNIQUE` (`jour` ASC))
+CREATE TABLE IF NOT EXISTS `presencescf2m`.`holiday` (
+  `id` INT NOT NULL,
+  `day` DATE NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `jour_UNIQUE` (`day` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `presencescf2m`.`followups`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `presencescf2m`.`followups` ;
+
+CREATE TABLE IF NOT EXISTS `presencescf2m`.`followups` (
+  `id` INT NOT NULL,
+  `meetingdate` DATETIME NOT NULL DEFAULT current_timestamp(),
+  `punctuality` VARCHAR(512) NOT NULL,
+  `evolution` VARCHAR(512) NOT NULL,
+  `tests` VARCHAR(512) NOT NULL,
+  `behaviour` VARCHAR(512) NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -93,7 +110,6 @@ CREATE TABLE IF NOT EXISTS `presencescf2m`.`user` (
   `themail` VARCHAR(180) NULL DEFAULT NULL,
   `theuid` VARCHAR(25) NOT NULL,
   `thestatus` INT(11) NOT NULL,
-  `thenationalid` BIGINT(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `UNIQ_8D93D649F85E0677` (`username` ASC))
 ENGINE = InnoDB
@@ -103,142 +119,148 @@ COLLATE = utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
--- Table `presencescf2m`.`inscriptions`
+-- Table `presencescf2m`.`registrations`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `presencescf2m`.`inscriptions` ;
+DROP TABLE IF EXISTS `presencescf2m`.`registrations` ;
 
-CREATE TABLE IF NOT EXISTS `presencescf2m`.`inscriptions` (
-  `idinscription` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `presencescf2m`.`registrations` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `active` TINYINT(2) UNSIGNED NOT NULL DEFAULT 1 COMMENT '1 => Active | 0 => Non active',
-  `dateDebut` DATETIME NOT NULL DEFAULT current_timestamp,
-  `dateFin` DATETIME NOT NULL DEFAULT current_timestamp,
+  `startingdate` DATETIME NOT NULL DEFAULT current_timestamp,
+  `endingdate` DATETIME NOT NULL DEFAULT current_timestamp,
   `users_id` INT(11) NOT NULL,
-  `promotions_idpromotion` INT NOT NULL,
-  PRIMARY KEY (`idinscription`),
+  `followups_id` INT NOT NULL,
+  `promotions_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
   INDEX `fk_inscriptions_users1_idx` (`users_id` ASC),
-  INDEX `fk_inscriptions_promotions1_idx` (`promotions_idpromotion` ASC),
+  INDEX `fk_registrations_followups1_idx` (`followups_id` ASC),
+  INDEX `fk_registrations_promotions1_idx` (`promotions_id` ASC),
   CONSTRAINT `fk_inscriptions_users1`
     FOREIGN KEY (`users_id`)
     REFERENCES `presencescf2m`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_inscriptions_promotions1`
-    FOREIGN KEY (`promotions_idpromotion`)
-    REFERENCES `presencescf2m`.`promotions` (`idpromotion`)
+  CONSTRAINT `fk_registrations_followups1`
+    FOREIGN KEY (`followups_id`)
+    REFERENCES `presencescf2m`.`followups` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_registrations_promotions1`
+    FOREIGN KEY (`promotions_id`)
+    REFERENCES `presencescf2m`.`promotions` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `presencescf2m`.`suivis`
+-- Table `presencescf2m`.`specialeventtype`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `presencescf2m`.`suivis` ;
+DROP TABLE IF EXISTS `presencescf2m`.`specialeventtype` ;
 
-CREATE TABLE IF NOT EXISTS `presencescf2m`.`suivis` (
-  `idSuvi` INT NOT NULL,
-  `dateReunion` DATETIME NOT NULL DEFAULT current_timestamp(),
-  `ponctualite` VARCHAR(512) NOT NULL,
-  `evolution` VARCHAR(512) NOT NULL,
-  `tests` VARCHAR(512) NOT NULL,
-  `attitude` VARCHAR(512) NOT NULL,
-  `inscriptions_idinscription` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`idSuvi`),
-  INDEX `fk_suivis_inscriptions1_idx` (`inscriptions_idinscription` ASC),
-  CONSTRAINT `fk_suivis_inscriptions1`
-    FOREIGN KEY (`inscriptions_idinscription`)
-    REFERENCES `presencescf2m`.`inscriptions` (`idinscription`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+CREATE TABLE IF NOT EXISTS `presencescf2m`.`specialeventtype` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `eventname` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `idtypeNonPresence_UNIQUE` (`id` ASC))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `presencescf2m`.`typeInapplication`
+-- Table `presencescf2m`.`specialevents`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `presencescf2m`.`typeInapplication` ;
+DROP TABLE IF EXISTS `presencescf2m`.`specialevents` ;
 
-CREATE TABLE IF NOT EXISTS `presencescf2m`.`typeInapplication` (
-  `idtypeNonPresence` INT NOT NULL AUTO_INCREMENT,
-  `nom` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idtypeNonPresence`),
-  UNIQUE INDEX `idtypeNonPresence_UNIQUE` (`idtypeNonPresence` ASC))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `presencescf2m`.`inapplication`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `presencescf2m`.`inapplication` ;
-
-CREATE TABLE IF NOT EXISTS `presencescf2m`.`inapplication` (
-  `iddepart` INT NOT NULL AUTO_INCREMENT,
-  `date` DATETIME NOT NULL DEFAULT current_timestamp(),
-  `distanciel` TINYINT NOT NULL COMMENT '0 => présentiel | 1 => distanciel',
-  `periode` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '1 => matin | 0 => après-midi',
-  `heure` TIME NOT NULL,
+CREATE TABLE IF NOT EXISTS `presencescf2m`.`specialevents` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `eventdate` DATETIME NOT NULL DEFAULT current_timestamp(),
+  `remote` TINYINT NOT NULL COMMENT '0 => présentiel | 1 => distanciel',
+  `eventperiod` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '1 => matin | 0 => après-midi',
+  `arrivaltime` TIME NULL,
+  `departuretime` TIME NULL,
   `message` VARCHAR(500) NULL,
-  `fichierJustificatif` VARCHAR(150) NULL,
-  `typeNonPresence_idtypeNonPresence` INT NOT NULL,
-  `inscriptions_idinscription` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`iddepart`),
-  UNIQUE INDEX `iddepart_UNIQUE` (`iddepart` ASC),
-  INDEX `fk_nonPresence_typeNonPresence1_idx` (`typeNonPresence_idtypeNonPresence` ASC),
-  INDEX `fk_fautes_inscriptions1_idx` (`inscriptions_idinscription` ASC),
-  CONSTRAINT `fk_nonPresence_typeNonPresence1`
-    FOREIGN KEY (`typeNonPresence_idtypeNonPresence`)
-    REFERENCES `presencescf2m`.`typeInapplication` (`idtypeNonPresence`)
+  `registrations_id` INT UNSIGNED NOT NULL,
+  `specialeventtype_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `iddepart_UNIQUE` (`id` ASC),
+  INDEX `fk_specialevents_registrations1_idx` (`registrations_id` ASC),
+  INDEX `fk_specialevents_specialeventtype1_idx` (`specialeventtype_id` ASC),
+  CONSTRAINT `fk_specialevents_registrations1`
+    FOREIGN KEY (`registrations_id`)
+    REFERENCES `presencescf2m`.`registrations` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_fautes_inscriptions1`
-    FOREIGN KEY (`inscriptions_idinscription`)
-    REFERENCES `presencescf2m`.`inscriptions` (`idinscription`)
+  CONSTRAINT `fk_specialevents_specialeventtype1`
+    FOREIGN KEY (`specialeventtype_id`)
+    REFERENCES `presencescf2m`.`specialeventtype` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `presencescf2m`.`promotions_has_conges`
+-- Table `presencescf2m`.`attendancesheets`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `presencescf2m`.`promotions_has_conges` ;
+DROP TABLE IF EXISTS `presencescf2m`.`attendancesheets` ;
 
-CREATE TABLE IF NOT EXISTS `presencescf2m`.`promotions_has_conges` (
-  `promotions_idpromotion` INT NOT NULL,
-  `conges_idconges` INT NOT NULL,
-  PRIMARY KEY (`promotions_idpromotion`, `conges_idconges`),
-  INDEX `fk_promotions_has_conges_conges1_idx` (`conges_idconges` ASC),
-  INDEX `fk_promotions_has_conges_promotions1_idx` (`promotions_idpromotion` ASC),
-  CONSTRAINT `fk_promotions_has_conges_promotions1`
-    FOREIGN KEY (`promotions_idpromotion`)
-    REFERENCES `presencescf2m`.`promotions` (`idpromotion`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_promotions_has_conges_conges1`
-    FOREIGN KEY (`conges_idconges`)
-    REFERENCES `presencescf2m`.`conges` (`idconges`)
+CREATE TABLE IF NOT EXISTS `presencescf2m`.`attendancesheets` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `file` VARCHAR(150) NOT NULL,
+  `startingdeekdate` DATE NOT NULL,
+  `endingweekdate` DATE NOT NULL,
+  `promotions_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `idfeuillesPresences_UNIQUE` (`id` ASC),
+  INDEX `fk_attendancesheets_promotions1_idx` (`promotions_id` ASC),
+  CONSTRAINT `fk_attendancesheets_promotions1`
+    FOREIGN KEY (`promotions_id`)
+    REFERENCES `presencescf2m`.`promotions` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `presencescf2m`.`feuillesPresences`
+-- Table `presencescf2m`.`proofofabsence`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `presencescf2m`.`feuillesPresences` ;
+DROP TABLE IF EXISTS `presencescf2m`.`proofofabsence` ;
 
-CREATE TABLE IF NOT EXISTS `presencescf2m`.`feuillesPresences` (
-  `idfeuillesPresences` INT NOT NULL AUTO_INCREMENT,
-  `fichier` VARCHAR(150) NOT NULL,
-  `dateDebutSemaine` DATE NOT NULL,
-  `dateFinSemaine` DATE NOT NULL,
-  `promotions_idpromotion` INT NOT NULL,
-  PRIMARY KEY (`idfeuillesPresences`),
-  UNIQUE INDEX `idfeuillesPresences_UNIQUE` (`idfeuillesPresences` ASC),
-  INDEX `fk_feuillesPresences_promotions1_idx` (`promotions_idpromotion` ASC),
-  CONSTRAINT `fk_feuillesPresences_promotions1`
-    FOREIGN KEY (`promotions_idpromotion`)
-    REFERENCES `presencescf2m`.`promotions` (`idpromotion`)
+CREATE TABLE IF NOT EXISTS `presencescf2m`.`proofofabsence` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `file` VARCHAR(255) NOT NULL,
+  `firstdaycovered` DATE NOT NULL,
+  `lastdaycovered` DATE NOT NULL,
+  `specialevents_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `idjustificativefiles_UNIQUE` (`id` ASC),
+  INDEX `fk_proofOfAbsence_specialevents1_idx` (`specialevents_id` ASC),
+  CONSTRAINT `fk_proofOfAbsence_specialevents1`
+    FOREIGN KEY (`specialevents_id`)
+    REFERENCES `presencescf2m`.`specialevents` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `presencescf2m`.`promotions_has_holiday`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `presencescf2m`.`promotions_has_holiday` ;
+
+CREATE TABLE IF NOT EXISTS `presencescf2m`.`promotions_has_holiday` (
+  `promotions_id` INT NOT NULL,
+  `holiday_id` INT NOT NULL,
+  PRIMARY KEY (`promotions_id`, `holiday_id`),
+  INDEX `fk_promotions_has_holiday_holiday1_idx` (`holiday_id` ASC),
+  INDEX `fk_promotions_has_holiday_promotions1_idx` (`promotions_id` ASC),
+  CONSTRAINT `fk_promotions_has_holiday_promotions1`
+    FOREIGN KEY (`promotions_id`)
+    REFERENCES `presencescf2m`.`promotions` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_promotions_has_holiday_holiday1`
+    FOREIGN KEY (`holiday_id`)
+    REFERENCES `presencescf2m`.`holiday` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

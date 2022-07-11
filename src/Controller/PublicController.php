@@ -26,10 +26,14 @@ class PublicController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // Pour afficher le dernier utilisateur connecté sur cette machine
         $lastUsername = $authenticationUtils->getLastUsername();
-        return $this->render('public/homepage.html.twig', [
-            'last_username' => $lastUsername,
-            'error' => $error,
-        ]);
+        if ($this->getUser()) {
+            $path = $this->redirectToRoute("profile_homepage");
+        } else {
+            $path = $this->render('public/homepage.html.twig', [
+                'error' => $error,
+            ]);
+        }
+        return $path;
     }
 
     # Mot de passe oublié

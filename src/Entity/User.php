@@ -69,7 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $theuid;
 
     #[ORM\Column(
-        type: 'integer',
+        type: 'smallint',
         options: [
             "unsigned" => true,
             "default"  => 0,
@@ -77,22 +77,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private int $thestatus;
 
-    #[ORM\Column(
-        type: 'string',
-        length: 11,
-        unique: true,
-    )]
-    private string $thenationalid;
+
 
     #[ORM\OneToMany(
-        mappedBy: 'userid',
-        targetEntity: Inscription::class,
+        mappedBy: 'users',
+        targetEntity: Registrations::class,
     )]
-    private $inscriptions;
+    private $registrations;
 
     public function __construct()
     {
-        $this->inscriptions = new ArrayCollection();
+        $this->registrations = new ArrayCollection();
     }
 
     public function getId() : ?int
@@ -226,45 +221,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getThenationalid() : ?string
-    {
-        return $this->thenationalid;
-    }
 
-    public function setThenationalid(string $thenationalid) : self
-    {
-        $this->thenationalid = $thenationalid;
-
-        return $this;
-    }
 
     /**
-     * @return Collection<int, Inscription>
+     * @return Collection<int, Registrations>
      */
-    public function getInscriptions(): Collection
+    public function getRegistrations(): Collection
     {
-        return $this->inscriptions;
+        return $this->registrations;
     }
 
-    public function addInscription(Inscription $inscription): self
+    public function addRegistration(Registrations $registration): self
     {
-        if (!$this->inscriptions->contains($inscription)) {
-            $this->inscriptions[] = $inscription;
-            $inscription->setUserid($this);
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations[] = $registration;
+            $registration->setUsers($this);
         }
 
         return $this;
     }
 
-    public function removeInscription(Inscription $inscription): self
+    public function removeRegistration(Registrations $registration): self
     {
-        if ($this->inscriptions->removeElement($inscription)) {
+        if ($this->registrations->removeElement($registration)) {
             // set the owning side to null (unless already changed)
-            if ($inscription->getUserid() === $this) {
-                $inscription->setUserid(null);
+            if ($registration->getUsers() === $this) {
+                $registration->setUsers(null);
             }
         }
 
         return $this;
     }
+
+    
 }
