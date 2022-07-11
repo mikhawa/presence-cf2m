@@ -14,6 +14,7 @@ class UserSearchType extends AbstractType
         $builder
             ->add('username',
                 UserAutocompleteField::class,
+                []
 
             )
         ;
