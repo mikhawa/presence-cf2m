@@ -44,14 +44,17 @@ class MailerService
      * @throws SyntaxError
      * @throws TransportExceptionInterface
      */
-    public function toSend(string $subject, string $from, string $to, string $template): void
+    public function toSend(string $subject, string $from, string $to, string $template, array $datas): void
     {
         $email = (new Email())
             ->subject($subject)
             ->from($from)
             ->to($to)
             ->html(
-                $this->twig->render($template),
+                $this->twig->render($template, [
+                    "user" => $datas["username"],
+                    "id" => $datas["theuid"]
+                ]),
                 charset: 'text/html'
             );
 

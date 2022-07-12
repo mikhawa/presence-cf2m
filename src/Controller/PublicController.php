@@ -51,7 +51,7 @@ class PublicController extends AbstractController
             $userFound = $repository->findUserByEmail($request->request->get("email"));
             if ($userFound) {
                 $mailerService->toSend(subject: "thanks",
-                    from: "manuel.mouzelard@hotmail.com", to: $request->request->get("email"), template: 'pwdForgotten/checked.html.twig',
+                    from: "manuel.mouzelard@hotmail.com", to: $request->request->get("email"), template: 'pwdForgotten/checked.html.twig', datas: $userFound
                 );
                 $path = $this->redirectToRoute('profile_homepage');
             } else {

@@ -36,7 +36,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->where('u.themail = :mail')//condition
             ->setParameter('mail', $mail)//prepare
             ->getQuery() // créer la query
-            ->getResult(Query::HYDRATE_ARRAY);//resultat
+            ->getSingleResult(Query::HYDRATE_ARRAY);//resultat
     }
 
     public function remove(User $entity, bool $flush = false): void
