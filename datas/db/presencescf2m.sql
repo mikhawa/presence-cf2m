@@ -74,6 +74,7 @@ DROP TABLE IF EXISTS `presencescf2m`.`holiday` ;
 CREATE TABLE IF NOT EXISTS `presencescf2m`.`holiday` (
   `id` INT NOT NULL,
   `day` DATE NOT NULL,
+  `holidayperiod` TINYINT UNSIGNED NOT NULL DEFAULT 1 COMMENT '1 => matin | 0 => après-midi | 2 => toute la journée',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `jour_UNIQUE` (`day` ASC))
 ENGINE = InnoDB;
