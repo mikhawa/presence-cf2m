@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -26,12 +27,12 @@ class MailerService
      * MailerService constructor.
      *
      * @param MailerInterface $mailer
-     * @param Environment $twig
+     * @param Environment     $twig
      */
     public function __construct(MailerInterface $mailer, Environment $twig)
     {
         $this->mailer = $mailer;
-        $this->twig = $twig;
+        $this->twig   = $twig;
     }
 
     /**
@@ -39,23 +40,27 @@ class MailerService
      * @param string $from
      * @param string $to
      * @param string $template
+     *
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
      * @throws TransportExceptionInterface
      */
-    public function toSend(string $subject, string $from, string $to, string $template): void
+    public function toSend(string $subject, string $from, string $to, array $datas, string $template, Request $request) : void
     {
         $email = (new Email())
             ->subject($subject)
             ->from($from)
             ->to($to)
             ->html(
-                $this->twig->render($template),
+                $this->twig->render($template, [
+                    "user" => $datas["username"],
+                    "uid"  => $datas["theuid"],
+                    "host" => $request->getHost(),
+                    "port" => $request->getPort(),
+                ]),
                 charset: 'text/html'
             );
-
         $this->mailer->send($email);
-
     }
 }

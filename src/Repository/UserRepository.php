@@ -27,19 +27,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * @return User[] Returns an array of User objects
+     * @return User[]|null Returns an array of User objects
      **/
-    public function findUserByEmail($mail): array
+    public function findUserByEmail($mail) : ?array
     {
         return $this->createQueryBuilder('u')
-            ->select('u.username, u.theuid')
-            ->where('u.themail = :mail')//condition
-            ->setParameter('mail', $mail)//prepare
-            ->getQuery() // créer la query
-            ->getResult(Query::HYDRATE_ARRAY);//resultat
+                    ->select('u.username, u.theuid')
+                    ->where('u.themail = :mail')
+                    ->setParameter('mail', $mail)
+                    ->getQuery()
+                    ->getOneOrNullResult(Query::HYDRATE_ARRAY);
     }
 
-    public function remove(User $entity, bool $flush = false): void
+    public function remove(User $entity, bool $flush = false) : void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -51,7 +51,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
-    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword) : void
     {
         if (!$user instanceof User) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
@@ -65,7 +65,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /*  SELECT username, theuid FROM `user`
         WHERE themail = ?;*/
 
-    public function add(User $entity, bool $flush = false): void
+    public function add(User $entity, bool $flush = false) : void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -73,28 +73,28 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             $this->getEntityManager()->flush();
         }
     }
-//    /**
-//     * @return User[] Returns an array of User objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return User[] Returns an array of User objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('u')
+    //            ->andWhere('u.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('u.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
-//    public function findOneBySomeField($value): ?User
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?User
+    //    {
+    //        return $this->createQueryBuilder('u')
+    //            ->andWhere('u.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }
