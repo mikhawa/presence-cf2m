@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\UserRepository;
 use LogicException;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -68,14 +69,11 @@ class PublicController extends AbstractController
     }
 
     # Reset mot de passe
-    #[Route('/pwdForgotten', name: 'app_resetPassword')]
-    public function resetPassword(UserRepository $repository): Response
+    #[Route('/resetPassword', name: 'app_resetPassword')]
+    public function resetPassword(): Response
     {
-
-        $path = $this->render('pwdForgotten/resetPassword.html.twig');
-
-
-
+        return $this->render("pwdForgotten/resetPassword.html.twig");
+    }
 
     # Déconnexion
     #[Route(path: '/logout', name: 'app_logout')]
