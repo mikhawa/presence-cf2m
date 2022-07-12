@@ -67,6 +67,16 @@ class PublicController extends AbstractController
         return $path;
     }
 
+    # Reset mot de passe
+    #[Route('/pwdForgotten', name: 'app_resetPassword')]
+    public function resetPassword(UserRepository $repository): Response
+    {
+
+        $path = $this->render('pwdForgotten/resetPassword.html.twig');
+
+
+
+
     # Déconnexion
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
