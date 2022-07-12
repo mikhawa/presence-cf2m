@@ -3,57 +3,67 @@
 {% block title %}{{ parent() }} - Connexion{% endblock %}
 
 {% block classbody %} class="bg-primary"{% endblock %}
-{% block top %}{% endblock %}
-{% block navbar %}
-    {% block navbrand %}{% endblock %}
-    {% block navsidebar %}{% endblock %}
-    {% block navsearch %}{% endblock %}
-    {% block navcontent %}{% endblock %}
-{% endblock %}
 {% block content %}
-<div id="layoutAuthentication">
-    <div id="layoutAuthentication_content">
-        <main>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-5">
-                        <div class="card shadow-lg border-0 rounded-lg mt-5">
-                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Présences stagiaires - CF2m</h3> <h4 class="text-center font-weight-light my-5">Connexion</h4></div>
-                            <div class="card-body">
-                                <form action="" method="post" name="connexion">
-                                    {% if error %}
-                                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                                    {% endif %}
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header"><h3 class="text-center font-weight-light my-4">Présences
+                                        stagiaires
+                                        - CF2m</h3> <h4 class="text-center font-weight-light my-5">Connexion</h4></div>
+                                <div class="card-body">
+                                    <form action="" method="post" name="connexion">
+                                        {% if error %}
+                                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                        {% endif %}
 
-                                    {% if app.user %}
-                                        <div class="mb-3">
-                                            Vous êtes déjà connecté, {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+                                        {% if app.user %}
+                                            <div class="mb-3">
+                                                Vous êtes déjà connecté, {{ app.user.userIdentifier }}, <a
+                                                        href="{{ path('app_logout') }}">Déconnexion</a>
+                                            </div>
+                                        {% endif %}
+                                        <div class="form-floating mb-3">
+                                            <input name="username" class="form-control"
+                                                   id="inputLogin" type="text" placeholder="Votre login"
+                                                   autocomplete="username" required autofocus/>
+                                            <label for="inputLogin">Votre login</label>
                                         </div>
-                                    {% endif %}
-                                    <div class="form-floating mb-3">
-                                        <input name="username" class="form-control" id="inputLogin" type="text" placeholder="Votre login" autocomplete="username" required autofocus/>
-                                        <label for="inputLogin">Votre login</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" name="password" id="inputPassword" type="password" placeholder="Votre mot de passe" autocomplete="current-password" required/>
-                                        <label for="inputPassword">Votre mot de passe</label>
-                                    </div>
-                                    <input type="hidden" name="_csrf_token"
-                                           value="{{ csrf_token('authenticate') }}"
-                                    >
-                                    <div class="form-check mb-3">
-                                        <input class="form-check-input" id="inputRememberPassword" type="checkbox" name="_remember_me"/>
-                                        <label class="form-check-label" for="inputRememberPassword">Se souvenir de vous sur cette machine</label>
-                                    </div>
-                                    <div class="text-center">
-                                        <input class="btn btn-primary" type="submit" value="Connexion">
-                                    </div>
-                                </form>
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" name="password" id="inputPassword"
+                                                   type="password"
+                                                   placeholder="Votre mot de passe" autocomplete="current-password"
+                                                   required/>
+                                            <label for="inputPassword">Votre mot de passe</label>
+                                        </div>
+                                        <input type="hidden" name="_csrf_token"
+                                               value="{{ csrf_token('authenticate') }}"
+                                        >
+                                        <div class="form-check mb-3 d-flex justify-content-center">
+                                            <input class="form-check-input me-2" id="inputRememberPassword"
+                                                   type="checkbox"
+                                                   name="_remember_me"/>
+                                            <label class="form-check-label" for="inputRememberPassword">Se souvenir de
+                                                vous
+                                                sur cette machine</label>
+                                        </div>
+                                        <div class="text-center">
+                                            <input class="btn btn-primary" type="submit" value="Connexion">
+                                            <a class="btn btn-primary" href="{{ path("app_check") }}" role="button">Mot
+                                                de passe
+                                                oublié ?</a>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
-    </div>{% endblock %}
+            </main>
+        </div>
+    </div>
+{% endblock %}
 
