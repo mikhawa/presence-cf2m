@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    {% block top %}{% endblock %}
+    {% block top %}
+    {% endblock %}
     {% block navbar %}
         {% block navbrand %}{% endblock %}
         {% block navsidebar %}{% endblock %}
         {% block navsearch %}{% endblock %}
         {% block navcontent %}{% endblock %}
     {% endblock %}
-    {% block content %}{% endblock %}
+    {% block content %}
+    {% endblock %}
     {% block footer %}
         <div id="layoutAuthentication_footer">
             <footer class="py-4 bg-light mt-auto">
@@ -18,5 +20,7 @@
                 </div>
             </footer>
         </div>
+    {% endblock %}
+    {% block scripts %}
     {% endblock %}
 {% endblock %}

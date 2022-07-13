@@ -6,9 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content="CF2m - gestion des présences"/>
     <meta name="author" content="CF2m"/>
-    <title>{% block title %}Présences CF2m {% endblock %}</title>
+    <title>
+        {% block title %}Présences CF2m {% endblock %}
+    </title>
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-    {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
     {% block javascripts %}
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -19,7 +23,7 @@
 </head>
 
 <body{% block classbody %}{% endblock %}>
-{% block body %}{% endblock %}
-
+{% block body %}
+{% endblock %}
 </body>
 </html>
