@@ -9,5 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    displayNone(document.querySelector('.toHide'));
+    if (document.querySelector('.toHide')) {
+        displayNone(document.querySelector('.toHide'))
+    }
+
 });
