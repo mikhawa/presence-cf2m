@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="CF2m - gestion des présences" />
-    <meta name="author" content="CF2m" />
-    <title>{% block title %}Présences CF2m {% endblock %}</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content="CF2m - gestion des présences"/>
+    <meta name="author" content="CF2m"/>
+    <title>
+        {% block title %}Présences CF2m {% endblock %}
+    </title>
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-    {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
-    {% block javascripts %}<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-            {{ encore_entry_script_tags('app') }}
+    {% block javascripts %}
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+                crossorigin="anonymous"></script>
+        {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
 
-    <body{% block classbody %}{% endblock %}>
-        {% block body %}{% endblock %}
-    </body>
+<body{% block classbody %}{% endblock %}>
+{% block body %}
+{% endblock %}
+</body>
 </html>

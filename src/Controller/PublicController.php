@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\UserRepository;
 use App\Services\MailerService;
 use LogicException;
+use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +20,7 @@ class PublicController extends AbstractController
 {
     # Homepage et Connexion
     #[Route('/', name: 'app_homepage')]
-    public function index(AuthenticationUtils $authenticationUtils) : Response
+    public function index(AuthenticationUtils $authenticationUtils): Response
     {
         // En cas d'erreur d'authentification
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -27,8 +28,7 @@ class PublicController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
         if ($this->getUser()) {
             $path = $this->redirectToRoute("profile_homepage");
-        }
-        else {
+        } else {
             $path = $this->render('public/homepage.html.twig', [
                 'error' => $error,
             ]);
@@ -45,7 +45,7 @@ class PublicController extends AbstractController
      * @throws LoaderError
      */
     #[Route('/pwdForgotten', name: 'app_check')]
-    public function pwdForgotten(UserRepository $repository, Request $request, MailerService $mailerService) : Response
+    public function pwdForgotten(UserRepository $repository, Request $request, MailerService $mailerService): Response
     {
         $userFound = $request->isMethod("POST") ? $repository->findUserByEmail($request->request->get("email")) : null;
         if ($request->isMethod("POST")) {
@@ -58,28 +58,29 @@ class PublicController extends AbstractController
                     template: 'pwd_reset/mail.html.twig',
                     request: $request);
                 $path = $this->redirectToRoute("app_homepage");
-            }
-            else {
+            } else {
                 $path = $this->render('pwd_reset/form.html.twig', [
                     "alert" => "No user were found with this email",
                 ]);
             }
-        }
-        else {
+        } else {
             $path = $this->getUser() ? $this->redirectToRoute("profile_homepage") : $this->render('pwd_reset/form.html.twig');
         }
         return $path;
     }
 
+
     #[Route(path: "/resetPassword/U{user}&I{id}", name: "app_reset_password")]
-    public function resetPassword($user, $id)
+    public function resetPassword($user, $id): Response
     {
-        die(var_dump($user, $id));
+        return $this->render("pwd_reset/reset.html.twig", [
+            "user" => "admin1"
+        ]);
     }
 
     # Déconnexion
     #[Route(path: '/logout', name: 'app_logout')]
-    public function logout() : void
+    public function logout(): void
     {
         throw new LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }

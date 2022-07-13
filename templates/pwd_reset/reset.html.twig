@@ -1,0 +1,66 @@
+{% extends 'template.sbadmin.html.twig' %}
+{% block title %}{{ parent() }} - Récupération de mot de passe{% endblock %}
+{% block classbody %} class="bg-primary"{% endblock %}
+ {% block content %}
+     <div id="layoutAuthentication">
+         <div id="layoutAuthentication_content">
+             <main>
+                 <div class="container">
+                     <div class="row justify-content-center">
+                         <div class="col-lg-5">
+                             <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                 <div class="card-header">
+                                     <h4 class="text-center font-weight-light my-4">Création d'un
+                                         nouveau mot de passe
+                                     </h4>
+                                     <h5 class="text-center font-weight-light my-5">
+                                         {{ user|capitalize }}, veuillez remplir les cases ci-dessous
+                                     </h5>
+                                 </div>
+                                 <div class="card-body">
+                                     <form action="" method="post" name="recoveryPwd">
+                                         <div class="form-floating mb-3">
+                                             <input name="pwd" class="form-control"
+                                                    id="pwd" type="password" placeholder="Votre nouveau mot de passe"
+                                                    minlength="2"
+                                                    required/>
+                                             <label for="pwd">Votre nouveau mot de passe</label>
+                                         </div>
+
+                                         <div class="form-floating mb-3">
+                                             <input name="verifpwd" class="form-control"
+                                                    id="verifPwd" type="password"
+                                                    placeholder="Entrez votre nouveau mot de passe une deuxième fois"
+                                                    minlength="2"
+                                                    required/>
+                                             <label for="verifpwd" id="colorPwd">Entrez votre nouveau mot de passe une
+                                                 deuxième
+                                                 fois</label>
+                                         </div>
+
+                                         <div class="text-center">
+                                             <input class="btn btn-primary" type="submit" value="Valider" disabled>
+                                         </div>
+                                     </form>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+             </main>
+         </div>
+     </div>
+ {% endblock %}
+{% block scripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            function passverif(target, pwd, verifPwd) {
+                target.style.color = pwd.value !== verifPwd.value ? "#f00" : "#0f0";
+            }
+
+            let verifPwd = document.querySelector("#verifPwd");
+            verifPwd.addEventListener("keyup", () => {
+                passverif(document.querySelector("#colorPwd"), document.querySelector("#pwd"), verifPwd);
+            })
+        })
+    </script>
+{% endblock %}
