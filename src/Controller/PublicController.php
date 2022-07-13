@@ -71,8 +71,11 @@ class PublicController extends AbstractController
 
 
     #[Route(path: "/resetPassword/U{user}&I{id}", name: "app_reset_password")]
-    public function resetPassword($user, $id): Response
+    public function resetPassword(string $user, string $id, Request $request, UserRepository $repository): Response
     {
+        if ($request->isMethod("POST") && $request->request->get("password") === $request->request->get("passwordVerify")) {
+            die(var_dump($repository->changePassword($request->request->get("password"), $id, $user)));
+        }
         return $this->render("pwd_reset/reset.html.twig", [
             "user" => "admin1"
         ]);

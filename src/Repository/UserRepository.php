@@ -4,11 +4,13 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use ContainerLeXoq2I\getDoctrine_UuidGeneratorService;
 use function get_class;
 
 /**
@@ -28,7 +30,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * @return User[]|null Returns an array of User objects
-     **/
+     *
+     * @throws NonUniqueResultException
+     */
     public function findUserByEmail($mail): ?array
     {
         return $this->createQueryBuilder('u')
@@ -37,6 +41,24 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->setParameter('mail', $mail)
             ->getQuery()
             ->getOneOrNullResult(Query::HYDRATE_ARRAY);
+    }
+
+    /*
+     *  UPDATE user SET `password`= ?, `theuid` = ?
+        WHERE 	`theuid` = ?
+        AND 	`username` = ?;
+     */
+    public function changePassword(string $newPwd, string $lastUid, string $username): Query
+    {
+        return $this->createQueryBuilder('u')
+            ->update("user")
+            ->set("u.password", $newPwd)
+            ->set("u.theuid", 1)
+            ->where("u.theuid = :uid")
+            ->setParameter("uid", $lastUid)
+            ->andWhere("u.username = :username")
+            ->setParameter("username", $username)
+            ->getQuery();
     }
 
     public function remove(User $entity, bool $flush = false): void
@@ -62,9 +84,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->add($user, true);
     }
 
-    /*  SELECT username, theuid FROM `user`
-        WHERE themail = ?;*/
-
     public function add(User $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -74,11 +93,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
     }
 
-    /*
-     * UPDATE user SET `password`= ?, `theuid` = ?
-        WHERE 	`theuid` = ?
-        AND 	`username` = ?;
-     * */
+
 
 
 //    /**
