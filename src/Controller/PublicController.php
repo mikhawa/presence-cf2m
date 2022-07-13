@@ -51,22 +51,22 @@ class PublicController extends AbstractController
         if ($request->isMethod("POST")) {
             if ($userFound) {
                 $mailerService->toSend(
-                    subject: "thanks",
-                    from: "manuel.mouzelard@hotmail.com",
+                    subject: "Réinitialisation de votre mot de passe",
+                    from: $this->getParameter("app.admin_mail"),
                     to: $request->request->get("email"),
                     datas: $repository->findUserByEmail($request->request->get("email")),
-                    template: 'pwdForgotten/checked.html.twig',
+                    template: 'pwd_reset/mail.html.twig',
                     request: $request);
                 $path = $this->redirectToRoute("app_homepage");
             }
             else {
-                $path = $this->render('pwdForgotten/check.html.twig', [
+                $path = $this->render('pwd_reset/form.html.twig', [
                     "alert" => "No user were found with this email",
                 ]);
             }
         }
         else {
-            $path = $this->render('pwdForgotten/check.html.twig');
+            $path = $this->render('pwd_reset/form.html.twig');
         }
         return $path;
     }
