@@ -27,16 +27,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * @return User[] Returns an array of User objects
+     * @return User[]|null Returns an array of User objects
      **/
-    public function findUserByEmail($mail): array
+    public function findUserByEmail($mail): ?array
     {
         return $this->createQueryBuilder('u')
             ->select('u.username, u.theuid')
-            ->where('u.themail = :mail')//condition
-            ->setParameter('mail', $mail)//prepare
-            ->getQuery() // créer la query
-            ->getSingleResult(Query::HYDRATE_ARRAY);//resultat
+            ->where('u.themail = :mail')
+            ->setParameter('mail', $mail)
+            ->getQuery()
+            ->getOneOrNullResult(Query::HYDRATE_ARRAY);
     }
 
     public function remove(User $entity, bool $flush = false): void
@@ -80,7 +80,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         AND 	`username` = ?;
      * */
 
-     
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
@@ -96,13 +96,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?User
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?User
+    //    {
+    //        return $this->createQueryBuilder('u')
+    //            ->andWhere('u.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

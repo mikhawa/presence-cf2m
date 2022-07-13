@@ -3,16 +3,15 @@
 namespace App\Controller;
 
 use App\Repository\UserRepository;
+use App\Services\MailerService;
 use LogicException;
 use phpDocumentor\Reflection\Types\This;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
-use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use App\Services\MailerService;
 use Twig\error\LoaderError;
 use Twig\error\RuntimeError;
 use Twig\error\SyntaxError;
@@ -48,31 +47,33 @@ class PublicController extends AbstractController
     #[Route('/pwdForgotten', name: 'app_check')]
     public function pwdForgotten(UserRepository $repository, Request $request, MailerService $mailerService): Response
     {
+        $userFound = $request->isMethod("POST") ? $repository->findUserByEmail($request->request->get("email")) : null;
         if ($request->isMethod("POST")) {
-            $userFound = $repository->findUserByEmail($request->request->get("email"));
             if ($userFound) {
-                $mailerService->toSend(subject: "thanks",
-                    from: "manuel.mouzelard@hotmail.com", to: $request->request->get("email"), template: 'pwdForgotten/checked.html.twig', datas: $userFound
-                );
-                $path = $this->redirectToRoute('profile_homepage');
+                $mailerService->toSend(
+                    subject: "Réinitialisation de votre mot de passe",
+                    from: $this->getParameter("app.admin_mail"),
+                    to: $request->request->get("email"),
+                    datas: $repository->findUserByEmail($request->request->get("email")),
+                    template: 'pwd_reset/mail.html.twig',
+                    request: $request);
+                $path = $this->redirectToRoute("app_homepage");
             } else {
-                $path = $this->render('pwdForgotten/check.html.twig');
+                $path = $this->render('pwd_reset/form.html.twig', [
+                    "alert" => "No user were found with this email",
+                ]);
             }
-        } elseif ($this->getUser()) {
-            $path = $this->redirectToRoute('profile_homepage');
         } else {
-            $path = $this->render('pwdForgotten/check.html.twig');
+            $path = $this->getUser() ? $this->redirectToRoute("profile_homepage") : $this->render('pwd_reset/form.html.twig');
         }
-
-
         return $path;
     }
 
-    # Reset mot de passe
-    #[Route('/resetPassword', name: 'app_resetPassword')]
-    public function resetPassword(): Response
+
+    #[Route(path: "/resetPassword/U{user}&I{id}", name: "app_reset_password")]
+    public function resetPassword($user, $id): Response
     {
-        return $this->render("pwdForgotten/resetPassword.html.twig", [
+        return $this->render("pwd_reset/reset.html.twig", [
             "user" => "admin1"
         ]);
     }

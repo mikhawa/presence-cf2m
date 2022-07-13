@@ -17,4 +17,4 @@ import './datatables-simple-demo';
 //import './chart-bar-demo';
 //import './chart-pie-demo';
 
-import './js/script';
+import './js/scripts.js';
