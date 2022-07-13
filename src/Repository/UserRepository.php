@@ -73,6 +73,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             $this->getEntityManager()->flush();
         }
     }
+
+    /*
+     * UPDATE user SET `password`= ?, `theuid` = ?
+        WHERE 	`theuid` = ?
+        AND 	`username` = ?;
+     * */
+
+     
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */
