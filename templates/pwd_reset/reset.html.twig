@@ -10,8 +10,8 @@
                          <div class="col-lg-5">
                              <div class="card shadow-lg border-0 rounded-lg mt-5">
                                  <div class="card-header">
-                                     <h4 class="text-center font-weight-light my-4">Création d'un nouveau mot de passe</h4>
-                                     <h5 class="text-center font-weight-light my-5"> {{ user|capitalize }}, veuillez remplir les cases ci-dessous </h5>
+                                     <h4 class="text-center font-weight-light my-2">Création d'un nouveau mot de passe</h4>
+                                     <h5 class="text-center font-weight-light my-2"> Veuillez remplir les champs ci-dessous </h5>
                                  </div>
                                  <div class="card-body">
                                      <form method="post">
@@ -21,7 +21,7 @@
                                          </div>
                                          <div class="form-floating mb-3">
                                              <input onpaste="return false;" ondrop="return false;" oncontextmenu="return false;" name="passwordVerify" class="form-control" id="passwordVerify" type="password" placeholder="Entrez votre nouveau mot de passe une deuxième fois" minlength="2" required/>
-                                             <label for="passwordVerify">Entrez votre nouveau mot de passe une deuxième fois</label>
+                                             <label for="passwordVerify">Validation</label>
                                          </div>
                                          <div class="text-center">
                                              <input class="btn btn-primary" type="submit" value="Valider" id="validateButton" disabled>
