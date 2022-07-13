@@ -41,12 +41,12 @@
                 function change(validateButton, field, checkingField, text = "", verificationText = "") {
                     if (field.value !== checkingField.value) {
                         validateButton.disabled = true;
-                        validateButton.classList.remove("btn-primary");
+                        validateButton.classList.remove([...validateButton.classList].find(e => e.startsWith("btn-")));
                         validateButton.classList.add("btn-danger");
                         validateButton.value = !(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(field.value)) ? `${verificationText}` : `${text}`;
                     }
                     else if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(field.value)) {
-                        validateButton.classList.remove("btn-danger");
+                        validateButton.classList.remove([...validateButton.classList].find(e => e.startsWith("btn-")));
                         validateButton.classList.add("btn-success");
                         validateButton.value    = "Valider";
                         validateButton.disabled = false;
