@@ -66,7 +66,7 @@ class PublicController extends AbstractController
             }
         }
         else {
-            $path = $this->render('pwd_reset/form.html.twig');
+            $path = $this->getUser() ? $this->redirectToRoute("profile_homepage") : $this->render('pwd_reset/form.html.twig');
         }
         return $path;
     }
