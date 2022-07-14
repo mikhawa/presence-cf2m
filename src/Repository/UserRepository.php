@@ -4,11 +4,13 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+
 use function get_class;
 
 /**
@@ -28,7 +30,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * @return User[]|null Returns an array of User objects
-     **/
+     *
+     * @throws NonUniqueResultException
+     */
     public function findUserByEmail($mail): ?array
     {
         return $this->createQueryBuilder('u')
@@ -37,6 +41,26 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->setParameter('mail', $mail)
             ->getQuery()
             ->getOneOrNullResult(Query::HYDRATE_ARRAY);
+    }
+
+    /*
+     *  UPDATE user SET `password`= ?, `theuid` = ?
+        WHERE 	`theuid` = ?
+        AND 	`username` = ?;
+     */
+    public function changePassword(string $newPwd, string $lastUid, string $username): string|bool
+    {
+        return $this->createQueryBuilder('')
+            ->update(User::class, "u")
+            ->set("u.password", ":newPwd")
+            ->setParameter("newPwd", password_hash($newPwd, PASSWORD_DEFAULT))
+            ->set("u.theuid", ":newUid")
+            ->setParameter("newUid", uniqid(more_entropy: true))
+            ->where("u.theuid = :uid")
+            ->setParameter("uid", $lastUid)
+            ->andWhere("u.username = :username")
+            ->setParameter("username", $username)
+            ->getQuery()->execute();
     }
 
     public function remove(User $entity, bool $flush = false): void
@@ -62,9 +86,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->add($user, true);
     }
 
-    /*  SELECT username, theuid FROM `user`
-        WHERE themail = ?;*/
-
     public function add(User $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -74,11 +95,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
     }
 
-    /*
-     * UPDATE user SET `password`= ?, `theuid` = ?
-        WHERE 	`theuid` = ?
-        AND 	`username` = ?;
-     * */
+
 
 
 //    /**
