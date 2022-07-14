@@ -10,7 +10,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
-use ContainerLeXoq2I\getDoctrine_UuidGeneratorService;
+
 use function get_class;
 
 /**
@@ -48,17 +48,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         WHERE 	`theuid` = ?
         AND 	`username` = ?;
      */
-    public function changePassword(string $newPwd, string $lastUid, string $username): Query
+    public function changePassword(string $newPwd, string $lastUid, string $username): string|bool
     {
-        return $this->createQueryBuilder('u')
-            ->update("user")
-            ->set("u.password", $newPwd)
-            ->set("u.theuid", 1)
+        return $this->createQueryBuilder('')
+            ->update(User::class, "u")
+            ->set("u.password", ":newPwd")
+            ->setParameter("newPwd", password_hash($newPwd, PASSWORD_DEFAULT))
+            ->set("u.theuid", ":newUid")
+            ->setParameter("newUid", uniqid(more_entropy: true))
             ->where("u.theuid = :uid")
             ->setParameter("uid", $lastUid)
             ->andWhere("u.username = :username")
             ->setParameter("username", $username)
-            ->getQuery();
+            ->getQuery()->execute();
     }
 
     public function remove(User $entity, bool $flush = false): void
