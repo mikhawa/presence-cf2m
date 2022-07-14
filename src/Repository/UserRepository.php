@@ -10,7 +10,6 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
-
 use function get_class;
 
 /**
@@ -33,14 +32,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      *
      * @throws NonUniqueResultException
      */
-    public function findUserByEmail($mail): ?array
+    public function findUserByEmail($mail) : ?array
     {
         return $this->createQueryBuilder('u')
-            ->select('u.username, u.theuid')
-            ->where('u.themail = :mail')
-            ->setParameter('mail', $mail)
-            ->getQuery()
-            ->getOneOrNullResult(Query::HYDRATE_ARRAY);
+                    ->select('u.username, u.theuid')
+                    ->where('u.themail = :mail')
+                    ->setParameter('mail', $mail)
+                    ->getQuery()
+                    ->getOneOrNullResult(Query::HYDRATE_ARRAY);
     }
 
     /*
@@ -48,22 +47,25 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         WHERE 	`theuid` = ?
         AND 	`username` = ?;
      */
-    public function changePassword(string $newPwd, string $lastUid, string $username): string|bool
+    public function changePassword(string $newPwd, string $lastUid, string $username) : string|bool
     {
         return $this->createQueryBuilder('')
-            ->update(User::class, "u")
-            ->set("u.password", ":newPwd")
-            ->setParameter("newPwd", password_hash($newPwd, PASSWORD_DEFAULT))
-            ->set("u.theuid", ":newUid")
-            ->setParameter("newUid", uniqid(more_entropy: true))
-            ->where("u.theuid = :uid")
-            ->setParameter("uid", $lastUid)
-            ->andWhere("u.username = :username")
-            ->setParameter("username", $username)
-            ->getQuery()->execute();
+                    ->update(User::class, "u")
+                    ->set("u.password", ":newPwd")
+                    ->set("u.theuid", ":newUid")
+                    ->where("u.theuid = :uid")
+                    ->andWhere("u.username = :username")
+                    ->setParameters([
+                        "newPwd"   => password_hash($newPwd, PASSWORD_DEFAULT),
+                        "newUid"   => uniqid(more_entropy: true),
+                        "uid"      => $lastUid,
+                        "username" => $username,
+                    ],
+                    )
+                    ->getQuery()->execute();
     }
 
-    public function remove(User $entity, bool $flush = false): void
+    public function remove(User $entity, bool $flush = false) : void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -75,7 +77,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
-    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword) : void
     {
         if (!$user instanceof User) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
@@ -86,7 +88,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->add($user, true);
     }
 
-    public function add(User $entity, bool $flush = false): void
+    public function add(User $entity, bool $flush = false) : void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -95,23 +97,36 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
     }
 
+    public function getUserByUidAndName(string $uid, string $name) : ?array
+    {
+        return $this->createQueryBuilder("u")
+                    ->select("u.id")
+                    ->where("u.theuid = :uid")
+                    ->andWhere("u.username = :username")
+                    ->setParameters([
+                        "uid"      => $uid,
+                        "username" => $name,
+                    ])
+                    ->getQuery()
+                    ->getOneOrNullResult();
+    }
 
 
 
-//    /**
-//     * @return User[] Returns an array of User objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return User[] Returns an array of User objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('u')
+    //            ->andWhere('u.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('u.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
     //    public function findOneBySomeField($value): ?User
     //    {

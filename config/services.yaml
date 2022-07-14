@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
   app.admin_mail: '%env(ADMIN_MAIL)%'
+  app.verification_password_regex: '%env(PASSWORD_REGEX_VERIFY)%'
 services:
   # default configuration for services in *this* file
   _defaults:

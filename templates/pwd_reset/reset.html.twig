@@ -38,32 +38,32 @@
 {% block scripts %}
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-                function change(validateButton, field, checkingField, text = "", verificationText = "") {
-                    if (field.value !== checkingField.value) {
-                        validateButton.disabled = true;
-                        validateButton.classList.remove([...validateButton.classList].find(e => e.startsWith("btn-")));
-                        validateButton.classList.add("btn-danger");
-                        validateButton.value = !(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(field.value)) ? `${verificationText}` : `${text}`;
-                    }
-                    else if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(field.value)) {
-                        validateButton.classList.remove([...validateButton.classList].find(e => e.startsWith("btn-")));
-                        validateButton.classList.add("btn-success");
-                        validateButton.value    = "Valider";
-                        validateButton.disabled = false;
-                    }
+            function change(validateButton, field, checkingField, text = "", verificationText = "") {
+                if (field.value !== checkingField.value) {
+                    validateButton.disabled = true;
+                    validateButton.classList.remove([...validateButton.classList].find(e => e.startsWith("btn-")));
+                    validateButton.classList.add("btn-danger");
+                    validateButton.value = !(/{{ regex }}/.test(field.value)) ? `${verificationText}` : `${text}`;
                 }
-
-                function passwordVerify(validateButton, field, checkingField) {
-                    field.addEventListener("keyup", (e) => {
-                        change(validateButton, field, checkingField, "Vérifier votre mot de passe", "Votre mot de passe n'est pas conforme");
-                    });
-                    checkingField.addEventListener("keyup", (e) => {
-                        change(validateButton, field, checkingField, "Vos mots de passe ne sont pas les mêmes", "Votre vérification n'est pas conforme");
-                    })
-                }
-
-                passwordVerify(document.querySelector("#validateButton"), document.querySelector("#password"), document.querySelector("#passwordVerify"))
+                else if (/{{ regex }}/.test(field.value)) {
+                    validateButton.classList.remove([...validateButton.classList].find(e => e.startsWith("btn-")));
+                validateButton.classList.add("btn-success");
+                validateButton.value    = "Valider";
+                validateButton.disabled = false;
             }
+        }
+
+        function passwordVerify(validateButton, field, checkingField) {
+            field.addEventListener("keyup", (e) => {
+                change(validateButton, field, checkingField, "Vérifier votre mot de passe", "Votre mot de passe n'est pas conforme");
+            });
+            checkingField.addEventListener("keyup", (e) => {
+                change(validateButton, field, checkingField, "Vos mots de passe ne sont pas les mêmes", "Votre vérification n'est pas conforme");
+            })
+        }
+
+        passwordVerify(document.querySelector("#validateButton"), document.querySelector("#password"), document.querySelector("#passwordVerify"))
+        }
         )
     </script>
 {% endblock %}
