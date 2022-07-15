@@ -2,8 +2,8 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1:3307
--- Généré le : ven. 15 juil. 2022 à 09:33
+-- Hôte : 127.0.0.1:3306
+-- Généré le : ven. 15 juil. 2022 à 17:20
 -- Version du serveur : 10.3.35-MariaDB
 -- Version de PHP : 8.1.7
 
@@ -21,25 +21,9 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `presencescf2m`
 --
+DROP DATABASE IF EXISTS `presencescf2m`;
 CREATE DATABASE IF NOT EXISTS `presencescf2m` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `presencescf2m`;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `attendancesheets`
---
-
-DROP TABLE IF EXISTS `attendancesheets`;
-CREATE TABLE IF NOT EXISTS `attendancesheets` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `promotions_id` int(10) UNSIGNED NOT NULL,
-  `file` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `startingweekdate` date NOT NULL,
-  `endingweekdate` date NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_FFE2C73C10007789` (`promotions_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -70,8 +54,26 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20220706103515', '2022-07-06 10:37:00', 1252),
 ('DoctrineMigrations\\Version20220706135525', '2022-07-06 13:56:39', 763),
 ('DoctrineMigrations\\Version20220714130652', '2022-07-14 13:08:28', 1396),
-('DoctrineMigrations\\Version20220715092507', '2022-07-15 09:25:35', 2484),
-('DoctrineMigrations\\Version20220715093208', '2022-07-15 09:32:23', 2131);
+('DoctrineMigrations\\Version20220715093208', '2022-07-15 09:32:23', 2131),
+('DoctrineMigrations\\Version20220715114423', '2022-07-15 11:44:31', 110),
+('DoctrineMigrations\\Version20220715123020', '2022-07-15 12:30:35', 1655);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `inscription`
+--
+
+DROP TABLE IF EXISTS `inscription`;
+CREATE TABLE IF NOT EXISTS `inscription` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `theactive` int(10) UNSIGNED NOT NULL DEFAULT 1,
+  `thebeginning` datetime DEFAULT current_timestamp(),
+  `theend` datetime DEFAULT NULL,
+  `userid_id` int(10) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_5E90F6D658E0A285` (`userid_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -166,8 +168,23 @@ CREATE TABLE IF NOT EXISTS `specialevents` (
   `arrivaltime` time DEFAULT NULL,
   `departuretime` time DEFAULT NULL,
   `message` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `specialeventtype_id_id` int(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_758115978279080` (`registrations_id`)
+  KEY `IDX_758115978279080` (`registrations_id`),
+  KEY `IDX_758115978694366F` (`specialeventtype_id_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `specialeventtype`
+--
+
+DROP TABLE IF EXISTS `specialeventtype`;
+CREATE TABLE IF NOT EXISTS `specialeventtype` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `eventname` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -198,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `roles`, `password`, `thename`, `thesurname`, `themail`, `theuid`, `thestatus`) VALUES
-(1, 'util1', '[\"ROLE_USER\"]', '$2y$13$SpkGmFgdOZq2H.T34dE2De/6uDkMQN2AgroA96TBMI9bTfY58.iRK', 'Util', 'Un', 'mike@cf2m.be', '62b8409f6ca621.51874765', 1),
+(1, 'util1', '[\"ROLE_USER\"]', '$2y$10$1CLXLINR0HjvLTrYkU0G7OEhqvfTdf.dxUO0Ju6dLRbrTnuXJDpwy', 'Util', 'Un', 'michaeljpitz@gmail.com', '62d1a011b40c82.68871385', 1),
 (2, 'perso1', '[\"ROLE_USER\",\"ROLE_PERSO\"]', '$2y$13$O8xaIECsZuyniB53IcSoUeRTMgB5bgM7NU99..t5K.oDiVxdDd47O', 'Formateur', 'Un', 'form@cf2m.be', '62c17fd0c96ee9.44589091', 1),
 (3, 'encode1', '[\"ROLE_USER\",\"ROLE_PERSO\",\"ROLE_ENCODE\"]', '$2y$13$qRPI/dvHLEbXh6m2TqHHf.Yuf9BG8MA/XFe4UibVG.KY0FtRNrpyW', 'Encode', 'Mister', 'encode@cf2m.be', '62c29b139f3a51.05502823', 1),
 (4, 'format1', '[\"ROLE_USER\",\"ROLE_PERSO\",\"ROLE_FORMAT\"]', '$2y$13$VumT2eim34mS0ozalEbhEeJsG4FEglXP.5iPP2sw0PK1FQ1swfu0y', 'Formateur', 'Un', 'format@cf2m.be', '62c2a043841800.30373161', 1),
@@ -210,10 +227,10 @@ INSERT INTO `user` (`id`, `username`, `roles`, `password`, `thename`, `thesurnam
 --
 
 --
--- Contraintes pour la table `attendancesheets`
+-- Contraintes pour la table `inscription`
 --
-ALTER TABLE `attendancesheets`
-  ADD CONSTRAINT `FK_FFE2C73C10007789` FOREIGN KEY (`promotions_id`) REFERENCES `promotions` (`id`);
+ALTER TABLE `inscription`
+  ADD CONSTRAINT `FK_5E90F6D658E0A285` FOREIGN KEY (`userid_id`) REFERENCES `user` (`id`);
 
 --
 -- Contraintes pour la table `promotions`
@@ -232,7 +249,8 @@ ALTER TABLE `registrations`
 -- Contraintes pour la table `specialevents`
 --
 ALTER TABLE `specialevents`
-  ADD CONSTRAINT `FK_758115978279080` FOREIGN KEY (`registrations_id`) REFERENCES `registrations` (`id`);
+  ADD CONSTRAINT `FK_758115978279080` FOREIGN KEY (`registrations_id`) REFERENCES `registrations` (`id`),
+  ADD CONSTRAINT `FK_758115978694366F` FOREIGN KEY (`specialeventtype_id_id`) REFERENCES `specialeventtype` (`id`);
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
