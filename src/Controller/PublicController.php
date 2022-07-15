@@ -57,6 +57,7 @@ class PublicController extends AbstractController
                     datas: $repository->findUserByEmail($request->request->get("email")),
                     template: 'pwd_reset/mail.html.twig',
                     request: $request);
+                $this->addFlash('success', "Un mail de récupération de mot de passe vous a été envoyé sur l'adresse: " . $request->request->get("email"));
                 $path = $this->redirectToRoute("app_homepage");
             }
             else {
