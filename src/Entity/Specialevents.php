@@ -70,6 +70,10 @@ class Specialevents
     )]
     private $registrations;
 
+    #[ORM\ManyToOne(targetEntity: Specialeventtype::class, inversedBy: 'specialevents')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $specialeventtype_id;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -155,6 +159,18 @@ class Specialevents
     public function setRegistrations(?Registrations $registrations): self
     {
         $this->registrations = $registrations;
+
+        return $this;
+    }
+
+    public function getSpecialeventtypeId(): ?Specialeventtype
+    {
+        return $this->specialeventtype_id;
+    }
+
+    public function setSpecialeventtypeId(?Specialeventtype $specialeventtype_id): self
+    {
+        $this->specialeventtype_id = $specialeventtype_id;
 
         return $this;
     }
