@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\Options;
 use App\Repository\PromotionsRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -69,6 +71,10 @@ class Promotions
     )]
     private $registrations;
 
+    #[ORM\ManyToOne(targetEntity: Options::class, inversedBy: 'promotions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $options;
+
     public function __construct()
     {
         $this->registrations = new ArrayCollection();
@@ -103,24 +109,24 @@ class Promotions
         return $this;
     }
 
-    public function getStartingdate(): ?\DateTimeInterface
+    public function getStartingdate(): ?DateTimeInterface
     {
         return $this->startingdate;
     }
 
-    public function setStartingdate(?\DateTimeInterface $startingdate): self
+    public function setStartingdate(?DateTimeInterface $startingdate): self
     {
         $this->startingdate = $startingdate;
 
         return $this;
     }
 
-    public function getEndingdate(): ?\DateTimeInterface
+    public function getEndingdate(): ?DateTimeInterface
     {
         return $this->endingdate;
     }
 
-    public function setEndingdate(?\DateTimeInterface $endingdate): self
+    public function setEndingdate(?DateTimeInterface $endingdate): self
     {
         $this->endingdate = $endingdate;
 
@@ -177,6 +183,18 @@ class Promotions
                 $registration->setPromotions(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOptions(): ?Options
+    {
+        return $this->options;
+    }
+
+    public function setOptions(?Options $options): self
+    {
+        $this->options = $options;
 
         return $this;
     }
