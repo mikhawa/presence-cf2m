@@ -54,10 +54,11 @@ class PublicController extends AbstractController
                     subject: "Réinitialisation de votre mot de passe",
                     from: $this->getParameter("app.admin_mail"),
                     to: $request->request->get("email"),
-                    datas: $repository->findUserByEmail($request->request->get("email")),
+                    datas: $userFound,
                     template: 'pwd_reset/mail.html.twig',
                     request: $request);
                 $this->addFlash('success', "Un mail de récupération de mot de passe vous a été envoyé sur l'adresse: " . $request->request->get("email"));
+                $repository->password_Url_Lifetime($userFound["theuid"], $userFound["username"]);
                 $path = $this->redirectToRoute("app_homepage");
             }
             else {

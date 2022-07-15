@@ -7,10 +7,10 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Cache\Adapter\PdoAdapter;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
-use function get_class;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -111,8 +111,22 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                     ->getOneOrNullResult();
     }
 
-
-
+    public function password_Url_Lifetime(string $lastUid, string $userName)
+    {
+        $sql = $this->getEntityManager()->getConnection()->prepare("
+            CREATE EVENT `:event`
+                 ON SCHEDULE AT (CURRENT_TIMESTAMP + INTERVAL 30 MINUTE_SECOND) ON COMPLETION NOT PRESERVE ENABLE 
+                 DO 
+                     UPDATE user u 
+                     SET u.theuid = :newUid
+                     WHERE u.theuid = :lastUid
+                     AND u.username = :username;");
+        $sql->bindValue("event", "Upid-" . $lastUid);
+        $sql->bindValue("newUid", uniqid(more_entropy: true));
+        $sql->bindValue("lastUid", $lastUid);
+        $sql->bindValue("username", $userName);
+        $sql->executeQuery();
+    }
     //    /**
     //     * @return User[] Returns an array of User objects
     //     */
