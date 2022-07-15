@@ -74,6 +74,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
     }
 
+    public function userRoleAutocomplete($role)
+    {
+        $qb = $this->createQueryBuilder('u')
+        ->select('u.username')
+        ->where('u.roles LIKE :roles')
+        ->setParameter('roles', $role)
+        ->getQuery()->getResult();
+
+        return $qb;
+    }
+
     /*
      * UPDATE user SET `password`= ?, `theuid` = ?
         WHERE 	`theuid` = ?
