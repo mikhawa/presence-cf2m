@@ -75,9 +75,13 @@ class Promotions
     #[ORM\JoinColumn(nullable: false)]
     private $options;
 
+    #[ORM\OneToMany(mappedBy: 'promotions', targetEntity: Attendancesheets::class, orphanRemoval: true)]
+    private $attendancesheets;
+
     public function __construct()
     {
         $this->registrations = new ArrayCollection();
+        $this->attendancesheets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -195,6 +199,36 @@ class Promotions
     public function setOptions(?Options $options): self
     {
         $this->options = $options;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Attendancesheets>
+     */
+    public function getAttendancesheets(): Collection
+    {
+        return $this->attendancesheets;
+    }
+
+    public function addAttendancesheet(Attendancesheets $attendancesheet): self
+    {
+        if (!$this->attendancesheets->contains($attendancesheet)) {
+            $this->attendancesheets[] = $attendancesheet;
+            $attendancesheet->setPromotions($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttendancesheet(Attendancesheets $attendancesheet): self
+    {
+        if ($this->attendancesheets->removeElement($attendancesheet)) {
+            // set the owning side to null (unless already changed)
+            if ($attendancesheet->getPromotions() === $this) {
+                $attendancesheet->setPromotions(null);
+            }
+        }
 
         return $this;
     }
