@@ -8,53 +8,41 @@
         <div id="layoutAuthentication_content">
             <main>
                 <div class="container">
+                    {% for success in app.flashes('success') %}
+                        <div class="row bg-success w-100 m-0 mt-3 rounded-3 p-3 position-relative toHide">
+                            <h5 class="text-white m-2"> {{ success }}</h5>
+                            <button type="button" class="btn-close btn-close-white me-2 position-absolute top-50 end-0 translate-middle-y" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
                     <div class="row justify-content-center">
                         <div class="col-lg-5">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                <div class="card-header"><h3 class="text-center font-weight-light my-4">Présences
-                                        stagiaires
-                                        - CF2m</h3> <h4 class="text-center font-weight-light my-5">Connexion</h4></div>
+                                <div class="card-header">
+                                    <h3 class="text-center font-weight-light my-4">Présences stagiaires- CF2m</h3>
+                                    <h4 class="text-center font-weight-light my-3">Connexion</h4>
+                                </div>
                                 <div class="card-body">
                                     <form action="" method="post" name="connexion">
                                         {% if error %}
                                             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                                         {% endif %}
 
-                                        {% if app.user %}
-                                            <div class="mb-3">
-                                                Vous êtes déjà connecté, {{ app.user.userIdentifier }}, <a
-                                                        href="{{ path('app_logout') }}">Déconnexion</a>
-                                            </div>
-                                        {% endif %}
                                         <div class="form-floating mb-3">
-                                            <input name="username" class="form-control"
-                                                   id="inputLogin" type="text" placeholder="Votre login"
-                                                   autocomplete="username" required autofocus/>
+                                            <input name="username" class="form-control" id="inputLogin" type="text" placeholder="Votre login" autocomplete="username" required autofocus/>
                                             <label for="inputLogin">Votre login</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" name="password" id="inputPassword"
-                                                   type="password"
-                                                   placeholder="Votre mot de passe" autocomplete="current-password"
-                                                   required/>
+                                            <input class="form-control" name="password" id="inputPassword" type="password" placeholder="Votre mot de passe" autocomplete="current-password" required/>
                                             <label for="inputPassword">Votre mot de passe</label>
                                         </div>
-                                        <input type="hidden" name="_csrf_token"
-                                               value="{{ csrf_token('authenticate') }}"
-                                        >
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                                         <div class="form-check mb-3 d-flex justify-content-center">
-                                            <input class="form-check-input me-2" id="inputRememberPassword"
-                                                   type="checkbox"
-                                                   name="_remember_me"/>
-                                            <label class="form-check-label" for="inputRememberPassword">Se souvenir de
-                                                vous
-                                                sur cette machine</label>
+                                            <input class="form-check-input me-2" id="inputRememberPassword" type="checkbox" name="_remember_me"/>
+                                            <label class="form-check-label" for="inputRememberPassword">Se souvenir de vous sur cette machine</label>
                                         </div>
                                         <div class="text-center">
-                                            <input class="btn btn-primary" type="submit" value="Connexion">
-                                            <a class="btn btn-primary" href="{{ path("app_check") }}" role="button">Mot
-                                                de passe
-                                                oublié ?</a>
+                                            <input class="btn btn-primary w-100 mb-2" type="submit" value="Connexion">
+                                            <a class="btn btn-dark w-100" href="{{ path("app_check") }}" role="button">Mot de passe oublié ?</a>
                                         </div>
                                     </form>
                                 </div>
@@ -66,4 +54,15 @@
         </div>
     </div>
 {% endblock %}
-
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(() => {
+            if ($(".toHide").length) {
+                setTimeout(() => {
+                    $(".toHide").fadeOut(1000);
+                }, 5000);
+            }
+        })
+    </script>
+{% endblock %}
