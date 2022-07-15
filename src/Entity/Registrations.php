@@ -63,6 +63,10 @@ class Registrations
     )]
     private $specialevents;
 
+    #[ORM\OneToOne(inversedBy: 'registrations', targetEntity: Followups::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private $followups;
+
     public function __construct()
     {
         $this->specialevents = new ArrayCollection();
@@ -159,6 +163,18 @@ class Registrations
                 $specialevent->setRegistrations(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFollowups(): ?Followups
+    {
+        return $this->followups;
+    }
+
+    public function setFollowups(Followups $followups): self
+    {
+        $this->followups = $followups;
 
         return $this;
     }
