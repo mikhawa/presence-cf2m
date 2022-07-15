@@ -1,69 +1,105 @@
 {% extends 'template.sbadmin.html.twig' %}
 {% block title %}{{ parent() }} - Récupération de mot de passe{% endblock %}
 {% block classbody %} class="bg-primary"{% endblock %}
- {% block content %}
-     <div id="layoutAuthentication">
-         <div id="layoutAuthentication_content">
-             <main>
-                 <div class="container">
-                     <div class="row justify-content-center">
-                         <div class="col-lg-5">
-                             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                 <div class="card-header">
-                                     <h4 class="text-center font-weight-light my-2">Création d'un nouveau mot de passe</h4>
-                                     <h5 class="text-center font-weight-light my-2"> Veuillez remplir les champs ci-dessous </h5>
-                                 </div>
-                                 <div class="card-body">
-                                     <form method="post">
-                                         <div class="form-floating mb-3">
-                                             <input onpaste="return false;" ondrop="return false;" oncontextmenu="return false;" name="password" class="form-control" id="password" type="password" placeholder="Votre nouveau mot de passe" minlength="2" required/>
-                                             <label for="password">Votre nouveau mot de passe</label>
-                                         </div>
-                                         <div class="form-floating mb-3">
-                                             <input onpaste="return false;" ondrop="return false;" oncontextmenu="return false;" name="passwordVerify" class="form-control" id="passwordVerify" type="password" placeholder="Entrez votre nouveau mot de passe une deuxième fois" minlength="2" required/>
-                                             <label for="passwordVerify">Validation</label>
-                                         </div>
-                                         <div class="text-center">
-                                             <input class="btn btn-primary" type="submit" value="Valider" id="validateButton" disabled>
-                                         </div>
-                                     </form>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-             </main>
-         </div>
-     </div>
- {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+
+    </style>
+{% endblock %}
+{% block content %}
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header">
+                                    <h4 class="text-center font-weight-light my-3">Création d'un nouveau mot de passe</h4>
+                                    <h5 class="text-center font-weight-light my-2"> Veuillez remplir les champs ci-dessous </h5>
+                                    <hr/>
+                                    <p>Votre mot de passe doit contenir:</p>
+                                    <ul>
+                                        <li>Au moins 8 charactères</li>
+                                        <li>Au moins un charactère en majuscule</li>
+                                        <li>Au moins un charactère spécial</li>
+                                        <li>Au moins un chiffre</li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <form method="post">
+                                        <div class="form-floating d-flex mb-3">
+                                            <input onpaste="return false;" ondrop="return false;" oncontextmenu="return false;" name="password" class="form-control" id="password" type="password" placeholder="Votre nouveau mot de passe" minlength="8" required/>
+                                            <div class="input-group-prepend eyeBtn" style="width: 10%">
+                                                <span role="button" class="btn input-group-text h-100 d-flex justify-content-center"><i class="fas fa-eye-slash" id="eyePwdSlash"></i></span>
+                                            </div>
+                                            <label for="password">Votre nouveau mot de passe</label>
+                                        </div>
+                                        <div class="form-floating d-flex mb-3">
+                                            <input onpaste="return false;" ondrop="return false;" oncontextmenu="return false;" name="passwordVerify" class="form-control" id="passwordVerify" type="password" placeholder="Entrez votre nouveau mot de passe une deuxième fois" minlength="8" required/>
+                                            <label for="passwordVerify">Validation</label>
+                                            <div class="input-group-prepend eyeBtn" style="width: 10%">
+                                                <span role="button" class="btn input-group-text h-100 d-flex justify-content-center eyeBtn"><i class="fas fa-eye-slash" id="eyeVerifPwdSlash"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <input class="btn btn-primary" type="submit" value="Valider" id="validateButton" disabled>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </main>
+        </div>
+    </div>
+{% endblock %}
 {% block scripts %}
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+        $(document).ready(() => {
             function change(validateButton, field, checkingField, text = "", verificationText = "") {
-                if (field.value !== checkingField.value) {
-                    validateButton.disabled = true;
-                    validateButton.classList.remove([...validateButton.classList].find(e => e.startsWith("btn-")));
-                    validateButton.classList.add("btn-danger");
-                    validateButton.value = !(/{{ regex }}/.test(field.value)) ? `${verificationText}` : `${text}`;
+                validateButton.removeClass(validateButton.attr("class").split(/\s+/).find(e => e.startsWith("btn-")));
+                validateButton.prop("disabled", field.val() !== checkingField.val() || !({{ regex }}).test(field.val()));
+                if (field.val() !== checkingField.val()) {
+                    validateButton.addClass("btn-danger");
+                    validateButton.val(!(({{ regex }}).test(field.val())) ? `${verificationText}` : `${text}`);
                 }
-                else if (/{{ regex }}/.test(field.value)) {
-                    validateButton.classList.remove([...validateButton.classList].find(e => e.startsWith("btn-")));
-                validateButton.classList.add("btn-success");
-                validateButton.value    = "Valider";
-                validateButton.disabled = false;
+                else if (({{ regex }}).test(field.val())) {
+                    validateButton.addClass("btn-success");
+                    validateButton.val("Valider");
+                }
             }
-        }
 
-        function passwordVerify(validateButton, field, checkingField) {
-            field.addEventListener("keyup", (e) => {
-                change(validateButton, field, checkingField, "Vérifier votre mot de passe", "Votre mot de passe n'est pas conforme");
-            });
-            checkingField.addEventListener("keyup", (e) => {
-                change(validateButton, field, checkingField, "Vos mots de passe ne sont pas les mêmes", "Votre vérification n'est pas conforme");
-            })
-        }
+            function passwordVerify(validateButton, field, checkingField) {
+                field.keyup(() => {
+                    change(validateButton, field, checkingField, "Vérifier votre mot de passe", "Votre mot de passe n'est pas conforme");
+                });
+                checkingField.keyup(() => {
+                    change(validateButton, field, checkingField, "Vos mots de passe ne sont pas les mêmes", "Votre vérification n'est pas conforme");
+                });
+            }
 
-        passwordVerify(document.querySelector("#validateButton"), document.querySelector("#password"), document.querySelector("#passwordVerify"))
-        }
-        )
+            passwordVerify($("#validateButton"), $("#password"), $("#passwordVerify"));
+
+            $(".eyeBtn").each(function() {
+                    $(this).hover(function() {
+                            $(this).children().children()
+                                   .removeClass($(this).siblings().attr("type") === "password" ? 'fa-eye-slash' : "fa-eye")
+                                   .addClass($(this).siblings().attr("type") === "password" ? "fa-eye" : "fa-eye-slash");
+                        }
+                    )
+                    $(this).mouseleave(function() {
+                            $(this).children().children()
+                                   .removeClass($(this).siblings().attr("type") === "password" ? 'fa-eye' : "fa-eye-slash")
+                                   .addClass($(this).siblings().attr("type") === "password" ? "fa-eye-slash" : "fa-eye");
+                        }
+                    )
+                    $(this).click(function() {
+                        $(this).siblings().attr("type", $(this).siblings().attr("type") === "password" ? "text" : "password")
+                    })
+                }
+            )
+        })
     </script>
 {% endblock %}

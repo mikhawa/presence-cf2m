@@ -77,7 +77,7 @@ class PublicController extends AbstractController
         if ($repository->getUserByUidAndName($id, $user)) {
             if ($request->isMethod("POST") &&
                 $request->request->get("password") === $request->request->get("passwordVerify") &&
-                preg_match("/" . $this->getParameter("app.verification_password_regex") . "/", $request->request->get("password"))) {
+                preg_match($this->getParameter("app.verification_password_regex"), $request->request->get("password"))) {
                 $repository->changePassword($request->request->get("password"), $id, $user);
                 $path = $this->redirectToRoute("app_homepage");
             }
