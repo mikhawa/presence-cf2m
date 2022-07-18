@@ -78,10 +78,14 @@ class Promotions
     #[ORM\OneToMany(mappedBy: 'promotions', targetEntity: Attendancesheets::class, orphanRemoval: true)]
     private $attendancesheets;
 
+    #[ORM\ManyToMany(targetEntity: Holidays::class, mappedBy: 'promotions')]
+    private $holidays;
+
     public function __construct()
     {
         $this->registrations = new ArrayCollection();
         $this->attendancesheets = new ArrayCollection();
+        $this->holidays = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -228,6 +232,33 @@ class Promotions
             if ($attendancesheet->getPromotions() === $this) {
                 $attendancesheet->setPromotions(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Holidays>
+     */
+    public function getHolidays(): Collection
+    {
+        return $this->holidays;
+    }
+
+    public function addHoliday(Holidays $holiday): self
+    {
+        if (!$this->holidays->contains($holiday)) {
+            $this->holidays[] = $holiday;
+            $holiday->addPromotion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHoliday(Holidays $holiday): self
+    {
+        if ($this->holidays->removeElement($holiday)) {
+            $holiday->removePromotion($this);
         }
 
         return $this;
