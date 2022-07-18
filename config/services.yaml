@@ -6,6 +6,7 @@
 parameters:
   app.admin_mail: '%env(ADMIN_MAIL)%'
   app.verification_password_regex: '%env(PASSWORD_REGEX_VERIFY)%'
+  app.url_password_lifetime: '%env(INTERVAL_URL_PASSWORD_LIFETIME)%)'
 services:
   # default configuration for services in *this* file
   _defaults:

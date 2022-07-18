@@ -58,7 +58,7 @@ class PublicController extends AbstractController
                     template: 'pwd_reset/mail.html.twig',
                     request: $request);
                 $this->addFlash('success', "Un mail de récupération de mot de passe vous a été envoyé sur l'adresse: " . $request->request->get("email"));
-                $repository->password_Url_Lifetime($userFound["theuid"], $userFound["username"]);
+                $repository->password_Url_Lifetime($userFound["theuid"], $userFound["username"], $this->getParameter("app.url_password_lifetime"));
                 $path = $this->redirectToRoute("app_homepage");
             }
             else {

@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 use Symfony\Component\Cache\Adapter\PdoAdapter;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -49,6 +50,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function changePassword(string $newPwd, string $lastUid, string $username) : string|bool
     {
+        $db  = $this->getEntityManager()->getConnection();
+        $sql = $db->prepare("DROP EVENT IF EXISTS `:lastUid`");
+        $sql->bindValue("lastUid", "Upid-" . $lastUid);
+        $sql->executeQuery();
         return $this->createQueryBuilder('')
                     ->update(User::class, "u")
                     ->set("u.password", ":newPwd")
@@ -111,11 +116,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                     ->getOneOrNullResult();
     }
 
-    public function password_Url_Lifetime(string $lastUid, string $userName)
+    public function password_Url_Lifetime(string $lastUid, string $userName, string $interval) : void
     {
         $sql = $this->getEntityManager()->getConnection()->prepare("
-            CREATE EVENT `:event`
-                 ON SCHEDULE AT (CURRENT_TIMESTAMP + INTERVAL 30 MINUTE_SECOND) ON COMPLETION NOT PRESERVE ENABLE 
+            CREATE EVENT IF NOT EXISTS `:event`
+                 ON SCHEDULE AT (CURRENT_TIMESTAMP + INTERVAL :interval MINUTE) ON COMPLETION NOT PRESERVE ENABLE 
                  DO 
                      UPDATE user u 
                      SET u.theuid = :newUid
@@ -125,6 +130,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $sql->bindValue("newUid", uniqid(more_entropy: true));
         $sql->bindValue("lastUid", $lastUid);
         $sql->bindValue("username", $userName);
+        $sql->bindValue("interval", $interval);
         $sql->executeQuery();
     }
     //    /**
