@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\Options;
 use App\Repository\PromotionsRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -70,9 +72,21 @@ class Promotions
     )]
     private $registrations;
 
+    #[ORM\ManyToOne(targetEntity: Options::class, inversedBy: 'promotions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $options;
+
+    #[ORM\OneToMany(mappedBy: 'promotions', targetEntity: Attendancesheets::class, orphanRemoval: true)]
+    private $attendancesheets;
+
+    #[ORM\ManyToMany(targetEntity: Holidays::class, mappedBy: 'promotions')]
+    private $holidays;
+
     public function __construct()
     {
         $this->registrations = new ArrayCollection();
+        $this->attendancesheets = new ArrayCollection();
+        $this->holidays = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -104,24 +118,24 @@ class Promotions
         return $this;
     }
 
-    public function getStartingdate(): ?\DateTimeInterface
+    public function getStartingdate(): ?DateTimeInterface
     {
         return $this->startingdate;
     }
 
-    public function setStartingdate(?\DateTimeInterface $startingdate): self
+    public function setStartingdate(?DateTimeInterface $startingdate): self
     {
         $this->startingdate = $startingdate;
 
         return $this;
     }
 
-    public function getEndingdate(): ?\DateTimeInterface
+    public function getEndingdate(): ?DateTimeInterface
     {
         return $this->endingdate;
     }
 
-    public function setEndingdate(?\DateTimeInterface $endingdate): self
+    public function setEndingdate(?DateTimeInterface $endingdate): self
     {
         $this->endingdate = $endingdate;
 
@@ -177,6 +191,75 @@ class Promotions
             if ($registration->getPromotions() === $this) {
                 $registration->setPromotions(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getOptions(): ?Options
+    {
+        return $this->options;
+    }
+
+    public function setOptions(?Options $options): self
+    {
+        $this->options = $options;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Attendancesheets>
+     */
+    public function getAttendancesheets(): Collection
+    {
+        return $this->attendancesheets;
+    }
+
+    public function addAttendancesheet(Attendancesheets $attendancesheet): self
+    {
+        if (!$this->attendancesheets->contains($attendancesheet)) {
+            $this->attendancesheets[] = $attendancesheet;
+            $attendancesheet->setPromotions($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttendancesheet(Attendancesheets $attendancesheet): self
+    {
+        if ($this->attendancesheets->removeElement($attendancesheet)) {
+            // set the owning side to null (unless already changed)
+            if ($attendancesheet->getPromotions() === $this) {
+                $attendancesheet->setPromotions(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Holidays>
+     */
+    public function getHolidays(): Collection
+    {
+        return $this->holidays;
+    }
+
+    public function addHoliday(Holidays $holiday): self
+    {
+        if (!$this->holidays->contains($holiday)) {
+            $this->holidays[] = $holiday;
+            $holiday->addPromotion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHoliday(Holidays $holiday): self
+    {
+        if ($this->holidays->removeElement($holiday)) {
+            $holiday->removePromotion($this);
         }
 
         return $this;

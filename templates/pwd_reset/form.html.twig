@@ -19,7 +19,7 @@
                                      {% endif %}
                                      <h4 class="text-center font-weight-light my-4">Récupération de
                                          votre mot de passe</h4>
-                                     <h5 class="text-center font-weight-light my-2">
+                                     <h5 class="text-center font-weight-light my-3">
                                          Veuillez remplir la case ci-dessous</h5></div>
                                  <div class="card-body">
                                      <form action="" method="post" name="recoveryPwd">
@@ -30,7 +30,8 @@
                                              <label for="email">Votre adresse mail</label>
                                          </div>
                                          <div class="text-center">
-                                             <input class="btn btn-primary" type="submit" value="Envoyer">
+                                             <input class="btn btn-primary w-100 mb-2" type="submit" value="Envoyer">
+                                             <a role="button" class="btn btn-secondary w-100" type="submit" href="{{ path("app_homepage") }}">Vous avez changer d'avis?</a>
                                          </div>
                                      </form>
                                  </div>
