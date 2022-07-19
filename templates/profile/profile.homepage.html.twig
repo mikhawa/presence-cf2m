@@ -11,31 +11,69 @@
     {% block navcontent %}{% endblock %}
 {% endblock %}
 {% block content %}
-<div id="layoutAuthentication">
-    <div id="layoutAuthentication_content">
-<main>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="card shadow-lg border-0 rounded-lg mt-5">
-    <div class="mb-2 p-3">
-        <h4>Bienvenue, {{ app.user.username }}</h4><p>Vous avez les permissions de <br>
-            {% for roles in app.user.roles %}{{ roles }}
-                {% if not loop.last %} <br> {% endif %}
-            {% endfor %}</p>
-        {% if is_granted('ROLE_PERSO') %}
-        <p> -> <a href="{{ path("app_print") }}">print</a> - future page d'impression des feuilles de présence, non accessible aux stagiaires, sert pour le moment à d'essais graphiques pour une administration</p>
-        {% endif %}
-        <h5><a href="{{ path('app_logout') }}">Déconnexion</a></h5>
-        {{ dump(app.user) }}
-    </div>
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="mb-2 p-3">
+                                    <h4>Bienvenue, {{ app.user.username }}</h4>
+                                    <p>
+                                        Vous avez les permissions de
+                                        <br>
+                                        {% for roles in app.user.roles %}
+                                            {{ roles }}
+                                            {% if not loop.last %}
+                                                <br>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </p>
+                                    {% if is_granted('ROLE_PERSO') %}
+                                        <p> -> <a href="{{ path("app_print") }}">print</a> - future page d'impression des feuilles de présence, non accessible aux stagiaires, sert pour le moment à d'essais graphiques pour une administration</p>
+                                        <p> -> <a href="{{ path("api_users") }}">api-users</a> - page de récupération de toute les utilisateurs</p>
+                                        <form class="mb-2">
+                                            <label for="roles"> -> api-users-by-role:</label>
+                                            <select name="role" id="roles">
+                                                <option selected disabled>Choisissez un rôle</option>
+                                                {% for role in app.user.roles %}
+                                                    <option value="{{ role }}">{{ role }}</option>
+                                                {% endfor %}
+                                            </select> - page de récupération de toute les utilisateurs par rôle
+                                        </form>
+                                        <p> -> <a href="{{ path("api_interns") }}">api-interns</a> - page de récupération de toute les stagiaires</p>
+                                        <form class="mb-2">
+                                            <label for="formations"> -> api-interns-by-formations:</label>
+                                            <select name="formation" id="formations">
+                                                <option selected disabled>Choisissez une formation</option>
+                                                {% for promotion in promotions %}
+                                                    <option value="{{ promotion.acronym }}">{{ promotion.promoname }}</option>
+                                                {% endfor %}
+                                            </select> - page de récupération de toute les stagiaires par formation
+                                        </form>
+                                    {% endif %}
+                                    <h5><a href="{{ path('app_logout') }}">Déconnexion</a></h5>
+                                    {{ dump(app.user) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </main>
         </div>
     </div>
-</main>
-    </div>
-</div>
 
-                    {% endblock %}
+{% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script>
+        $("#roles").change(() => {
+            window.open(`{{ path("api_users") }}/${$("#roles").val().replace("ROLE_", "")}`, '_blank');
+        })
+        $("#formations").change(() => {
+            window.open(`{{ path("api_interns") }}/${$("#formations").val()}`, '_blank');
+        })
+    </script>
+{% endblock %}
 

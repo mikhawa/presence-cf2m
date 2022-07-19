@@ -134,7 +134,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $sql->executeQuery();
     }
 
-    public function findAllUsersByRole(string $role, bool $strict = false)
+    public function findAllUsersByRole(string $role)
     {
         return $this->createQueryBuilder("u")
                     ->select("u.id, u.thename, u.thesurname, u.themail")
@@ -155,10 +155,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->where("p.acronym = :acronym")
             ->setParameter("acronym", $acronym);
         return $query
-            ->andWhere("p.active !=0")
+            ->andWhere("p.active != 0")
+            ->andWhere("u.thestatus != 0")
             ->getQuery()
             ->getResult();
     }
+    
     //    /**
     //     * @return User[] Returns an array of User objects
     //     */

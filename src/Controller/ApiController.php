@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api', name: 'api_')]
 class ApiController extends AbstractController
 {
-    #[Route('/interns/{formation}', name: 'intern', methods: ["GET"])]
+    #[Route('/interns/{formation}', name: 'interns', methods: ["GET"])]
     public function findAllIntern(UserRepository $repository, string $formation = null) : Response
     {
         $users = $repository->findInternsByPromotions($formation);
