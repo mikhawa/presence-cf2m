@@ -27,7 +27,7 @@ class UserRoleAutocomplete extends AbstractType
                                         ->setParameter('roles', '%ROLE_PERSO%');
                                         
             },
-            //'security' => 'ROLE_SOMETHING',
+            //'security' => 'ROLE_PERSO',
         ]);
     }
 
