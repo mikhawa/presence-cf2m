@@ -2,8 +2,12 @@
 
 namespace App\Repository;
 
+use App\Entity\Followups;
 use App\Entity\Promotions;
+use App\Entity\Proofofabsences;
 use App\Entity\Registrations;
+use App\Entity\Specialevents;
+use App\Entity\Specialeventtype;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -145,10 +149,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                     ->getResult();
     }
 
-    public function findInternsByPromotions(string $acronym = null)
+    public function findInternsByPromotions(string $acronym = null) : ?array
     {
         $query = $this->createQueryBuilder("u")
-                      ->select("u.id, u.thename, u.thesurname, u.themail, r.startingdate AS dateInscription, p.promoname, p.acronym, p.startingdate AS dateDebutPromotion")
+                      ->select("u.id, u.thename, u.thesurname, u.themail, u.username,
+                      r.startingdate AS dateInscription, 
+                      p.promoname, p.acronym, p.startingdate AS dateDebutPromotion")
                       ->innerJoin(Registrations::class, "r", "WITH", "r.users = u.id")
                       ->innerJoin(Promotions::class, "p", "WITH", "r.promotions = p.id");
         !$acronym ? : $query
@@ -158,9 +164,26 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->andWhere("p.active != 0")
             ->andWhere("u.thestatus != 0")
             ->getQuery()
-            ->getResult();
+            ->getResult(QUERY::HYDRATE_ARRAY);
     }
-    
+
+    public function findUserByUsername(string $username)
+    {
+        return $this->createQueryBuilder("u")
+                    ->select("u AS user,r AS registrations,p AS promotions,f AS followups, s AS specialEvents ,pr AS proofofAbsences, sp AS SpecialEventType")
+                    ->innerJoin(Registrations::class, "r", "WITH", "r.users = u.id")
+                    ->innerJoin(Promotions::class, "p", "WITH", "r.promotions = p.id")
+                    ->innerJoin(Followups::class, "f", "WITH", "r.followups = f.id")
+                    ->leftJoin(Specialevents::class, "s", "WITH", "s.registrations = r.id")
+                    ->leftJoin(Proofofabsences::class, "pr", "WITH", "pr.specialevents = s.id")
+                    ->leftJoin(Specialeventtype::class, "sp", "WITH", "s.specialeventtype_id = sp.id")
+                    ->groupBy("u.id")
+                    ->where("u.username = :username")
+                    ->setParameter("username", $username)
+                    ->getQuery()
+                    ->getResult(QUERY::HYDRATE_ARRAY);
+    }
+
     //    /**
     //     * @return User[] Returns an array of User objects
     //     */
