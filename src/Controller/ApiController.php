@@ -10,11 +10,17 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api', name: 'api_')]
 class ApiController extends AbstractController
 {
-    #[Route('/users', name: 'users', methods: ["GET"])]
-    public function index(UserRepository $repository) : Response
+    #[Route('/interns/{formation}', name: 'intern', methods: ["GET"])]
+    public function findAllIntern(UserRepository $repository, string $formation = null) : Response
     {
-        $users = $repository->findAll();
+        $users = $repository->findInternsByPromotions($formation);
+        return $this->json($users);
+    }
 
+    #[Route('/users/{role}', name: 'users', methods: ["GET"])]
+    public function findAllUsersByRole(UserRepository $repository, string $role = "USER") : Response
+    {
+        $users = $repository->findAllUsersByRole($role);
         return $this->json($users);
     }
 }
