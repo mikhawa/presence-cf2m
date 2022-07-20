@@ -16,7 +16,7 @@
             <main>
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-lg-10">
+                        <div class="col-lg-7">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="mb-2 p-3">
                                     <h4>Bienvenue, {{ app.user.username }}</h4>
@@ -32,7 +32,7 @@
                                     </p>
                                     {% if is_granted('ROLE_PERSO') %}
                                         <p> -> <a href="{{ path("app_print") }}">print</a> - future page d'impression des feuilles de présence, non accessible aux stagiaires, sert pour le moment à d'essais graphiques pour une administration</p>
-                                        <p> -> <a href="{{ path("api_users") }}">api-users</a> - page de récupération de toute les utilisateurs</p>
+                                        <p> -> <a href="{{ path("api_users") }}" target="_blank" id="api_users">api-users</a> - page de récupération de tout les utilisateurs</p>
                                         <form class="mb-2">
                                             <label for="roles"> -> api-users-by-role:</label>
                                             <select name="role" id="roles">
@@ -40,9 +40,9 @@
                                                 {% for role in app.user.roles %}
                                                     <option value="{{ role }}">{{ role }}</option>
                                                 {% endfor %}
-                                            </select> - page de récupération de toute les utilisateurs par rôle
+                                            </select> - page de récupération de tout les utilisateurs par rôle
                                         </form>
-                                        <p> -> <a href="{{ path("api_interns") }}">api-interns</a> - page de récupération de toute les stagiaires</p>
+                                        <p> -> <a href="{{ path("api_interns") }}" target="_blank" id="api_interns">api-interns</a> - page de récupération de tout les stagiaires</p>
                                         <form class="mb-2">
                                             <label for="formations"> -> api-interns-by-formations:</label>
                                             <select name="formation" id="formations">
@@ -50,11 +50,19 @@
                                                 {% for promotion in promotions %}
                                                     <option value="{{ promotion.acronym }}">{{ promotion.promoname }}</option>
                                                 {% endfor %}
-                                            </select> - page de récupération de toute les stagiaires par formation
+                                            </select> - page de récupération de tout les stagiaires par formation
                                         </form>
                                     {% endif %}
                                     <h5><a href="{{ path('app_logout') }}">Déconnexion</a></h5>
                                     {{ dump(app.user) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="mb-2 p-3">
+                                    <h4>Récupération des données en AJAX</h4>
+                                    <pre class="bg-black text-white rounded-3 p-3" id="result"> Affichage des données </pre>
                                 </div>
                             </div>
                         </div>
