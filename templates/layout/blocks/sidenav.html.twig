@@ -8,8 +8,9 @@
                 </div>
                 Accueil
             </a>
-            <div class="sb-sidenav-menu-heading">Interface</div>
-            <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            {% if("ROLE_ADMIN" in app.user.roles) %}
+                <div class="sb-sidenav-menu-heading">Administration</div>
+                {# <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon">
                     <i class="fas fa-columns"></i>
                 </div>
@@ -23,42 +24,151 @@
                     <a class="nav-link" role="button">Lien 1</a>
                     <a class="nav-link" role="button">Lien 2</a>
                 </nav>
-            </div>
-            <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                <div class="sb-nav-link-icon">
-                    <i class="fas fa-book-open"></i>
-                </div>
-                Exemple dropdown 2
-                <div class="sb-sidenav-collapse-arrow">
-                    <i class="fas fa-angle-down"></i>
-                </div>
-            </a>
-            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                    <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                        Exemple subdropdown 1
-                        <div class="sb-sidenav-collapse-arrow">
-                            <i class="fas fa-angle-down"></i>
-                        </div>
-                    </a>
-                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" role="button">Lien 1</a>
-                        </nav>
+            </div> #}
+                <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#cruds" aria-expanded="false" aria-controls="cruds">
+                    <div class="sb-nav-link-icon">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
                     </div>
-                    <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                        Exemple subdropdown 2
-                        <div class="sb-sidenav-collapse-arrow">
-                            <i class="fas fa-angle-down"></i>
-                        </div>
-                    </a>
-                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" role="button">Lien 1</a>
-                        </nav>
+                    Cruds
+                    <div class="sb-sidenav-collapse-arrow">
+                        <i class="fas fa-angle-down"></i>
                     </div>
-                </nav>
-            </div>
+                </a>
+                <div class="collapse" id="cruds" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                        <div>
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"users",fas:"fas fa-users"} %}
+                        </div>
+                        <div>
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"inscriptions",fas:"fas fa-user-plus"} %}
+                        </div>
+                        <div>
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"promotions",fas:"fas fa-school"} %}
+                        </div>
+                        <div>
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"options",fas:"fas fa-cogs"} %}
+                        </div>
+                        <div>
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"holidays",fas:"fas fa-calendar-minus"} %}
+                        </div>
+                        <div>
+                            <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-cogs"></i>
+                                </div>
+                                Options
+                                <div class="sb-sidenav-collapse-arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                            </a>
+                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" role="button">Create</a>
+                                    <a class="nav-link" role="button">Read</a>
+                                    <a class="nav-link" role="button">Update</a>
+                                    <a class="nav-link" role="button">Delete</a>
+                                </nav>
+                            </div>
+                        </div>
+                        <div>
+                            <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-cogs"></i>
+                                </div>
+                                Options
+                                <div class="sb-sidenav-collapse-arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                            </a>
+                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" role="button">Create</a>
+                                    <a class="nav-link" role="button">Read</a>
+                                    <a class="nav-link" role="button">Update</a>
+                                    <a class="nav-link" role="button">Delete</a>
+                                </nav>
+                            </div>
+                        </div>
+                        <div>
+                            <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-cogs"></i>
+                                </div>
+                                Options
+                                <div class="sb-sidenav-collapse-arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                            </a>
+                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" role="button">Create</a>
+                                    <a class="nav-link" role="button">Read</a>
+                                    <a class="nav-link" role="button">Update</a>
+                                    <a class="nav-link" role="button">Delete</a>
+                                </nav>
+                            </div>
+                        </div>
+                        <div>
+                            <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-cogs"></i>
+                                </div>
+                                Options
+                                <div class="sb-sidenav-collapse-arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                            </a>
+                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" role="button">Create</a>
+                                    <a class="nav-link" role="button">Read</a>
+                                    <a class="nav-link" role="button">Update</a>
+                                    <a class="nav-link" role="button">Delete</a>
+                                </nav>
+                            </div>
+                        </div>
+                        <div>
+                            <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-cogs"></i>
+                                </div>
+                                Options
+                                <div class="sb-sidenav-collapse-arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                            </a>
+                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" role="button">Create</a>
+                                    <a class="nav-link" role="button">Read</a>
+                                    <a class="nav-link" role="button">Update</a>
+                                    <a class="nav-link" role="button">Delete</a>
+                                </nav>
+                            </div>
+                        </div>
+                        <div>
+                            <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-cogs"></i>
+                                </div>
+                                Options
+                                <div class="sb-sidenav-collapse-arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </div>
+                            </a>
+                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" role="button">Create</a>
+                                    <a class="nav-link" role="button">Read</a>
+                                    <a class="nav-link" role="button">Update</a>
+                                    <a class="nav-link" role="button">Delete</a>
+                                </nav>
+                            </div>
+                        </div>
+                        <div>
+                    </nav>
+                </div>
+            {% endif %}
             <div class="sb-sidenav-menu-heading">Addons</div>
             <a class="nav-link" role="button">
                 <div class="sb-nav-link-icon">
