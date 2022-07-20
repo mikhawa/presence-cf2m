@@ -20,14 +20,14 @@ class UserRoleAutocomplete extends AbstractType
             'class' => User::class,
             'placeholder' => 'Choisissez un nom dans la liste',
             'choice_label' => 'username',
-
             'query_builder' => function(UserRepository $userRepository) {
                 return $userRepository->createQueryBuilder('u')
                                         ->where('u.roles NOT LIKE :roles')
                                         ->setParameter('roles', '%ROLE_PERSO%');
                                         
             },
-            //'security' => 'ROLE_PERSO',
+            "autocomplete_url" =>  "https://www.google.com",
+            'security' => 'ROLE_ADMIN',
         ]);
     }
 

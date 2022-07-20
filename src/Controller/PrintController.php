@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,12 +29,13 @@ class PrintController extends AbstractController
     {
       $user = new User();
       $form = $this->createForm(UserType::class, $user);
+      $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-          return $this->redirectToRoute('app_print');
+          return $this->redirectToRoute('profile_homepage');
         }
-
+  
       return $this->render('print/index.html.twig', [
         'form' => $form->createView()
       ]);
