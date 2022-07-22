@@ -3,7 +3,7 @@
     {{ parent() }}
     <style>
         .sf-dump {
-            margin-bottom : 0;
+            margin-bottom: 0;
         }
     </style>
 {% endblock %}
@@ -27,8 +27,11 @@
                         {% endfor %}
                     </p>
                     {% if is_granted('ROLE_PERSO') %}
-                        <p> -> <a href="{{ path("app_print") }}">print</a> - future page d'impression des feuilles de présence, non accessible aux stagiaires, sert pour le moment à d'essais graphiques pour une administration</p>
-                        <p> -> <a href="{{ path("api_users") }}" target="_blank" id="api_users">api-users</a> - page de récupération de tout les utilisateurs</p>
+                        <p> -> <a href="{{ path("app_print") }}">print</a> - future page d'impression des feuilles de
+                            présence, non accessible aux stagiaires, sert pour le moment à d'essais graphiques pour une
+                            administration</p>
+                        <p> -> <a href="{{ path("api_users") }}" target="_blank" id="api_users">api-users</a> - page de
+                            récupération de tout les utilisateurs</p>
                         <form class="mb-2">
                             <label for="roles"> -> api-users-by-role:</label>
                             <select name="role" id="roles">
@@ -38,7 +41,8 @@
                                 {% endfor %}
                             </select> - page de récupération de tout les utilisateurs par rôle
                         </form>
-                        <p> -> <a href="{{ path("api_interns") }}" target="_blank" id="api_interns">api-interns</a> - page de récupération de tout les stagiaires</p>
+                        <p> -> <a href="{{ path("api_interns") }}" target="_blank" id="api_interns">api-interns</a> -
+                            page de récupération de tout les stagiaires</p>
                         <form class="mb-2">
                             <label for="formations"> -> api-interns-by-formations:</label>
                             <select name="formation" id="formations">
@@ -88,7 +92,24 @@
         \"thesurname\":\"${data.thesurname}\",
         \"thename\":\"${data.thename}\",
         \"themail\":\"${data.themail}\"
-    },</br>`);
+        },</br>`);
+                })
+                $("#result").append(']');
+            })
+        });
+
+        $("#api_interns").click((e) => {
+            e.preventDefault()
+            $("#result").empty();
+            $.get("{{ path("api_interns") }}", (datas) => {
+                $("#result").append('[</br>');
+                datas.forEach((data) => {
+                    $("#result").append(`    {
+        \"id\":${data.id},
+        \"thesurname\":\"${data.thesurname}\",
+        \"thename\":\"${data.thename}\",
+        \"themail\":\"${data.themail}\"
+        },</br>`);
                 })
                 $("#result").append(']');
             })
