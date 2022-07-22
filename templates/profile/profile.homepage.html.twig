@@ -50,7 +50,9 @@
                         </form>
                     {% endif %}
                     <h5><a href="{{ path('app_logout') }}">Déconnexion</a></h5>
-                    {{ dump(app.user) }}
+                    {% if env is same as "dev" %}
+                        {{ dump(app.user) }}
+                    {% endif %}
                 </div>
             </div>
         </div>
