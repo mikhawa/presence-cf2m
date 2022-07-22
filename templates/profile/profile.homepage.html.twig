@@ -80,7 +80,7 @@
         $("#api_users").click((e) => {
             e.preventDefault()
             $("#result").empty();
-            $.get("https://127.0.0.1:8000/api/users/role", (datas) => {
+            $.get("{{ path("api_users") }}", (datas) => {
                 $("#result").append('[</br>');
                 datas.forEach((data) => {
                     $("#result").append(`    {
@@ -92,7 +92,6 @@
                 })
                 $("#result").append(']');
             })
-
         });
     </script>
 {% endblock %}
