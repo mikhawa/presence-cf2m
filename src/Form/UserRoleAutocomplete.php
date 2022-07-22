@@ -5,9 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
 use Symfony\UX\Autocomplete\Form\ParentEntityAutocompleteType;
 
@@ -26,7 +24,7 @@ class UserRoleAutocomplete extends AbstractType
                                         ->setParameter('roles', '%ROLE_PERSO%');
                                         
             },
-            "autocomplete_url" =>  "https://www.google.com",
+            'autocomplete_url' => 're',
             'security' => 'ROLE_ADMIN',
         ]);
     }
