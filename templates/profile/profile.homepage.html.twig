@@ -80,9 +80,7 @@
                         </div>
                     {% endif %}
                     <h5><a href="{{ path('app_logout') }}">Déconnexion</a></h5>
-                    {% if env is same as "dev" %}
-                        {{ dump(app.user) }}
-                    {% endif %}
+                    {# dump(app.user) #}
                 </div>
             </div>
         </div>
