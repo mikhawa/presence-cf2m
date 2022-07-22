@@ -40,7 +40,7 @@ class Specialevents
         type: 'smallint',
         options: [
             "unsigned" => true,
-            "default" => 0,
+            "default"  => 0,
         ],
     )]
     private $eventperiod;
@@ -75,7 +75,7 @@ class Specialevents
 
     #[ORM\ManyToOne(targetEntity: Specialeventtype::class, inversedBy: 'specialevents')]
     #[ORM\JoinColumn(nullable: false)]
-    private $specialeventtype_id;
+    private $specialeventtype;
 
     #[ORM\OneToMany(mappedBy: 'specialevents', targetEntity: Proofofabsences::class)]
     private $proofofabsences;
@@ -85,103 +85,103 @@ class Specialevents
         $this->proofofabsences = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId() : ?int
     {
         return $this->id;
     }
 
-    public function getEventdate(): ?DateTimeInterface
+    public function getEventdate() : ?DateTimeInterface
     {
         return $this->eventdate;
     }
 
-    public function setEventdate(DateTimeInterface $eventdate): self
+    public function setEventdate(DateTimeInterface $eventdate) : self
     {
         $this->eventdate = $eventdate;
 
         return $this;
     }
 
-    public function getRemote(): ?int
+    public function getRemote() : ?int
     {
         return $this->remote;
     }
 
-    public function setRemote(?int $remote): self
+    public function setRemote(?int $remote) : self
     {
         $this->remote = $remote;
 
         return $this;
     }
 
-    public function getEventperiod(): ?int
+    public function getEventperiod() : ?int
     {
         return $this->eventperiod;
     }
 
-    public function setEventperiod(int $eventperiod): self
+    public function setEventperiod(int $eventperiod) : self
     {
         $this->eventperiod = $eventperiod;
 
         return $this;
     }
 
-    public function getArrivaltime(): ?DateTimeInterface
+    public function getArrivaltime() : ?DateTimeInterface
     {
         return $this->arrivaltime;
     }
 
-    public function setArrivaltime(?DateTimeInterface $arrivaltime): self
+    public function setArrivaltime(?DateTimeInterface $arrivaltime) : self
     {
         $this->arrivaltime = $arrivaltime;
 
         return $this;
     }
 
-    public function getDeparturetime(): ?DateTimeInterface
+    public function getDeparturetime() : ?DateTimeInterface
     {
         return $this->departuretime;
     }
 
-    public function setDeparturetime(?DateTimeInterface $departuretime): self
+    public function setDeparturetime(?DateTimeInterface $departuretime) : self
     {
         $this->departuretime = $departuretime;
 
         return $this;
     }
 
-    public function getMessage(): ?string
+    public function getMessage() : ?string
     {
         return $this->message;
     }
 
-    public function setMessage(string $message): self
+    public function setMessage(string $message) : self
     {
         $this->message = $message;
 
         return $this;
     }
 
-    public function getRegistrations(): ?Registrations
+    public function getRegistrations() : ?Registrations
     {
         return $this->registrations;
     }
 
-    public function setRegistrations(?Registrations $registrations): self
+    public function setRegistrations(?Registrations $registrations) : self
     {
         $this->registrations = $registrations;
 
         return $this;
     }
 
-    public function getSpecialeventtypeId(): ?Specialeventtype
+    public function getSpecialeventtype() : ?Specialeventtype
     {
-        return $this->specialeventtype_id;
+        return $this->specialeventtype;
     }
 
-    public function setSpecialeventtypeId(?Specialeventtype $specialeventtype_id): self
+    public function setSpecialeventtype(?Specialeventtype $specialeventtype) : self
     {
-        $this->specialeventtype_id = $specialeventtype_id;
+        $this->specialeventtype = $specialeventtype;
 
         return $this;
     }
@@ -189,12 +189,12 @@ class Specialevents
     /**
      * @return Collection<int, Proofofabsences>
      */
-    public function getProofofabsences(): Collection
+    public function getProofofabsences() : Collection
     {
         return $this->proofofabsences;
     }
 
-    public function addProofofabsences(Proofofabsences $proofofabsences): self
+    public function addProofofabsences(Proofofabsences $proofofabsences) : self
     {
         if (!$this->proofofabsences->contains($proofofabsences)) {
             $this->proofofabsences[] = $proofofabsences;
@@ -204,12 +204,34 @@ class Specialevents
         return $this;
     }
 
-    public function removeProofofabsences(Proofofabsences $proofofabsences): self
+    public function removeProofofabsences(Proofofabsences $proofofabsences) : self
     {
         if ($this->proofofabsences->removeElement($proofofabsences)) {
             // set the owning side to null (unless already changed)
             if ($proofofabsences->getSpecialevents() === $this) {
                 $proofofabsences->setSpecialevents(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addProofofabsence(Proofofabsences $proofofabsence) : self
+    {
+        if (!$this->proofofabsences->contains($proofofabsence)) {
+            $this->proofofabsences[] = $proofofabsence;
+            $proofofabsence->setSpecialevents($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProofofabsence(Proofofabsences $proofofabsence) : self
+    {
+        if ($this->proofofabsences->removeElement($proofofabsence)) {
+            // set the owning side to null (unless already changed)
+            if ($proofofabsence->getSpecialevents() === $this) {
+                $proofofabsence->setSpecialevents(null);
             }
         }
 

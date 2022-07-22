@@ -27,7 +27,7 @@ class Specialeventtype
     )]
     private $eventname;
 
-    #[ORM\OneToMany(mappedBy: 'specialeventtype_id', targetEntity: Specialevents::class)]
+    #[ORM\OneToMany(mappedBy: 'specialeventtype', targetEntity: Specialevents::class)]
     private $specialevents;
 
     public function __construct()
@@ -35,17 +35,17 @@ class Specialeventtype
         $this->specialevents = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId() : ?int
     {
         return $this->id;
     }
 
-    public function getEventname(): ?string
+    public function getEventname() : ?string
     {
         return $this->eventname;
     }
 
-    public function setEventname(string $eventname): self
+    public function setEventname(string $eventname) : self
     {
         $this->eventname = $eventname;
 
@@ -55,27 +55,27 @@ class Specialeventtype
     /**
      * @return Collection<int, Specialevents>
      */
-    public function getSpecialevents(): Collection
+    public function getSpecialevents() : Collection
     {
         return $this->specialevents;
     }
 
-    public function addSpecialevent(Specialevents $specialevent): self
+    public function addSpecialevent(Specialevents $specialevent) : self
     {
         if (!$this->specialevents->contains($specialevent)) {
             $this->specialevents[] = $specialevent;
-            $specialevent->setSpecialeventtypeId($this);
+            $specialevent->setSpecialeventtype($this);
         }
 
         return $this;
     }
 
-    public function removeSpecialevent(Specialevents $specialevent): self
+    public function removeSpecialevent(Specialevents $specialevent) : self
     {
         if ($this->specialevents->removeElement($specialevent)) {
             // set the owning side to null (unless already changed)
-            if ($specialevent->getSpecialeventtypeId() === $this) {
-                $specialevent->setSpecialeventtypeId(null);
+            if ($specialevent->getSpecialeventtype() === $this) {
+                $specialevent->setSpecialeventtype(null);
             }
         }
 

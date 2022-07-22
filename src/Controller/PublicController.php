@@ -26,7 +26,7 @@ class PublicController extends AbstractController
         // Pour afficher le dernier utilisateur connecté sur cette machine
         $lastUsername = $authenticationUtils->getLastUsername();
         if ($this->getUser()) {
-            $path = $this->redirectToRoute("profile_homepage");
+            $path = $this->render("private/homepage.html.twig");
         }
         else {
             $path = $this->render('public/homepage.html.twig', [
@@ -68,7 +68,7 @@ class PublicController extends AbstractController
             }
         }
         else {
-            $path = $this->getUser() ? $this->redirectToRoute("profile_homepage") : $this->render('pwd_reset/form.html.twig');
+            $path = $this->getUser() ? $this->redirectToRoute("app_homepage") : $this->render('pwd_reset/form.html.twig');
         }
         return $path;
     }
