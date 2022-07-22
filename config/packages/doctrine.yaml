@@ -16,6 +16,10 @@ doctrine:
         prefix: 'App\Entity'
         alias: App
         type: attribute
+    dql:
+      string_functions:
+        JSON_CONTAINS: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonContains
+        JSON_LENGTH: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonLength
 
 when@test:
   doctrine:

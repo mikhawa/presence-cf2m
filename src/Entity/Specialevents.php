@@ -6,6 +6,7 @@ use App\Repository\SpecialeventsRepository;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SpecialeventsRepository::class)]
@@ -210,6 +211,28 @@ class Specialevents
             // set the owning side to null (unless already changed)
             if ($proofofabsences->getSpecialevents() === $this) {
                 $proofofabsences->setSpecialevents(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addProofofabsence(Proofofabsences $proofofabsence): self
+    {
+        if (!$this->proofofabsences->contains($proofofabsence)) {
+            $this->proofofabsences[] = $proofofabsence;
+            $proofofabsence->setSpecialevents($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProofofabsence(Proofofabsences $proofofabsence): self
+    {
+        if ($this->proofofabsences->removeElement($proofofabsence)) {
+            // set the owning side to null (unless already changed)
+            if ($proofofabsence->getSpecialevents() === $this) {
+                $proofofabsence->setSpecialevents(null);
             }
         }
 
