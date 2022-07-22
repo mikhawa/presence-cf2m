@@ -1,13 +1,24 @@
-<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+<nav class="sb-sidenav accordion sb-sidenav-dark scrollbar-danger" id="sidenavAccordion">
     <div class="sb-sidenav-menu">
         <div class="nav">
+
             <div class="sb-sidenav-menu-heading">Rubriques</div>
-            <a class="nav-link" href="{{ path('app_homepage') }}">
-                <div class="sb-nav-link-icon">
-                    <i class="fas fa-tachometer-alt"></i>
-                </div>
-                Accueil
-            </a>
+            <div>
+                <a class="nav-link" href="{{ path('app_homepage') }}">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    Accueil
+                </a>
+            </div>
+            <div>
+                <a class="nav-link" href="{{ path('app_profile') }}">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    Profile
+                </a>
+            </div>
             {% if("ROLE_ADMIN" in app.user.roles) %}
                 <div class="sb-sidenav-menu-heading">Administration</div>
                 {# <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
