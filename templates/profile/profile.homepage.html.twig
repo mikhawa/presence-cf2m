@@ -70,10 +70,10 @@
     {{ parent() }}
     <script>
         $("#roles").change(() => {
-            window.open(`{{ path("api_users") }}/${$("#roles").val().replace("ROLE_", "")}`, '_blank');
+            //window.open(`{{ path("api_users") }}/${$("#roles").val().replace("ROLE_", "")}`, '_blank');
         })
         $("#formations").change(() => {
-            window.open(`{{ path("api_interns") }}/${$("#formations").val()}`, '_blank');
+            //window.open(`{{ path("api_interns") }}/${$("#formations").val()}`, '_blank');
         })
     </script>
 {% endblock %}

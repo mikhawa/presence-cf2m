@@ -37,7 +37,7 @@
                 <div class="collapse" id="cruds" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"users",fas:"fas fa-users"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"utilisateurs",fas:"fas fa-users"} %}
                         </div>
                         <div>
                             {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"inscriptions",fas:"fas fa-user-plus"} %}
@@ -49,123 +49,23 @@
                             {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"options",fas:"fas fa-cogs"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"holidays",fas:"fas fa-calendar-minus"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"conges",fas:"fas fa-calendar-minus"} %}
                         </div>
                         <div>
-                            <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fas fa-cogs"></i>
-                                </div>
-                                Options
-                                <div class="sb-sidenav-collapse-arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" role="button">Create</a>
-                                    <a class="nav-link" role="button">Read</a>
-                                    <a class="nav-link" role="button">Update</a>
-                                    <a class="nav-link" role="button">Delete</a>
-                                </nav>
-                            </div>
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"presences",fas:"fas fa-file-archive"} %}
                         </div>
                         <div>
-                            <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fas fa-cogs"></i>
-                                </div>
-                                Options
-                                <div class="sb-sidenav-collapse-arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" role="button">Create</a>
-                                    <a class="nav-link" role="button">Read</a>
-                                    <a class="nav-link" role="button">Update</a>
-                                    <a class="nav-link" role="button">Delete</a>
-                                </nav>
-                            </div>
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"suivis",fas:"fas fa-address-book"} %}
                         </div>
                         <div>
-                            <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fas fa-cogs"></i>
-                                </div>
-                                Options
-                                <div class="sb-sidenav-collapse-arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" role="button">Create</a>
-                                    <a class="nav-link" role="button">Read</a>
-                                    <a class="nav-link" role="button">Update</a>
-                                    <a class="nav-link" role="button">Delete</a>
-                                </nav>
-                            </div>
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"evenements",fas:"fas fa-calendar-times"} %}
                         </div>
                         <div>
-                            <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fas fa-cogs"></i>
-                                </div>
-                                Options
-                                <div class="sb-sidenav-collapse-arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" role="button">Create</a>
-                                    <a class="nav-link" role="button">Read</a>
-                                    <a class="nav-link" role="button">Update</a>
-                                    <a class="nav-link" role="button">Delete</a>
-                                </nav>
-                            </div>
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"type",fas:"fas fa-question"} %}
                         </div>
                         <div>
-                            <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fas fa-cogs"></i>
-                                </div>
-                                Options
-                                <div class="sb-sidenav-collapse-arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" role="button">Create</a>
-                                    <a class="nav-link" role="button">Read</a>
-                                    <a class="nav-link" role="button">Update</a>
-                                    <a class="nav-link" role="button">Delete</a>
-                                </nav>
-                            </div>
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"justificatifs",fas:"fas fa-user-md"} %}
                         </div>
-                        <div>
-                            <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                <div class="sb-nav-link-icon">
-                                    <i class="fas fa-cogs"></i>
-                                </div>
-                                Options
-                                <div class="sb-sidenav-collapse-arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" role="button">Create</a>
-                                    <a class="nav-link" role="button">Read</a>
-                                    <a class="nav-link" role="button">Update</a>
-                                    <a class="nav-link" role="button">Delete</a>
-                                </nav>
-                            </div>
-                        </div>
-                        <div>
                     </nav>
                 </div>
             {% endif %}

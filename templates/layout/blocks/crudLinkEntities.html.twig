@@ -9,9 +9,29 @@
 </a>
 <div class="collapse" id="{{ entity }}" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
     <nav class="sb-sidenav-menu-nested nav">
-        <a class="nav-link" href="{{ path("app_homepage") }}">Create</a>
-        <a class="nav-link" href="{{ path("app_homepage") }}">Read</a>
-        <a class="nav-link" href="{{ path("app_homepage") }}">Update</a>
-        <a class="nav-link" href="{{ path("app_homepage") }}">Delete</a>
+        <a class="nav-link" href="{{ path("app_homepage") }}">
+            <div class="sb-nav-link-icon">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+            Create
+        </a>
+        <a class="nav-link" href="{{ path("app_homepage") }}">
+            <div class="sb-nav-link-icon">
+                <i class="fa-brands fa-readme"></i>
+            </div>
+            Read
+        </a>
+        <a class="nav-link" href="{{ path("app_homepage") }}">
+            <div class="sb-nav-link-icon">
+                <i class="fa-solid fa-pencil"></i>
+            </div>
+            Update
+        </a>
+        <a class="nav-link" href="{{ path("app_homepage") }}">
+            <div class="sb-nav-link-icon">
+                <i class="fa-solid fa-eraser"></i>
+            </div>
+            Delete
+        </a>
     </nav>
 </div>
