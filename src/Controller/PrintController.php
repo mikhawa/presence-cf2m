@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_PERSO')]
 class PrintController extends AbstractController
 {
+
     #[Route('/print', name: 'app_print')]
     public function index(): Response
     {
@@ -25,7 +26,7 @@ class PrintController extends AbstractController
     }
 
     #[Route('/print', name: 'app_print')]
-    public function selectUserWithRolePerso(Request $request): Response
+    public function selectUserWithoutRolePerso(Request $request): Response
     {
       $user = new User();
       $form = $this->createForm(UserType::class, $user);
@@ -33,11 +34,11 @@ class PrintController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-          return $this->redirectToRoute('profile_homepage');
+          return $this->redirectToRoute('app_user_show');
         }
   
       return $this->render('print/index.html.twig', [
-        'form' => $form->createView()
+        'form' => $form->createView(),
       ]);
     }
 }

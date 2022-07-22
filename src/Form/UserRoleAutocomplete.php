@@ -24,7 +24,7 @@ class UserRoleAutocomplete extends AbstractType
                                         ->setParameter('roles', '%ROLE_PERSO%');
                                         
             },
-            'autocomplete_url' => 're',
+            'autocomplete_url' => 'https://127.0.0.1:8000/autocomplete/user_role_autocomplete?query=lu',
             'security' => 'ROLE_ADMIN',
         ]);
     }
