@@ -138,7 +138,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $sql->executeQuery();
     }
 
-    public function findAllUsersByRole(string $role)
+    public function findAllUsersByRole(string $role = "USER")
     {
         return $this->createQueryBuilder("u")
                     ->select("u.id, u.thename, u.thesurname, u.themail")
@@ -149,7 +149,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                     ->getResult();
     }
 
-    public function findInternsByPromotions(string $acronym = null) : ?array
+    public function findInternsByPromotions(?string $acronym = null) : ?array
     {
         $query = $this->createQueryBuilder("u")
                       ->select("u.id, u.thename, u.thesurname, u.themail, u.username,
@@ -167,7 +167,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult(QUERY::HYDRATE_ARRAY);
     }
 
-    public function findUserByUsername(string $username)
+    public function findInternsByUsername(string $username)
     {
         return $this->createQueryBuilder("u")
                     ->select("u AS user,r AS registrations,p AS promotions,f AS followups, s AS specialEvents ,pr AS proofofAbsences, sp AS SpecialEventType")

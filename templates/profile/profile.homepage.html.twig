@@ -26,32 +26,46 @@
                             {% endif %}
                         {% endfor %}
                     </p>
+
+                    <p> -> <a href="{{ path("app_print") }}">print</a> - future page d'impression des feuilles de
+                        présence, non accessible aux stagiaires, sert pour le moment à d'essais graphiques pour une
+                        administration</p>
                     {% if is_granted('ROLE_PERSO') %}
-                        <p> -> <a href="{{ path("app_print") }}">print</a> - future page d'impression des feuilles de
-                            présence, non accessible aux stagiaires, sert pour le moment à d'essais graphiques pour une
-                            administration</p>
-                        <p> -> <a href="{{ path("api_users") }}" target="_blank" id="api_users">api-users</a> - page de
-                            récupération de tout les utilisateurs</p>
-                        <form class="mb-2">
-                            <label for="roles"> -> api-users-by-role:</label>
-                            <select name="role" id="roles">
-                                <option selected disabled>Choisissez un rôle</option>
-                                {% for role in app.user.roles %}
-                                    <option value="{{ role }}">{{ role }}</option>
-                                {% endfor %}
-                            </select> - page de récupération de tout les utilisateurs par rôle
-                        </form>
-                        <p> -> <a href="{{ path("api_interns") }}" target="_blank" id="api_interns">api-interns</a> -
-                            page de récupération de tout les stagiaires</p>
-                        <form class="mb-2">
-                            <label for="formations"> -> api-interns-by-formations:</label>
-                            <select name="formation" id="formations">
-                                <option selected disabled>Choisissez une formation</option>
-                                {% for promotion in promotions %}
-                                    <option value="{{ promotion.acronym }}">{{ promotion.promoname }}</option>
-                                {% endfor %}
-                            </select> - page de récupération de tout les stagiaires par formation
-                        </form>
+                        <div class="accordion mb-3" id="apiAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="api">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                        Routes de l'api
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="api" data-bs-parent="#apiAccordion">
+                                    <div class="accordion-body">
+                                        <p> -> <a href="{{ path("api_users") }}" target="_blank" id="api_users">api-users</a> - page de
+                                            récupération de tout les utilisateurs</p>
+                                        <form class="mb-2">
+                                            <label for="roles"> -> api-users-by-role:</label>
+                                            <select name="role" id="roles">
+                                                <option selected disabled>Choisissez un rôle</option>
+                                                {% for role in app.user.roles %}
+                                                    <option value="{{ role }}">{{ role }}</option>
+                                                {% endfor %}
+                                            </select> - page de récupération de tout les utilisateurs par rôle
+                                        </form>
+                                        <p> -> <a href="{{ path("api_interns") }}" target="_blank" id="api_interns">api-interns</a> -
+                                            page de récupération de tout les stagiaires</p>
+                                        <form class="mb-2">
+                                            <label for="formations"> -> api-interns-by-formations:</label>
+                                            <select name="formation" id="formations">
+                                                <option selected disabled>Choisissez une formation</option>
+                                                {% for promotion in promotions %}
+                                                    <option value="{{ promotion.acronym }}">{{ promotion.promoname }}</option>
+                                                {% endfor %}
+                                            </select> - page de récupération de tout les stagiaires par formation
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     {% endif %}
                     <h5><a href="{{ path('app_logout') }}">Déconnexion</a></h5>
                     {% if env is same as "dev" %}
@@ -65,7 +79,7 @@
                 <div class="card shadow-lg border-0 rounded-lg">
                     <div class="mb-2 p-3">
                         <h4>Récupération des données en AJAX</h4>
-                        <pre class="bg-black text-white rounded-3 p-3" id="result"> Affichage des données </pre>
+                        <pre class="bg-black text-white rounded-3 p-1" id="result"> Affichage des données </pre>
                     </div>
                 </div>
             </div>
@@ -76,10 +90,10 @@
     {{ parent() }}
     <script>
         $("#roles").change(() => {
-            //window.open(`{{ path("api_users") }}/${$("#roles").val().replace("ROLE_", "")}`, '_blank');
+            window.open(`{{ path("api_usersByRole") }}/${$("#roles").val().replace("ROLE_", "")}`, '_blank');
         })
         $("#formations").change(() => {
-            //window.open(`{{ path("api_interns") }}/${$("#formations").val()}`, '_blank');
+            window.open(`{{ path("api_internsByPromotions") }}/${$("#formations").val()}`, '_blank');
         })
         $("#api_users").click((e) => {
             e.preventDefault()
