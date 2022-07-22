@@ -47,7 +47,7 @@
                                             </div>
                                             <div class="list-group-item bg-light p-3">
                                                 <form class="form-floating">
-                                                    <select class="form-select" name="role" id="roles" aria-label="Floating label select example">
+                                                    <select class="form-select" id="roles" aria-label="Floating label select example">
                                                         <option selected disabled>Choisissez un rôle</option>
                                                         {% for role in app.user.roles %}
                                                             <option value="{{ role }}">{{ role }}</option>
@@ -63,7 +63,7 @@
                                             </div>
                                             <div class="list-group-item bg-light p-3">
                                                 <form class="form-floating">
-                                                    <select class="form-select" name="formation" id="formations">
+                                                    <select class="form-select" id="formations">
                                                         <option selected disabled>Choisissez une formation</option>
                                                         {% for promotion in promotions %}
                                                             <option value="{{ promotion.acronym }}">{{ promotion.promoname }}</option>
@@ -72,6 +72,22 @@
                                                     <label for="formations">api-interns-by-formations:</label>
                                                     <p class="m-0 mt-2">page de récupération de tout les stagiaires par formation</p>
                                                 </form>
+                                            </div>
+                                            <div class="list-group-item p-3">
+                                                <div class="form-floating">
+                                                    <select class="form-select" id="userPromo">
+                                                        <option selected disabled>Choisissez une formation</option>
+                                                    </select>
+                                                    <label for="userPromo">Choissisez la formation du stagiaire</label>
+                                                </div>
+                                                <div class="form-floating">
+                                                    <select class="form-select" id="username" disabled>
+                                                        <option selected disabled>Choisissez un nom</option>
+                                                        <option class="text-danger" value="none">auto reset select</option>
+                                                    </select>
+                                                    <label for="username" class="text-danger">Choissisez d'abord la formation du stagiaire</label>
+                                                </div>
+                                                <p class="m-0 mt-2">page de récupération des données d'un stagiaire en fonction de sa formation et de son nom d'utilisateur</p>
                                             </div>
                                         </div>
                                     </div>
@@ -89,7 +105,7 @@
                 <div class="card shadow-lg border-0 rounded-lg">
                     <div class="mb-2 p-3">
                         <h4>Récupération des données en AJAX</h4>
-                        <pre class="bg-black text-white rounded-3 p-1" id="result"> Affichage des données </pre>
+                        <div id="result"></div>
                     </div>
                 </div>
             </div>
@@ -98,46 +114,45 @@
 {% endblock %}
 {% block scripts %}
     {{ parent() }}
+    {{ encore_entry_script_tags('JsonThis') }}
     <script>
         $("#roles").change(() => {
-            window.open(`{{ path("api_usersByRole") }}/${$("#roles").val().replace("ROLE_", "")}`, '_blank');
+            new JsonThis(`{{ path("api_usersByRole") }}/${$("#roles").val().replace("ROLE_", "")}`, "#result");
         })
         $("#formations").change(() => {
-            window.open(`{{ path("api_internsByPromotions") }}/${$("#formations").val()}`, '_blank');
+            new JsonThis(`{{ path("api_internsByPromotions") }}/${$("#formations").val()}`, "#result");
         })
         $("#api_users").click((e) => {
             e.preventDefault()
-            $("#result").empty();
-            $.get("{{ path("api_users") }}", (datas) => {
-                $("#result").append('[</br>');
-                datas.forEach((data) => {
-                    $("#result").append(`    {
-        \"id\":${data.id},
-        \"thesurname\":\"${data.thesurname}\",
-        \"thename\":\"${data.thename}\",
-        \"themail\":\"${data.themail}\"
-    },</br>`);
-                })
-                $("#result").append(']');
-            })
+            new JsonThis("{{ path("api_users") }}", "#result");
         });
-
         $("#api_interns").click((e) => {
             e.preventDefault()
-            $("#result").empty();
-            $.get("{{ path("api_interns") }}", (datas) => {
-                $("#result").append('[</br>');
+            new JsonThis("{{ path("api_interns") }}", "#result");
+        });
+        $(document).ready(() => {
+            $.get("{{ path("api_promotions") }}", (datas) => {
                 datas.forEach((data) => {
-                    $("#result").append(`    {
-        \"id\":${data.id},
-        \"thesurname\":\"${data.thesurname}\",
-        \"thename\":\"${data.thename}\",
-        \"themail\":\"${data.themail}\"
-    },</br>`);
+                    $("#userPromo").append(`<option value="${data.acronym}">${data.promoname}</option>`)
                 })
-                $("#result").append(']');
             })
         });
+        $("#userPromo").change(() => {
+            $.get(`{{ path("api_internsByPromotions") }}/${$("#userPromo").val()}`, (datas) => {
+                $(".toSelect").remove();
+                datas.forEach((data) => {
+                    $("#username").append(`<option class="toSelect" value="${data.username}">${data.thesurname} ${data.thename}</option>`)
+                })
+            })
+            $("#username").prop("disabled", false);
+            $("label[for=username]").html("Choissisez le nom du stagiaire").removeClass("text-danger")
+            if ($("#username").val() !== null) {
+                $("#username").val(1);
+            }
+        });
+        $("#username").change(() => {
+            new JsonThis(`{{ path("api_internsByName") }}/${$("#userPromo").val()}/${$("#username").val()}`, "#result");
+        })
     </script>
 {% endblock %}
 
