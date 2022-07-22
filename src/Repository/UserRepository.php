@@ -2,12 +2,8 @@
 
 namespace App\Repository;
 
-use App\Entity\Followups;
 use App\Entity\Promotions;
-use App\Entity\Proofofabsences;
 use App\Entity\Registrations;
-use App\Entity\Specialevents;
-use App\Entity\Specialeventtype;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -167,21 +163,46 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult(QUERY::HYDRATE_ARRAY);
     }
 
-    public function findInternsByUsername(string $username)
+    public function findInternByUsername(string $promotion, string $username) : array
     {
-        return $this->createQueryBuilder("u")
-                    ->select("u AS user,r AS registrations,p AS promotions,f AS followups, s AS specialEvents ,pr AS proofofAbsences, sp AS SpecialEventType")
-                    ->innerJoin(Registrations::class, "r", "WITH", "r.users = u.id")
-                    ->innerJoin(Promotions::class, "p", "WITH", "r.promotions = p.id")
-                    ->innerJoin(Followups::class, "f", "WITH", "r.followups = f.id")
-                    ->leftJoin(Specialevents::class, "s", "WITH", "s.registrations = r.id")
-                    ->leftJoin(Proofofabsences::class, "pr", "WITH", "pr.specialevents = s.id")
-                    ->leftJoin(Specialeventtype::class, "sp", "WITH", "s.specialeventtype_id = sp.id")
-                    ->groupBy("u.id")
-                    ->where("u.username = :username")
-                    ->setParameter("username", $username)
-                    ->getQuery()
-                    ->getResult(QUERY::HYDRATE_ARRAY);
+        $query = $this->getEntityManager()->getConnection()->prepare("
+        SELECT u.id, u.username, u.roles, u.thename, u.thesurname, u.themail,
+        r.startingdate AS 'dateInscription', ifnull(r.endingdate,'NULL') AS 'dateExpulsion',
+        p.promoname, p.acronym, p.startingdate AS 'dateStartPromotion', p.endingdate AS 'dateEndPromotion', p.nbdays,
+        o.optionname, o.acronym,
+        group_concat(ifnull(s.id,'NULL')) AS 'specialeventsid',
+        group_concat(ifnull(s.eventdate,'NULL') SEPARATOR '|||') AS 'eventdate', 
+        group_concat(ifnull(s.remote,'NULL') SEPARATOR '|||') AS 'remote',
+        group_concat(ifnull(s.eventperiod,'NULL') SEPARATOR '|||') AS 'eventperiod', 
+        group_concat(ifnull(s.arrivaltime,'NULL') SEPARATOR '|||') AS 'arrivaltime', 
+        group_concat(ifnull(s.departuretime,'NULL') SEPARATOR '|||') AS 'departuretime', 
+        group_concat(ifnull(s.message,'NULL') SEPARATOR '|||') AS 'message',
+        group_concat(ifnull(st.eventname,'NULL') SEPARATOR '|||') AS 'eventtype',
+        group_concat(ifnull(pr.file,'NULL') SEPARATOR '|||') AS 'file' ,
+        group_concat(ifnull(pr.firstdaycovered,'NULL') SEPARATOR '|||') AS 'firstdaycovered',
+        group_concat(ifnull(pr.lastdaycovered,'NULL') SEPARATOR '|||') AS 'lastdaycovered'
+        FROM user u
+        INNER JOIN registrations r
+        ON u.id = r.users_id
+        INNER JOIN promotions p
+        ON r.promotions_id = p.id
+        INNER JOIN options o
+        ON p.options_id = o.id
+        LEFT JOIN specialevents s
+        ON r.id = s.registrations_id
+        LEFT JOIN specialeventtype st
+        ON s.specialeventtype_id = st.id
+        LEFT JOIN proofofabsences pr
+        ON s.id = pr.specialevents_id
+        WHERE u.username = :username 
+        AND p.acronym = :promotion
+        AND json_contains(u.roles, '\"ROLE_USER\"') = 1
+        AND json_length(u.roles) = 1
+        GROUP BY u.id;");
+        $query->bindValue("username", $username);
+        $query->bindValue("promotion", $promotion);
+        $result = $query->executeQuery()->fetchAssociative();
+        return $result ? [$result] : [];
     }
 
     //    /**
