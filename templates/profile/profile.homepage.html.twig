@@ -40,28 +40,40 @@
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="api" data-bs-parent="#apiAccordion">
                                     <div class="accordion-body">
-                                        <p> -> <a href="{{ path("api_users") }}" target="_blank" id="api_users">api-users</a> - page de
-                                            récupération de tout les utilisateurs</p>
-                                        <form class="mb-2">
-                                            <label for="roles"> -> api-users-by-role:</label>
-                                            <select name="role" id="roles">
-                                                <option selected disabled>Choisissez un rôle</option>
-                                                {% for role in app.user.roles %}
-                                                    <option value="{{ role }}">{{ role }}</option>
-                                                {% endfor %}
-                                            </select> - page de récupération de tout les utilisateurs par rôle
-                                        </form>
-                                        <p> -> <a href="{{ path("api_interns") }}" target="_blank" id="api_interns">api-interns</a> -
-                                            page de récupération de tout les stagiaires</p>
-                                        <form class="mb-2">
-                                            <label for="formations"> -> api-interns-by-formations:</label>
-                                            <select name="formation" id="formations">
-                                                <option selected disabled>Choisissez une formation</option>
-                                                {% for promotion in promotions %}
-                                                    <option value="{{ promotion.acronym }}">{{ promotion.promoname }}</option>
-                                                {% endfor %}
-                                            </select> - page de récupération de tout les stagiaires par formation
-                                        </form>
+                                        <div class="list-group">
+                                            <div class="list-group-item p-3">
+                                                <a class="btn btn-primary" href="{{ path("api_users") }}" target="_blank" id="api_users">api-users</a>page de
+                                                récupération de tout les utilisateurs
+                                            </div>
+                                            <div class="list-group-item bg-light p-3">
+                                                <form class="form-floating">
+                                                    <select class="form-select" name="role" id="roles" aria-label="Floating label select example">
+                                                        <option selected disabled>Choisissez un rôle</option>
+                                                        {% for role in app.user.roles %}
+                                                            <option value="{{ role }}">{{ role }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <label for="roles">api-users-by-role:</label>
+                                                    <p class="m-0 mt-2">page de récupération de tout les utilisateurs par rôle</p>
+                                                </form>
+                                            </div>
+                                            <div class="list-group-item p-3">
+                                                <a class="btn btn-primary" href="{{ path("api_interns") }}" target="_blank" id="api_interns">api-interns</a>
+                                                page de récupération de tout les stagiaires
+                                            </div>
+                                            <div class="list-group-item bg-light p-3">
+                                                <form class="form-floating">
+                                                    <select class="form-select" name="formation" id="formations">
+                                                        <option selected disabled>Choisissez une formation</option>
+                                                        {% for promotion in promotions %}
+                                                            <option value="{{ promotion.acronym }}">{{ promotion.promoname }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <label for="formations">api-interns-by-formations:</label>
+                                                    <p class="m-0 mt-2">page de récupération de tout les stagiaires par formation</p>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
