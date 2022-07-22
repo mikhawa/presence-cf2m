@@ -77,6 +77,17 @@
         $("#formations").change(() => {
             //window.open(`{{ path("api_interns") }}/${$("#formations").val()}`, '_blank');
         })
+        $("#api_users").click((e) => {
+            e.preventDefault()
+            $("#result").empty();
+            $.get("https://127.0.0.1:8000/api/users/role", (datas) => {
+                datas.forEach((data) => {
+                    $("#result").append(`${data.id}) Je m'appelle ${data.thesurname} ${data.thename} et mon mail est ${data.themail}`);
+
+                })
+            })
+
+        });
     </script>
 {% endblock %}
 
