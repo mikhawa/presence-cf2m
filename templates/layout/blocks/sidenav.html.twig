@@ -48,34 +48,34 @@
                 <div class="collapse" id="cruds" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"utilisateurs",fas:"fas fa-users"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"utilisateurs",fas:"fas fa-users",mod:"users"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"inscriptions",fas:"fas fa-user-plus"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"inscriptions",fas:"fas fa-user-plus",mod:"registrations"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"promotions",fas:"fas fa-school"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"promotions",fas:"fas fa-school",mod:"promotions"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"options",fas:"fas fa-cogs"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"options",fas:"fas fa-cogs",mod:"options"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"conges",fas:"fas fa-calendar-minus"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"conges",fas:"fas fa-calendar-minus",mod:"holidays"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"presences",fas:"fas fa-file-archive"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"presences",fas:"fas fa-file-archive",mod:"attendancesheets"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"suivis",fas:"fas fa-address-book"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"suivis",fas:"fas fa-address-book",mod:"followups"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"evenements",fas:"fas fa-calendar-times"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"evenements",fas:"fas fa-calendar-times",mod:"specialevents"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"type",fas:"fas fa-question"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"type",fas:"fas fa-question",mod:"specialeventtypes"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"justificatifs",fas:"fas fa-user-md"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"justificatifs",fas:"fas fa-user-md",mod:"proofofabsences"} %}
                         </div>
                     </nav>
                 </div>
