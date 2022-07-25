@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,7 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[IsGranted('ROLE_PERSO')]
 class PrintController extends AbstractController
 {
-
     #[Route('/print', name: 'app_print')]
     public function index(): Response
     {
@@ -34,7 +31,9 @@ class PrintController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-          return $this->redirectToRoute('app_user_show');
+          //$user = $form->getData();
+
+          return $this->redirectToRoute('app_profile');
         }
   
       return $this->render('print/index.html.twig', [
