@@ -35,4 +35,12 @@ class UserCrudController extends AbstractController
     {
         return $this->render('admin/admin.homepage.html.twig');
     }
+
+    #[Route('/admin/read/user/{username}', name: 'app_admin_read_user')]
+    public function readUsername(UserRepository $repository, string $username = ""): Response
+    {
+        return $this->render('admin/cruds/Read/user.twig', [
+            "user" => $repository->findOneByUsername($username),
+        ]);
+    }
 }

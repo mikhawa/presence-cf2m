@@ -16,7 +16,7 @@
         {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
-                <td>{{ user.username }}</td>
+                <td><a href="{{ path("app_admin_read_user") }}/{{ user.username }}">{{ user.username }}</a></td>
                 <td>{{ user.thename }}</td>
                 <td>{{ user.thesurname }}</td>
                 <td>{{ user.themail }}</td>
