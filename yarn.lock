@@ -2044,6 +2044,13 @@
   "resolved" "https://registry.npmjs.org/csstype/-/csstype-2.6.20.tgz"
   "version" "2.6.20"
 
+"daypilot-pro-vue@https://npm.daypilot.org/daypilot-pro-vue/trial/2021.2.5000.tar.gz":
+  "integrity" "sha512-v6qitxuSRsgHuUUsnHDF4V36k8Lh9XETEvoM2nDBJzWKOlvsVq2QENEfxRpo8URZJwZt6CVZvDxsi2aH8zIB7Q=="
+  "resolved" "https://npm.daypilot.org/daypilot-pro-vue/trial/2021.2.5000.tar.gz"
+  "version" "2021.2.5000"
+  dependencies:
+    "vue" ">=2.0.0"
+
 "de-indent@^1.0.2":
   "integrity" "sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg=="
   "resolved" "https://registry.npmjs.org/de-indent/-/de-indent-1.0.2.tgz"
@@ -4328,7 +4335,7 @@
     "de-indent" "^1.0.2"
     "he" "^1.2.0"
 
-"vue@^3.2.37", "vue@3.2.37":
+"vue@^3.2.37", "vue@>=2.0.0", "vue@3.2.37":
   "integrity" "sha512-bOKEZxrm8Eh+fveCqS1/NkG/n6aMidsI6hahas7pa0w/l7jkbssJVsRhVDs07IdDq7h9KHswZOgItnwJAgtVtQ=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.37.tgz"
   "version" "3.2.37"

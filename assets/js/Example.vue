@@ -1,16 +1,16 @@
 <template>
-   <div>
-       <p>This is an example of a new components in VueJs</p>
-       <button @click="counter++">Clic me {{counter}}</button>
-   </div>
+   <div id="app">
+    <Scheduler />
+  </div>
 </template>
 
 <script>
-   export default {
-       name: "example"
-   }
+import Scheduler from './components/Scheduler.vue'
+
+export default {
+  name: 'app',
+  components: {
+    Scheduler
+  }
+}
 </script>
-
-<style scoped>
-
-</style>
