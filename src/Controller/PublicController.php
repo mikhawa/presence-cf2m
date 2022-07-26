@@ -104,5 +104,11 @@ class PublicController extends AbstractController
         throw new LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
+    #test Vue.js
+    #[Route(path: '/vueApp', name:'vueApp')]
+    public function testVue()
+    {
+        return $this->render('testVue/index.html.twig');
+    }
     
 }
