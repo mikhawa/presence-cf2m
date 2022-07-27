@@ -1,0 +1,25 @@
+{% extends "admin/CRUDs/Read/Read.html.twig" %}
+{% block innerTitle %}User{% endblock %}
+
+{% block thead %}
+    <tr>
+        <th>Id</th>
+        <th>Login</th>
+        <th>Role</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Status</th>
+    </tr>
+{% endblock %}
+{% block tbody %}
+    <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.roles[0] }}</td>
+        <td>{{ user.thename }}</td>
+        <td>{{ user.thesurname }}</td>
+        <td>{{ user.themail }}</td>
+        <td>{{ user.thestatus }}</td>
+    </tr>
+{% endblock %}

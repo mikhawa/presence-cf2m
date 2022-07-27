@@ -1,1 +1,1 @@
-import './displayNoneOnClick';
+import './scripts/displayNoneOnClick';
