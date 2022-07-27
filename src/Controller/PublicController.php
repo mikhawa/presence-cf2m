@@ -2,18 +2,20 @@
 
 namespace App\Controller;
 
-use App\Repository\UserRepository;
-use App\Services\MailerService;
 use LogicException;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\User;
+use Twig\error\LoaderError;
+use Twig\error\SyntaxError;
+use Twig\error\RuntimeError;
+use App\Services\MailerService;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Twig\error\LoaderError;
-use Twig\error\RuntimeError;
-use Twig\error\SyntaxError;
 
 class PublicController extends AbstractController
 {
@@ -101,5 +103,12 @@ class PublicController extends AbstractController
     public function logout() : void
     {
         throw new LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
+    #test Vue.js
+    #[Route(path: '/vueApp', name:'vueApp')]
+    public function testVue()
+    {
+        return $this->render('testVue/index.html.twig');
     }
 }
