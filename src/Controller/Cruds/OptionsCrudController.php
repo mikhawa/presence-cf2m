@@ -12,24 +12,24 @@ class OptionsCrudController extends AbstractController
     #[Route('/create/options', name: 'create_options')]
     public function createOptions() : Response
     {
-        return $this->render('admin/admin.homepage.html.twig');
+        return $this->render('private/pages/admin/admin.homepage.html.twig');
     }
 
     #[Route('/read/options', name: 'read_options')]
     public function readOptions() : Response
     {
-        return $this->render('admin/admin.homepage.html.twig');
+        return $this->render('private/pages/admin/admin.homepage.html.twig');
     }
 
     #[Route('/update/options', name: 'update_options')]
     public function updateOptions() : Response
     {
-        return $this->render('admin/admin.homepage.html.twig');
+        return $this->render('private/pages/admin/admin.homepage.html.twig');
     }
 
     #[Route('/delete/options', name: 'delete_options')]
     public function deleteOptions() : Response
     {
-        return $this->render('admin/admin.homepage.html.twig');
+        return $this->render('private/pages/admin/admin.homepage.html.twig');
     }
 }
