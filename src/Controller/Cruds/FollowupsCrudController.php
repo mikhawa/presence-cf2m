@@ -6,27 +6,28 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/admin', name: 'crud_')]
 class FollowupsCrudController extends AbstractController
 {
-    #[Route('/admin/create/followups', name: 'app_admin_create_followups')]
+    #[Route('/create/followups', name: 'create_followups')]
     public function createFollowUps() : Response
     {
         return $this->render('admin/admin.homepage.html.twig');
     }
 
-    #[Route('/admin/read/followups', name: 'app_admin_read_followups')]
+    #[Route('/read/followups', name: 'read_followups')]
     public function readFollowUps() : Response
     {
         return $this->render('admin/admin.homepage.html.twig');
     }
 
-    #[Route('/admin/update/followups', name: 'app_admin_update_followups')]
+    #[Route('/update/followups', name: 'update_followups')]
     public function updateFollowUps() : Response
     {
         return $this->render('admin/admin.homepage.html.twig');
     }
 
-    #[Route('/admin/delete/followups', name: 'app_admin_delete_followups')]
+    #[Route('/delete/followups', name: 'delete_followups')]
     public function deleteFollowUps() : Response
     {
         return $this->render('admin/admin.homepage.html.twig');
