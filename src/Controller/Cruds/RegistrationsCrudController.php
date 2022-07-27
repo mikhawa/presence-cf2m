@@ -12,24 +12,24 @@ class RegistrationsCrudController extends AbstractController
     #[Route('/create/registrations', name: 'create_registrations')]
     public function createRegistrations() : Response
     {
-        return $this->render('admin/admin.homepage.html.twig');
+        return $this->render('private/pages/admin/admin.homepage.html.twig');
     }
 
     #[Route('/read/registrations', name: 'read_registrations')]
     public function raedRegistrations() : Response
     {
-        return $this->render('admin/admin.homepage.html.twig');
+        return $this->render('private/pages/admin/admin.homepage.html.twig');
     }
 
     #[Route('/update/registrations', name: 'update_registrations')]
     public function updateRegistrations() : Response
     {
-        return $this->render('admin/admin.homepage.html.twig');
+        return $this->render('private/pages/admin/admin.homepage.html.twig');
     }
 
     #[Route('/delete/registrations', name: 'delete_registrations')]
     public function deleteRegistrations() : Response
     {
-        return $this->render('admin/admin.homepage.html.twig');
+        return $this->render('private/pages/admin/admin.homepage.html.twig');
     }
 }

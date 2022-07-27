@@ -26,7 +26,7 @@ class PersonnelController extends AbstractController
             return $this->redirectToRoute('app_profile');
         }
 
-        return $this->render('print/index.html.twig', [
+        return $this->render('private/pages/print/index.html.twig', [
             'form' => $form->createView(),
         ]);
     }
