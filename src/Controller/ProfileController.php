@@ -10,10 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
-    public function index(PromotionsRepository $repository) : Response
+    public function index(PromotionsRepository $repository): Response
     {
         return $this->render('profile/profile.homepage.html.twig', [
-            'env'        => $_ENV["APP_ENV"],
             "promotions" => $repository->findAll(),
         ]);
     }
