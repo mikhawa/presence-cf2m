@@ -16,11 +16,4 @@ import './datatables-simple-demo';
 //import './chart-area-demo';
 //import './chart-bar-demo';
 //import './chart-pie-demo';
-
 import './js/scripts.js';
-
-//Vue.Js
-import { createApp } from 'vue';
-import Example from './js/Example.vue'
-const app = createApp(Example)
-app.mount('#app')
