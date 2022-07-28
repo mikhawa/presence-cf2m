@@ -628,8 +628,7 @@
                 });
                 $(".typeahead").keydown((e) => {
                     if (e.keyCode === 13) {
-                        e.preventDefault();
-                        window.location.replace("./perso/interns/user/" + selected.username);
+                        location.href=`{{path('app_perso_user_username')}}/${selected.username}`;
                     }
                 })
             })
