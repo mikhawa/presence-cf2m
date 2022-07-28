@@ -33,14 +33,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      *
      * @throws NonUniqueResultException
      */
-    public function findUserByEmail($mail): ?array
+    public function findUserByEmail($mail) : ?array
     {
         return $this->createQueryBuilder('u')
-            ->select('u.username, u.theuid')
-            ->where('u.themail = :mail')
-            ->setParameter('mail', $mail)
-            ->getQuery()
-            ->getOneOrNullResult(Query::HYDRATE_ARRAY);
+                    ->select('u.username, u.theuid')
+                    ->where('u.themail = :mail')
+                    ->setParameter('mail', $mail)
+                    ->getQuery()
+                    ->getOneOrNullResult(Query::HYDRATE_ARRAY);
     }
 
     /*
@@ -48,29 +48,29 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         WHERE 	`theuid` = ?
         AND 	`username` = ?;
      */
-    public function changePassword(string $newPwd, string $lastUid, string $username): string|bool
+    public function changePassword(string $newPwd, string $lastUid, string $username) : string|bool
     {
-        $db = $this->getEntityManager()->getConnection();
+        $db  = $this->getEntityManager()->getConnection();
         $sql = $db->prepare("DROP EVENT IF EXISTS `:lastUid`");
         $sql->bindValue("lastUid", "Upid-" . $lastUid);
         $sql->executeQuery();
         return $this->createQueryBuilder('')
-            ->update(User::class, "u")
-            ->set("u.password", ":newPwd")
-            ->set("u.theuid", ":newUid")
-            ->where("u.theuid = :uid")
-            ->andWhere("u.username = :username")
-            ->setParameters([
-                "newPwd" => password_hash($newPwd, PASSWORD_DEFAULT),
-                "newUid" => uniqid(more_entropy: true),
-                "uid" => $lastUid,
-                "username" => $username,
-            ],
-            )
-            ->getQuery()->execute();
+                    ->update(User::class, "u")
+                    ->set("u.password", ":newPwd")
+                    ->set("u.theuid", ":newUid")
+                    ->where("u.theuid = :uid")
+                    ->andWhere("u.username = :username")
+                    ->setParameters([
+                        "newPwd"   => password_hash($newPwd, PASSWORD_DEFAULT),
+                        "newUid"   => uniqid(more_entropy: true),
+                        "uid"      => $lastUid,
+                        "username" => $username,
+                    ],
+                    )
+                    ->getQuery()->execute();
     }
 
-    public function remove(User $entity, bool $flush = false): void
+    public function remove(User $entity, bool $flush = false) : void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -82,7 +82,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
-    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword) : void
     {
         if (!$user instanceof User) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
@@ -93,7 +93,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->add($user, true);
     }
 
-    public function add(User $entity, bool $flush = false): void
+    public function add(User $entity, bool $flush = false) : void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -102,21 +102,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
     }
 
-    public function getUserByUidAndName(string $uid, string $name): ?array
+    public function getUserByUidAndName(string $uid, string $name) : ?array
     {
         return $this->createQueryBuilder("u")
-            ->select("u.id")
-            ->where("u.theuid = :uid")
-            ->andWhere("u.username = :username")
-            ->setParameters([
-                "uid" => $uid,
-                "username" => $name,
-            ])
-            ->getQuery()
-            ->getOneOrNullResult();
+                    ->select("u.id")
+                    ->where("u.theuid = :uid")
+                    ->andWhere("u.username = :username")
+                    ->setParameters([
+                        "uid"      => $uid,
+                        "username" => $name,
+                    ])
+                    ->getQuery()
+                    ->getOneOrNullResult();
     }
 
-    public function password_Url_Lifetime(string $lastUid, string $userName, string $interval): void
+    public function password_Url_Lifetime(string $lastUid, string $userName, string $interval) : void
     {
         $sql = $this->getEntityManager()->getConnection()->prepare("
             CREATE EVENT IF NOT EXISTS `:event`
@@ -137,23 +137,23 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findAllUsersByRole(string $role = "USER")
     {
         return $this->createQueryBuilder("u")
-            ->select("u.id, u.username ,u.thename, u.thesurname, u.themail")
-            ->where("JSON_CONTAINS(u.roles, :role) = 1")
-            ->andWhere("u.thestatus != 0")
-            ->setParameter('role', '"ROLE_' . $role . '"')
-            ->getQuery()
-            ->getResult();
+                    ->select("u.id, u.username ,u.thename, u.thesurname, u.themail")
+                    ->where("JSON_CONTAINS(u.roles, :role) = 1")
+                    ->andWhere("u.thestatus != 0")
+                    ->setParameter('role', '"ROLE_' . $role . '"')
+                    ->getQuery()
+                    ->getResult();
     }
 
-    public function findInternsByPromotions(?string $acronym = null): ?array
+    public function findInternsByPromotions(?string $acronym = null) : ?array
     {
         $query = $this->createQueryBuilder("u")
-            ->select("u.id, u.thename, u.thesurname, u.themail, u.username,
+                      ->select("u.id, u.thename, u.thesurname, u.themail, u.username,
                       r.startingdate AS dateInscription, 
                       p.promoname, p.acronym, p.startingdate AS dateDebutPromotion")
-            ->innerJoin(Registrations::class, "r", "WITH", "r.users = u.id")
-            ->innerJoin(Promotions::class, "p", "WITH", "r.promotions = p.id");
-        !$acronym ?: $query
+                      ->innerJoin(Registrations::class, "r", "WITH", "r.users = u.id")
+                      ->innerJoin(Promotions::class, "p", "WITH", "r.promotions = p.id");
+        !$acronym ? : $query
             ->where("p.acronym = :acronym")
             ->setParameter("acronym", $acronym);
         return $query
@@ -163,7 +163,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult(QUERY::HYDRATE_ARRAY);
     }
 
-    public function findInternByUsername(string $promotion, string $username): array
+    public function findInternByUsername(string $promotion, string $username) : array
     {
         $query = $this->getEntityManager()->getConnection()->prepare("
         SELECT u.id, u.username, u.roles, u.thename, u.thesurname, u.themail,
@@ -205,15 +205,28 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $result ? [$result] : [];
     }
 
+    public function findUserStartingWithString(string $string) : ?array
+    {
+        return $this->createQueryBuilder("u")
+                    ->select("u.id", "u.username, u.thename,u.thesurname")
+                    ->where("u.thename LIKE :name OR u.thesurname LIKE :surname")
+                    ->andwhere("JSON_CONTAINS(u.roles, '\"ROLE_USER\"') = 1")
+                    ->andwhere("JSON_LENGTH(u . roles) = 1")
+                    ->andWhere("u.thestatus = 1")
+                    ->setParameter("name", "%$string%")
+                    ->setParameter("surname", "%$string%")
+                    ->getQuery()
+                    ->getResult(QUERY::HYDRATE_ARRAY);
+    }
 
-    public function findOneByUsername(string $username): ?array
+    public function findOneByUsername(string $username) : ?array
     {
         return $this->createQueryBuilder('u')
-            ->select('u.id', 'u.username', 'u.roles', 'u.thename', 'u.thesurname', 'u.themail', 'u.thestatus')
-            ->andWhere('u.username = :username')
-            ->setParameter('username', $username)
-            ->getQuery()
-            ->getOneOrNullResult();
+                    ->select('u.id', 'u.username', 'u.roles', 'u.thename', 'u.thesurname', 'u.themail', 'u.thestatus')
+                    ->andWhere('u.username = :username')
+                    ->setParameter('username', $username)
+                    ->getQuery()
+                    ->getOneOrNullResult();
     }
 
     //    /**
