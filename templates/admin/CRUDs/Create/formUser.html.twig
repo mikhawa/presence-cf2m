@@ -1,0 +1,94 @@
+{% extends "layout/layout.html.twig" %}
+{% block innerTitle %}FormUser{% endblock %}
+{% block main %}
+    <main>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="card shadow-lg border-0 rounded-lg mt-5">
+                        <form action="" method="post" name="createUser">
+
+                            <div class="form-floating mb-3">
+                                <input name="username" class="form-control"
+                                       id="username" type="text" placeholder="Votre pseudo"
+                                />
+                                <label for="createUser">Veuillez entrez votre pseudo</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <fieldset>
+                                    <legend>
+                                        Veuillez sélectionner votre/vos rôle(s) :
+                                    </legend>
+                                    <div>
+                                        <input type="checkbox" id="user" name="role[]" value="user">
+                                        <label for="user">"ROLE_USER"</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="perso" name="role[]" value="perso">
+                                        <label for="perso">"ROLE_PERSO"</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="format" name="role[]" value="format">
+                                        <label for="format">"ROLE_FORMAT"</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="encode" name="role[]" value="encode">
+                                        <label for="encode">"ROLE_ENCODE"</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="pedago" name="role[]" value="pedago">
+                                        <label for="pedago">"ROLE_PEDAGO"</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="admin" name="role[]" value="admin">
+                                        <label for="admin">"ROLE_ADMIN"</label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input name="password" class="form-control"
+                                       id="password" type="password" placeholder="Votre mot de passe"
+                                />
+                                <label for="createUser">Veuillez entrez votre mot de passe</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input name="thename" class="form-control"
+                                       id="thename" type="text" placeholder="Votre nom"
+                                />
+                                <label for="createUser">Veuillez entrez votre nom</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input name="thesurname" class="form-control"
+                                       id="thesurname" type="text" placeholder="Votre prénom"
+                                />
+                                <label for="createUser">Veuillez entrez votre prénom</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input name="themail" class="form-control"
+                                       id="themail" type="email" placeholder="Votre email"
+                                />
+                                <label for="createUser">Veuillez entrez votre email</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input name="thestatus" class="form-control"
+                                       id="thestatus" type="number" placeholder="Votre status"
+                                />
+                                <label for="createUser">Veuillez entrez votre status</label>
+                            </div>
+                            <div class="text-center">
+                                <input class="btn btn-primary w-100 mb-2" type="submit" value="Envoyer">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+{% endblock %}
