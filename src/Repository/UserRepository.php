@@ -212,6 +212,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                     ->where("u.thename LIKE :name OR u.thesurname LIKE :surname")
                     ->andwhere("JSON_CONTAINS(u.roles, '\"ROLE_USER\"') = 1")
                     ->andwhere("JSON_LENGTH(u . roles) = 1")
+                    ->andWhere("u.thestatus = 1")
                     ->setParameter("name", "%$string%")
                     ->setParameter("surname", "%$string%")
                     ->getQuery()
