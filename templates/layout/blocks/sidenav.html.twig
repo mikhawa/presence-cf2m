@@ -36,6 +36,12 @@
                     <a class="nav-link" role="button">Lien 2</a>
                 </nav>
             </div> #}
+                <a href="{{ path("app_admin_index") }}" class="nav-link" role="button">
+                    <div class="sb-nav-link-icon">
+                        <i class="fa-solid fa-toolbox"></i>
+                    </div>
+                    Admin
+                </a>
                 <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#cruds" aria-expanded="false" aria-controls="cruds">
                     <div class="sb-nav-link-icon">
                         <i class="fa-solid fa-screwdriver-wrench"></i>
@@ -80,18 +86,12 @@
                     </nav>
                 </div>
             {% endif %}
-            <div class="sb-sidenav-menu-heading">Addons</div>
-            <a class="nav-link" role="button">
+            <div class="sb-sidenav-menu-heading">Apps</div>
+            <a href="{{ path("app_perso_vueApp") }}" class="nav-link" role="button">
                 <div class="sb-nav-link-icon">
-                    <i class="fas fa-chart-area"></i>
+                    <i class="fas fa-calendar"></i>
                 </div>
-                Test 1
-            </a>
-            <a class="nav-link" role="button">
-                <div class="sb-nav-link-icon">
-                    <i class="fas fa-table"></i>
-                </div>
-                Test 2
+                Exemple
             </a>
         </div>
     </div>

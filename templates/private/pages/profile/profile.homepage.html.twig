@@ -26,10 +26,11 @@
                             {% endif %}
                         {% endfor %}
                     </p>
-
-                    <p> -> <a href="{{ path("app_perso_print") }}">print</a> - future page d'impression des feuilles de
-                        présence, non accessible aux stagiaires, sert pour le moment à d'essais graphiques pour une
-                        administration</p>
+                    {% if "ROLE_PERSO" in app.user.roles %}
+                        <p> -> <a href="{{ path("app_perso_vueApp") }}">print</a> - future page d'impression des feuilles de
+                            présence, non accessible aux stagiaires, sert pour le moment à d'essais graphiques pour une
+                            administration</p>
+                    {% endif %}
                     {% if is_granted('ROLE_PERSO') %}
                         <div class="accordion mb-3" id="apiAccordion">
                             <div class="accordion-item">
