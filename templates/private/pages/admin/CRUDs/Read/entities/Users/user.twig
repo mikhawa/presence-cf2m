@@ -1,5 +1,5 @@
 {% extends "private/pages/admin/CRUDs/Read/Read.html.twig" %}
-{% block innerTitle %}User{% endblock %}
+{% block innerTitle %}{{ user.thename }} {{ user.thesurname }}{% endblock %}
 
 {% block thead %}
     <tr>
@@ -16,7 +16,11 @@
     <tr>
         <td>{{ user.id }}</td>
         <td>{{ user.username }}</td>
-        <td>{{ user.roles[0] }}</td>
+        <td>
+            {% for role in user.roles %}
+                {{ role }} {% if not loop|last %}|{% endif %}
+            {% endfor %}
+        </td>
         <td>{{ user.thename }}</td>
         <td>{{ user.thesurname }}</td>
         <td>{{ user.themail }}</td>
