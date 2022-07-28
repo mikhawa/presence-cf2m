@@ -622,7 +622,18 @@
                             }
                         });
                 }
-            });
+                let selected = "";
+                $('.typeahead').on('typeahead:selected', function(e, datum) {
+                    selected = datum;
+                });
+                $(".typeahead").keydown((e) => {
+                    if (e.keyCode === 13) {
+                        e.preventDefault();
+                        window.location.replace("./interns/user/" + selected.username);
+                    }
+                })
+            })
+
         </script>
     {% endif %}
 {% endblock %}
