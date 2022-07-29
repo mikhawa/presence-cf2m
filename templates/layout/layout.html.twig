@@ -605,8 +605,12 @@
                         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('thename'),
                         queryTokenizer: Bloodhound.tokenizers.whitespace,
                         remote        : {
-                            url     : "{{ path("api_UserLike") }}/%QUERY",
-                            wildcard: "%QUERY"
+                            url    : "{{ path("api_UserLike") }}/",
+                            prepare: function(query, settings) {
+                                let subquery = `${query}`.split(" ");
+                                settings.url += subquery.length === 2 ? `${subquery[0]}/${subquery[1]}` : query;
+                                return settings;
+                            }
                         },
                     })
                     $('.typeahead').typeahead({
@@ -628,7 +632,7 @@
                 });
                 $(".typeahead").keydown((e) => {
                     if (e.keyCode === 13) {
-                        location.href=`{{path('app_perso_user_username')}}/${selected.username}`;
+                        location.href = `{{ path('app_perso_user_username') }}/${selected.username}`;
                     }
                 })
             })
