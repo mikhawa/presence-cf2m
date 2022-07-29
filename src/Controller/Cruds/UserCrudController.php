@@ -2,6 +2,7 @@
 
 namespace App\Controller\Cruds;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +15,7 @@ class UserCrudController extends AbstractController
     public function createUsers(Request $request): Response
     {
         if ($request->isMethod("POST")) {
+            $user = new User();
             $tableau = [
                 "username" => $request->request->get("username"),
                 "roles" => [...$request->request]["role"],
@@ -23,7 +25,14 @@ class UserCrudController extends AbstractController
                 "themail" => $request->request->get("themail"),
                 "thestatus" => $request->request->get("thestatus")
             ];
-            die(var_dump(1));
+            $user->setUsername($tableau['username']);
+            $user->setRoles($tableau['roles']);
+            $user->setPassword($tableau['password']);
+            $user->setThename($tableau['thename']);
+            $user->setThesurname($tableau['thesurname']);
+            $user->setThemail($tableau['themail']);
+            $user->setThestatus((int)$tableau['thestatus']);
+            die(var_dump($user));
         }
         return $this->render('admin/CRUDs/Create/formUser.html.twig');
     }
