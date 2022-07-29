@@ -1,6 +1,10 @@
 {% extends "layout/layout.html.twig" %}
 {% block innerTitle %}FormUser{% endblock %}
 {% block main %}
+    {{ form(form) }}
+
+    <h5 class="text-danger">Le formulaire ci-dessous était l'exercice de Manu, pour plus de praticité il faudrait utiliser le formulaire au dessus et lui passer les classe bootstrap en références pour la mise en page. </br>
+        De fait ceci permettra d'utiliser un formulaire de Symfony qui le génère vis à vis d'une entité, plutôt que de les faire soi-même</h5>
     <main>
         <div class="container">
             <div class="row justify-content-center">

@@ -3,6 +3,7 @@
 namespace App\Controller\Cruds;
 
 use App\Entity\User;
+use App\Form\CreateUserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,31 +14,35 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserCrudController extends AbstractController
 {
     #[Route('create/users', name: 'create_users')]
-    public function createUsers(Request $request): Response
+    public function createUsers(Request $request) : Response
     {
-        if ($request->isMethod("POST")) {
-            $user = new User([
-                "username" => $request->request->get("username"),
-                "roles" => [...$request->request]["role"],
-                "password" => password_hash($request->request->get("password"), PASSWORD_DEFAULT),
-                "thename" => $request->request->get("thename"),
-                "thesurname" => $request->request->get("thesurname"),
-                "themail" => $request->request->get("themail"),
-                "theuid" => uniqid(more_entropy: true)
+        $form = $this->createForm(CreateUserType::class);
+        $form->handleRequest($request);
+        if ($request->isMethod("POST") && $form->isSubmitted() && $form->isValid()) {
+            $tempUser = $form->getData();
+            $user     = new User([
+                "username"   => $tempUser->getUsername(),
+                "roles"      => $tempUser->getRoles(),
+                "password"   => password_hash($tempUser->getPassword(), PASSWORD_DEFAULT),
+                "thename"    => $tempUser->getThename(),
+                "thesurname" => $tempUser->getThesurname(),
+                "themail"    => $tempUser->getThemail(),
+                "theuid"     => uniqid(more_entropy: true),
             ]);
             die(var_dump($user));
         }
-        return $this->render('admin/CRUDs/Create/formUser.html.twig');
+        return $this->render('admin/CRUDs/Create/formUser.html.twig', [
+            "form" => $form->createView(),
+        ]);
     }
 
     #[Route('/read/users', name: 'read_users')]
-    public function readUsers(UserRepository $repository): Response
+    public function readUsers(UserRepository $repository) : Response
     {
         return $this->render('private/pages/admin/CRUDs/Read/entities/Users/users.twig', [
             "users" => $repository->findAllUsersByRole(),
         ]);
     }
-
 
     #[Route('/update/user/{username}', name: 'update_user')]
     public function updateUsers(UserRepository $repository, string $username = "") : Response
