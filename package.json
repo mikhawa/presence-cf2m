@@ -16,7 +16,6 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "babel": "^6.23.0",
         "daypilot-pro-vue": "https://npm.daypilot.org/daypilot-pro-vue/trial/2021.2.5000.tar.gz",
         "ts-loader": "^9.3.1",
         "typescript": "^4.7.4",
