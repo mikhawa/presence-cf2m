@@ -219,6 +219,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                     ->getResult(QUERY::HYDRATE_ARRAY);
     }
 
+    public function findUserWithNameAndSurnameStartingWithString(string $name, string $surname) : ?array
+    {
+        return $this->createQueryBuilder("u")
+                    ->select("u.id", "u.username, u.thename,u.thesurname")
+                    ->where("u.thename = :name AND u.thesurname LIKE :surname")
+                    ->andwhere("JSON_CONTAINS(u.roles, '\"ROLE_USER\"') = 1")
+                    ->andwhere("JSON_LENGTH(u . roles) = 1")
+                    ->andWhere("u.thestatus = 1")
+                    ->setParameter("name", $name)
+                    ->setParameter("surname", "%$surname%")
+                    ->getQuery()
+                    ->getResult(QUERY::HYDRATE_ARRAY);
+    }
+
     public function findOneByUsername(string $username) : ?array
     {
         return $this->createQueryBuilder('u')

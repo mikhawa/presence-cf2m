@@ -52,4 +52,10 @@ class ApiController extends AbstractController
     {
         return $this->json($repository->findUserStartingWithString($like));
     }
+
+    #[Route('/interns/auto/user/{name}/{surname}', name: 'UserWithNameAndSurnameLike', methods: ["GET"])]
+    public function autocompletePrecise(UserRepository $repository, string $name = "", $surname = "") : Response
+    {
+        return $this->json($repository->findUserWithNameAndSurnameStartingWithString($name, $surname));
+    }
 }
