@@ -15,23 +15,15 @@ class UserCrudController extends AbstractController
     public function createUsers(Request $request): Response
     {
         if ($request->isMethod("POST")) {
-            $user = new User();
-            $tableau = [
+            $user = new User([
                 "username" => $request->request->get("username"),
                 "roles" => [...$request->request]["role"],
-                "password" => $request->request->get("password"),
+                "password" => password_hash($request->request->get("password"), PASSWORD_DEFAULT),
                 "thename" => $request->request->get("thename"),
                 "thesurname" => $request->request->get("thesurname"),
                 "themail" => $request->request->get("themail"),
-                "thestatus" => $request->request->get("thestatus")
-            ];
-            $user->setUsername($tableau['username']);
-            $user->setRoles($tableau['roles']);
-            $user->setPassword($tableau['password']);
-            $user->setThename($tableau['thename']);
-            $user->setThesurname($tableau['thesurname']);
-            $user->setThemail($tableau['themail']);
-            $user->setThestatus((int)$tableau['thestatus']);
+                "theuid" => uniqid(more_entropy: true)
+            ]);
             die(var_dump($user));
         }
         return $this->render('admin/CRUDs/Create/formUser.html.twig');
