@@ -19,7 +19,7 @@
                     Profile
                 </a>
             </div>
-            {% if("ROLE_ADMIN" in app.user.roles) %}
+            {% if(app.user and "ROLE_ADMIN" in app.user.roles) %}
                 <div class="sb-sidenav-menu-heading">Administration</div>
                 {# <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon">
@@ -36,6 +36,12 @@
                     <a class="nav-link" role="button">Lien 2</a>
                 </nav>
             </div> #}
+                <a href="{{ path("app_admin_index") }}" class="nav-link" role="button">
+                    <div class="sb-nav-link-icon">
+                        <i class="fa-solid fa-toolbox"></i>
+                    </div>
+                    Admin
+                </a>
                 <a class="nav-link collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#cruds" aria-expanded="false" aria-controls="cruds">
                     <div class="sb-nav-link-icon">
                         <i class="fa-solid fa-screwdriver-wrench"></i>
@@ -48,54 +54,48 @@
                 <div class="collapse" id="cruds" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"utilisateurs",fas:"fas fa-users"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"utilisateurs",fas:"fas fa-users", mod:"users"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"inscriptions",fas:"fas fa-user-plus"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"inscriptions",fas:"fas fa-user-plus", mod:"registrations"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"promotions",fas:"fas fa-school"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"promotions",fas:"fas fa-school", mod:"promotions"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"options",fas:"fas fa-cogs"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"options",fas:"fas fa-cogs", mod:"options"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"conges",fas:"fas fa-calendar-minus"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"conges",fas:"fas fa-calendar-minus", mod:"holidays"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"presences",fas:"fas fa-file-archive"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"presences",fas:"fas fa-file-archive", mod:"attendancesheets"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"suivis",fas:"fas fa-address-book"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"suivis",fas:"fas fa-address-book", mod:"followups"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"evenements",fas:"fas fa-calendar-times"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"evenements",fas:"fas fa-calendar-times", mod:"specialevents"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"type",fas:"fas fa-question"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"type",fas:"fas fa-question", mod:"specialeventtypes"} %}
                         </div>
                         <div>
-                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"justificatifs",fas:"fas fa-user-md"} %}
+                            {% include "layout/blocks/crudLinkEntities.html.twig" with {entity:"justificatifs",fas:"fas fa-user-md", mod:"proofofabsences"} %}
                         </div>
                     </nav>
                 </div>
             {% endif %}
-            <div class="sb-sidenav-menu-heading">Addons</div>
-            <a class="nav-link" role="button">
+            <div class="sb-sidenav-menu-heading">Apps</div>
+            <a href="{{ path("app_perso_vueApp") }}" class="nav-link" role="button">
                 <div class="sb-nav-link-icon">
-                    <i class="fas fa-chart-area"></i>
+                    <i class="fas fa-calendar"></i>
                 </div>
-                Test 1
-            </a>
-            <a class="nav-link" role="button">
-                <div class="sb-nav-link-icon">
-                    <i class="fas fa-table"></i>
-                </div>
-                Test 2
+                Exemple
             </a>
         </div>
     </div>
     <div class="sb-sidenav-footer">
-        <div class="small">Connecté en tant que: {{ app.user.username }}</div>
+        <div class="small">Connecté en tant que: {{ (app.user) ?  app.user.username : "" }}</div>
     </div>
 </nav>

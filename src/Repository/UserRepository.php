@@ -137,7 +137,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findAllUsersByRole(string $role = "USER")
     {
         return $this->createQueryBuilder("u")
-                    ->select("u.id, u.thename, u.thesurname, u.themail")
+                    ->select("u.id, u.username ,u.thename, u.thesurname, u.themail")
                     ->where("JSON_CONTAINS(u.roles, :role) = 1")
                     ->andWhere("u.thestatus != 0")
                     ->setParameter('role', '"ROLE_' . $role . '"')
@@ -203,6 +203,30 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $query->bindValue("promotion", $promotion);
         $result = $query->executeQuery()->fetchAssociative();
         return $result ? [$result] : [];
+    }
+
+    public function findUserStartingWithString(string $string) : ?array
+    {
+        return $this->createQueryBuilder("u")
+                    ->select("u.id", "u.username, u.thename,u.thesurname")
+                    ->where("u.thename LIKE :name OR u.thesurname LIKE :surname")
+                    ->andwhere("JSON_CONTAINS(u.roles, '\"ROLE_USER\"') = 1")
+                    ->andwhere("JSON_LENGTH(u . roles) = 1")
+                    ->andWhere("u.thestatus = 1")
+                    ->setParameter("name", "%$string%")
+                    ->setParameter("surname", "%$string%")
+                    ->getQuery()
+                    ->getResult(QUERY::HYDRATE_ARRAY);
+    }
+
+    public function findOneByUsername(string $username) : ?array
+    {
+        return $this->createQueryBuilder('u')
+                    ->select('u.id', 'u.username', 'u.roles', 'u.thename', 'u.thesurname', 'u.themail', 'u.thestatus')
+                    ->andWhere('u.username = :username')
+                    ->setParameter('username', $username)
+                    ->getQuery()
+                    ->getOneOrNullResult();
     }
 
     //    /**

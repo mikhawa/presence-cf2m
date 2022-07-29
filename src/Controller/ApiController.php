@@ -46,4 +46,10 @@ class ApiController extends AbstractController
     {
         return $this->json($repository->getAllPromotions());
     }
+
+    #[Route('/interns/auto/user/{like}', name: 'UserLike', methods: ["GET"])]
+    public function autocomplete(UserRepository $repository, string $like = "") : Response
+    {
+        return $this->json($repository->findUserStartingWithString($like));
+    }
 }

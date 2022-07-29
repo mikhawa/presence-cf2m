@@ -12,8 +12,7 @@ class ProfileController extends AbstractController
     #[Route('/profile', name: 'app_profile')]
     public function index(PromotionsRepository $repository) : Response
     {
-        return $this->render('profile/profile.homepage.html.twig', [
-            'env'        => $_ENV["APP_ENV"],
+        return $this->render('private/pages/profile/profile.homepage.html.twig', [
             "promotions" => $repository->findAll(),
         ]);
     }

@@ -9,15 +9,15 @@ class JsonThis {
     }
 
     json(datas) {
-        let string = '[</br>';
+        let string = '<span style="color:#1299DA">[</span><span style="color:#FF8400"></br>';
         datas.forEach((data) => {
             string += `     {</br>`;
             for (let property in data) {
-                string += `        "${property}": ${typeof (data[property]) === "string" ? '"' + data[property] + '"' : data[property]}</br>`;
+                string += `        "<span style="color:white">${property}</span>": ${typeof (data[property]) === "string" ? '"<span style="color:#56DB3A">' + data[property] + '</span>"' : '<span style="color:#1299DA">' + data[property] + '</span>'}</br>`;
             }
-            string += `     },</br>`;
+            string += `     }<span style="color:#1299DA">,</span></br>`;
         })
-        string += ']';
+        string += '</span><span style="color:#1299DA">]</span>';
         return string;
     }
 
