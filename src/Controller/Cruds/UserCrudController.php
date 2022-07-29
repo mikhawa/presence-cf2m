@@ -23,7 +23,7 @@ class UserCrudController extends AbstractController
                 "themail" => $request->request->get("themail"),
                 "thestatus" => $request->request->get("thestatus")
             ];
-            die(var_dump());
+            die(var_dump(1));
         }
         return $this->render('admin/CRUDs/Create/formUser.html.twig');
     }
