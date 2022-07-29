@@ -6,29 +6,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/admin', name: 'crud_')]
 class ProofofabscencesCrudController extends AbstractController
 {
-    #[Route('/admin/create/proofofabsences', name: 'app_admin_create_proofofabsences')]
+    #[Route('create/proofofabsences', name: 'create_proofofabsences')]
     public function createProofofabsences() : Response
     {
-        return $this->render('admin/admin.homepage.html.twig');
+        return $this->render('private/pages/admin/admin.homepage.html.twig');
     }
 
-    #[Route('/admin/read/proofofabsences', name: 'app_admin_read_proofofabsences')]
+    #[Route('read/proofofabsences', name: 'read_proofofabsences')]
     public function readProofofabsences() : Response
     {
-        return $this->render('admin/admin.homepage.html.twig');
+        return $this->render('private/pages/admin/admin.homepage.html.twig');
     }
 
-    #[Route('/admin/update/proofofabsences', name: 'app_admin_update_proofofabsences')]
+    #[Route('update/proofofabsences', name: 'update_proofofabsences')]
     public function updateProofofabsences() : Response
     {
-        return $this->render('admin/admin.homepage.html.twig');
+        return $this->render('private/pages/admin/admin.homepage.html.twig');
     }
 
-    #[Route('/admin/delete/proofofabsences', name: 'app_admin_delete_proofofabsences')]
+    #[Route('delete/proofofabsences', name: 'delete_proofofabsences')]
     public function deleteProofofabsences() : Response
     {
-        return $this->render('admin/admin.homepage.html.twig');
+        return $this->render('private/pages/admin/admin.homepage.html.twig');
     }
 }

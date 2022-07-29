@@ -55,20 +55,20 @@ class PublicController extends AbstractController
                     from: $this->getParameter("app.admin_mail"),
                     to: $request->request->get("email"),
                     datas: $userFound,
-                    template: 'pwd_reset/mail.html.twig',
+                    template: 'public/pwd_reset/mail.html.twig',
                     request: $request);
                 $this->addFlash('success', "Un mail de récupération de mot de passe vous a été envoyé sur l'adresse: " . $request->request->get("email"));
                 $repository->password_Url_Lifetime($userFound["theuid"], $userFound["username"], $this->getParameter("app.url_password_lifetime"));
                 $path = $this->redirectToRoute("app_homepage");
             }
             else {
-                $path = $this->render('pwd_reset/form.html.twig', [
+                $path = $this->render('public/pwd_reset/form.html.twig', [
                     "alert" => "No user were found with this email",
                 ]);
             }
         }
         else {
-            $path = $this->getUser() ? $this->redirectToRoute("app_homepage") : $this->render('pwd_reset/form.html.twig');
+            $path = $this->getUser() ? $this->redirectToRoute("app_homepage") : $this->render('public/pwd_reset/form.html.twig');
         }
         return $path;
     }
@@ -81,10 +81,11 @@ class PublicController extends AbstractController
                 $request->request->get("password") === $request->request->get("passwordVerify") &&
                 preg_match($this->getParameter("app.verification_password_regex"), $request->request->get("password"))) {
                 $repository->changePassword($request->request->get("password"), $id, $user);
+                $this->addFlash('success', "Un mail de récupération de mot de passe vous a été envoyé sur l'adresse: " . $request->request->get("email"));
                 $path = $this->redirectToRoute("app_homepage");
             }
             else {
-                $path = $this->render("pwd_reset/reset.html.twig", [
+                $path = $this->render("public/pwd_reset/reset.html.twig", [
                     "user"  => "admin1",
                     "regex" => $this->getParameter("app.verification_password_regex"),
                 ]);
