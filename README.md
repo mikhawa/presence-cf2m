@@ -1,9 +1,10 @@
 # presence-cf2m
+
 Application web de relevé des présences stagiaires avec statistiques
 
 ### Mise en place du projet
 
-Les **à faire** sont les étapes à faire et vérifier, 
+Les **à faire** sont les étapes à faire et vérifier,
 
 Les **à titre formatif / informatif** sont à regarder si vous le souhaitez, mais sont déjà exécutées dans le code de ce répertoire.
 
@@ -31,8 +32,6 @@ Les **à voir et discuter** sont des points que l'on pourrait modifier dans la s
 - [Les rôles](https://github.com/mikhawa/presence-cf2m#les-r%C3%B4les) - à titre formatif / informatif
 - [Mise à jour de la DB production](https://github.com/mikhawa/presence-cf2m#mise-%C3%A0-jour-de-la-db-production) - **À FAIRE régulièrement**
 - [Répartition du travail](https://github.com/mikhawa/presence-cf2m#r%C3%A9partition-du-travail) - **À FAIRE**
-
-
 
 ### Prérequis
 
@@ -106,7 +105,6 @@ S'il vous manque des gestionnaires de paquets vous pouvez les trouver ici :
 - https://yarnpkg.com/getting-started/install
 - https://symfony.com/download
 
-
 Dans la console :
 
         php -v
@@ -140,7 +138,6 @@ Pour installer `yarn` si vous le souhaitez (un autre gestionnaire JS de package)
     npm i -g corepack
     yarn
 
-
 ### Démarrage du serveur
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
@@ -157,7 +154,6 @@ Vous pouvez y accéder à l'URL indiquée, généralement du type :
 
 https://127.0.0.1:8000/
 
-        
 ### Création du contrôleur général
 
 - [Retour au menu](https://github.com/mikhawa/presence-cf2m#arborescence)
@@ -188,7 +184,7 @@ Ajout des JS et CSS dans les `assets`
 
 Modification de
 
-    assets/app.js
+    assets/main.js
     ...
     import './styles/app.css';
     import './styles/styles.css';
@@ -218,7 +214,7 @@ Création de notre première entité, un utilisateur:
 
     php bin/console make:user
 
-Avec `User` comme nom, stocké dans la DB avec le `username` comme champs de référence et la gestion des passwords : 
+Avec `User` comme nom, stocké dans la DB avec le `username` comme champs de référence et la gestion des passwords :
 
 Fichiers créés/modifiés :
 
@@ -308,7 +304,7 @@ Nous pouvons voir dans notre DB dans la table `user` que les champs ne correspon
 ![Table user](https://raw.githubusercontent.com/mikhawa/presence-cf2m/main/datas/img/screenshot-localhost_8080-2022.06.24-12_07_58.png "Table user")
 ![Index user](https://raw.githubusercontent.com/mikhawa/presence-cf2m/main/datas/img/screenshot-localhost_8080-2022.06.24-12_08_28.png "Index user")
 
-Nous allons donc remédier à cela en utilisant les attributs de références que vous trouverez ici : 
+Nous allons donc remédier à cela en utilisant les attributs de références que vous trouverez ici :
 
 https://www.doctrine-project.org/projects/doctrine-orm/en/2.11/reference/attributes-reference.html
 
@@ -498,6 +494,7 @@ Elle devrait correspondre aux entités avec les données actuelles
 Non connecté, aucun rôle disponible. Les rôles sont cumulatifs et combinables suivant les besoins.
 
 Connecté les rôles sont :
+
 - `ROLE_USER` est un stagiaire, il n'a pour le moment qu'un accès à son profil.
 
 Tester le rôle : util1 - util1

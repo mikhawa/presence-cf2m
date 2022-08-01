@@ -1,3 +1,4 @@
+const path   = require('path');
 const Encore = require('@symfony/webpack-encore');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
@@ -22,6 +23,10 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('JsonThis', './assets/js/scripts/JsonThis.js')
+    .addEntry("appPierre", "./assets/js/apps/appPierre/main.js")
+    .addAliases({
+        "@imagesPierre": path.resolve(__dirname, 'assets/images')
+    })
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

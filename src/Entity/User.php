@@ -73,11 +73,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         type: 'smallint',
         options: [
             "unsigned" => true,
-            "default"  => 0,
+            "default" => 0,
         ],
     )]
     private int $thestatus;
-
 
 
     #[ORM\OneToMany(
@@ -86,22 +85,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private $registrations;
 
-    public function __construct()
+    public function __construct(array $datas = [])
     {
         $this->registrations = new ArrayCollection();
+        $this->hydrate($datas);
     }
 
-    public function getId() : ?int
+    protected function hydrate(array $assoc): void
+    {
+        foreach ($assoc as $clef => $valeur) {
+            $methodeName = "set" . str_replace("_", "", ucfirst($clef));
+            if (method_exists($this, $methodeName)) {
+                $this->$methodeName($valeur);
+            }
+        }
+    }
+
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUsername() : ?string
+    public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    public function setUsername(string $username) : self
+    public function setUsername(string $username): self
     {
         $this->username = $username;
 
@@ -113,15 +123,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @see UserInterface
      */
-    public function getUserIdentifier() : string
+    public function getUserIdentifier(): string
     {
-        return (string) $this->username;
+        return (string)$this->username;
     }
 
     /**
      * @see UserInterface
      */
-    public function getRoles() : array
+    public function getRoles(): array
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
@@ -130,7 +140,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles) : self
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
@@ -140,12 +150,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword() : string
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password) : self
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
@@ -155,78 +165,72 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials() : void
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // error not null
         // $this->theuid = null;
     }
 
-    public function getThename() : ?string
+    public function getThename(): ?string
     {
         return $this->thename;
     }
 
-    public function setThename(string $thename) : self
+    public function setThename(string $thename): self
     {
         $this->thename = $thename;
 
         return $this;
     }
 
-    public function __toString() {
-        return $this->thename;
-    }
-
-    public function getThesurname() : ?string
+    public function getThesurname(): ?string
     {
         return $this->thesurname;
     }
 
-    public function setThesurname(string $thesurname) : self
+    public function setThesurname(string $thesurname): self
     {
         $this->thesurname = $thesurname;
 
         return $this;
     }
 
-    public function getThemail() : ?string
+    public function getThemail(): ?string
     {
         return $this->themail;
     }
 
-    public function setThemail(?string $themail) : self
+    public function setThemail(?string $themail): self
     {
         $this->themail = $themail;
 
         return $this;
     }
 
-    public function getTheuid() : ?string
+    public function getTheuid(): ?string
     {
         return $this->theuid;
     }
 
-    public function setTheuid(string $theuid) : self
+    public function setTheuid(string $theuid): self
     {
         $this->theuid = $theuid;
 
         return $this;
     }
 
-    public function getThestatus() : ?int
+    public function getThestatus(): ?int
     {
         return $this->thestatus;
     }
 
-    public function setThestatus(int $thestatus) : self
+    public function setThestatus(int $thestatus): self
     {
         $this->thestatus = $thestatus;
 
         return $this;
     }
-
-
 
     /**
      * @return Collection<int, Registrations>
@@ -258,5 +262,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    
+
 }

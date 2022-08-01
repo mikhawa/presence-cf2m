@@ -2,18 +2,38 @@
 
 namespace App\Controller\Cruds;
 
+use App\Entity\User;
+use App\Form\CreateUserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin', name: 'crud_')]
 class UserCrudController extends AbstractController
 {
-    #[Route('/create/users', name: 'create_users')]
-    public function createUsers() : Response
+    #[Route('create/users', name: 'create_users')]
+    public function createUsers(Request $request) : Response
     {
-        return $this->render('private/pages/admin/admin.homepage.html.twig');
+        $form = $this->createForm(CreateUserType::class);
+        $form->handleRequest($request);
+        if ($request->isMethod("POST") && $form->isSubmitted() && $form->isValid()) {
+            $tempUser = $form->getData();
+            $user     = new User([
+                "username"   => $tempUser->getUsername(),
+                "roles"      => $tempUser->getRoles(),
+                "password"   => password_hash($tempUser->getPassword(), PASSWORD_DEFAULT),
+                "thename"    => $tempUser->getThename(),
+                "thesurname" => $tempUser->getThesurname(),
+                "themail"    => $tempUser->getThemail(),
+                "theuid"     => uniqid(more_entropy: true),
+            ]);
+            die(var_dump($user));
+        }
+        return $this->render('admin/CRUDs/Create/formUser.html.twig', [
+            "form" => $form->createView(),
+        ]);
     }
 
     #[Route('/read/users', name: 'read_users')]
