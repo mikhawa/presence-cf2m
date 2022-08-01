@@ -19,7 +19,7 @@ class PersonnelController extends AbstractController
     }
 
     #[Route(path: '/interns/user/{username}', name: 'user_username')]
-    public function internsProfil(UserRepository $repository, string $username = "") : Response
+    public function internsProfil(UserRepository $repository, string $username = ""): Response
     {
         return $this->render('private/pages/personnel/profil_interns.html.twig', [
             'username'   => $username,
