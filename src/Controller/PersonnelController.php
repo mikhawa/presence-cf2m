@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\UX\Chartjs\Model\Chart;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,39 +36,14 @@ class PersonnelController extends AbstractController
         ]);
     }
 
+    #Test ChartJs : vue d'ensemble pour tous les stagiaires
     #[Route(path:'/statGraph', name:'statGraph')]
-    public function statGraph(ChartBuilderInterface $chartBuilder, UserRepository $user)
+    public function statGraph(UserRepository $user): Response
     {
-        $resultUsers = $user->findAll();
+        $users = $user->findAll();
 
-        $labels = [];
-        $data = [];
-
-        foreach($resultUsers as $resultUser){
-            $labels[] = $resultUser->getUsername();
-            $data[] = $resultUser->getThestatus();
-        }
-
-        $chart = $chartBuilder->createChart(Chart::TYPE_BAR);
-
-        $chart->setData([
-            'labels' => $labels,
-            'datasets' => [
-                [
-                    'label' => 'Status',
-                    'backgroundColor' => 'rgb(255, 99, 132)',
-                    'borderColor' => 'rgb(255, 99, 132)',
-                    'data' => $data,
-                ],
-            ],
-        ]);
-
-        $chart->setOptions([
-            
-        ]);
-
-        return $this->render('apps/charts/testChart.html.twig',[
-            'chart' => $chart,
+        return $this->render('apps/charts/stats_interns.html.twig', [
+            "users" => $users
         ]);
     }
 }
