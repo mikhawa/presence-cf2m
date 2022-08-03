@@ -40,6 +40,7 @@ class PersonnelController extends AbstractController
     #[Route(path:'/statGraph', name:'statGraph')]
     public function statGraph(UserRepository $user): Response
     {
+        
         $users = $user->findAll();
 
         return $this->render('apps/charts/stats_interns.html.twig', [
