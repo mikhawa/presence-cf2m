@@ -13,9 +13,15 @@ class PersonnelController extends AbstractController
 
     #test Vue.js
     #[Route(path: '/vueApp', name: 'vueApp')]
-    public function testVue()
+    public function testVue() : Response
     {
         return $this->render('apps/Vue/Exemple/index.html.twig');
+    }
+
+    #[Route(path: '/appPierre', name: 'appPierre')]
+    public function appPierre() : Response
+    {
+        return $this->render('apps/Vue/appPierre/index.html.twig');
     }
 
     #[Route(path: '/interns/user/{username}', name: 'user_username')]
