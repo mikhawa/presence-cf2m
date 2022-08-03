@@ -26,7 +26,6 @@ class UserRoleAutocomplete extends AbstractType
                                         ->setParameter('roles', '%ROLE_PERSO%');
                                         
             },
-            "autocomplete_url" =>  "https://www.google.com",
             'security' => 'ROLE_ADMIN',
         ]);
     }
