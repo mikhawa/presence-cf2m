@@ -1,4 +1,5 @@
-<template>
+<template v-if="chartData">
+{{ chartData }}
   <Bar
     :chart-options="chartOptions"
     :chart-data="chartData"
@@ -10,6 +11,7 @@
     :width="width"
     :height="height"
   />
+  
 </template>
 
 <script>
@@ -55,7 +57,7 @@ export default {
   data() {
     return {
       chartData: {
-        labels: [ 'January', 'February', 'March' ],
+        labels: [],
         datasets: [ { 
           data: [40, 20, 12],
           backgroundColor: '#f87979',
@@ -65,6 +67,13 @@ export default {
         responsive: true
       }
     }
+  },
+  mounted() {
+    fetch('https://127.0.0.1:8000/api/users')
+      .then(res=> res.json())
+      .then(data => this.chartData = data)
+      .catch(err => console.log(err.message))
   }
 }
 </script>
+
