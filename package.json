@@ -2,11 +2,9 @@
     "devDependencies": {
         "@hotwired/stimulus": "^3.0.0",
         "@symfony/stimulus-bridge": "^3.0.0",
-        "@symfony/ux-autocomplete": "file:vendor/symfony/ux-autocomplete/assets",
         "@symfony/webpack-encore": "^2.0.0",
         "core-js": "^3.0.0",
         "regenerator-runtime": "^0.13.2",
-        "tom-select": "^2.0.1",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
@@ -16,5 +14,13 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "daypilot-pro-vue": "https://npm.daypilot.org/daypilot-pro-vue/trial/2021.2.5000.tar.gz",
+        "ts-loader": "^9.3.1",
+        "typescript": "^4.7.4",
+        "vue": "^3.2.37",
+        "vue-loader": "^17.0.0",
+        "vue-template-compiler": "^2.7.8"
     }
 }

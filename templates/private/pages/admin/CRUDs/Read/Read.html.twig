@@ -1,0 +1,22 @@
+{% extends "layout/layout.html.twig" %}
+{% block main %}
+    <table class="table table-dark table-striped text-center">
+        <thead>
+        <tr>
+            {% block thead %}
+            {% endblock %}
+        </tr>
+        </thead>
+        <tbody>
+        {% block tbody %}
+        {% endblock %}
+        </tbody>
+    </table>
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(() => {
+            $("td").addClass("p-3")
+        });
+    </script>
+{% endblock %}

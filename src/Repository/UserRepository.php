@@ -2,13 +2,13 @@
 
 namespace App\Repository;
 
+use App\Entity\Promotions;
+use App\Entity\Registrations;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
-use Exception;
-use Symfony\Component\Cache\Adapter\PdoAdapter;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -133,6 +133,116 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $sql->bindValue("interval", $interval);
         $sql->executeQuery();
     }
+
+    public function findAllUsersByRole(string $role = "USER")
+    {
+        return $this->createQueryBuilder("u")
+                    ->select("u.id, u.username ,u.thename, u.thesurname, u.themail")
+                    ->where("JSON_CONTAINS(u.roles, :role) = 1")
+                    ->andWhere("u.thestatus != 0")
+                    ->setParameter('role', '"ROLE_' . $role . '"')
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    public function findInternsByPromotions(?string $acronym = null) : ?array
+    {
+        $query = $this->createQueryBuilder("u")
+                      ->select("u.id, u.thename, u.thesurname, u.themail, u.username,
+                      r.startingdate AS dateInscription, 
+                      p.promoname, p.acronym, p.startingdate AS dateDebutPromotion")
+                      ->innerJoin(Registrations::class, "r", "WITH", "r.users = u.id")
+                      ->innerJoin(Promotions::class, "p", "WITH", "r.promotions = p.id");
+        !$acronym ? : $query
+            ->where("p.acronym = :acronym")
+            ->setParameter("acronym", $acronym);
+        return $query
+            ->andWhere("p.active != 0")
+            ->andWhere("u.thestatus != 0")
+            ->getQuery()
+            ->getResult(QUERY::HYDRATE_ARRAY);
+    }
+
+    public function findInternByUsername(string $promotion, string $username) : array
+    {
+        $query = $this->getEntityManager()->getConnection()->prepare("
+        SELECT u.id, u.username, u.roles, u.thename, u.thesurname, u.themail,
+        r.startingdate AS 'dateInscription', ifnull(r.endingdate,'NULL') AS 'dateExpulsion',
+        p.promoname, p.acronym, p.startingdate AS 'dateStartPromotion', p.endingdate AS 'dateEndPromotion', p.nbdays,
+        o.optionname, o.acronym,
+        group_concat(ifnull(s.id,'NULL')) AS 'specialeventsid',
+        group_concat(ifnull(s.eventdate,'NULL') SEPARATOR '|||') AS 'eventdate', 
+        group_concat(ifnull(s.remote,'NULL') SEPARATOR '|||') AS 'remote',
+        group_concat(ifnull(s.eventperiod,'NULL') SEPARATOR '|||') AS 'eventperiod', 
+        group_concat(ifnull(s.arrivaltime,'NULL') SEPARATOR '|||') AS 'arrivaltime', 
+        group_concat(ifnull(s.departuretime,'NULL') SEPARATOR '|||') AS 'departuretime', 
+        group_concat(ifnull(s.message,'NULL') SEPARATOR '|||') AS 'message',
+        group_concat(ifnull(st.eventname,'NULL') SEPARATOR '|||') AS 'eventtype',
+        group_concat(ifnull(pr.file,'NULL') SEPARATOR '|||') AS 'file' ,
+        group_concat(ifnull(pr.firstdaycovered,'NULL') SEPARATOR '|||') AS 'firstdaycovered',
+        group_concat(ifnull(pr.lastdaycovered,'NULL') SEPARATOR '|||') AS 'lastdaycovered'
+        FROM user u
+        INNER JOIN registrations r
+        ON u.id = r.users_id
+        INNER JOIN promotions p
+        ON r.promotions_id = p.id
+        INNER JOIN options o
+        ON p.options_id = o.id
+        LEFT JOIN specialevents s
+        ON r.id = s.registrations_id
+        LEFT JOIN specialeventtype st
+        ON s.specialeventtype_id = st.id
+        LEFT JOIN proofofabsences pr
+        ON s.id = pr.specialevents_id
+        WHERE u.username = :username 
+        AND p.acronym = :promotion
+        AND json_contains(u.roles, '\"ROLE_USER\"') = 1
+        AND json_length(u.roles) = 1
+        GROUP BY u.id;");
+        $query->bindValue("username", $username);
+        $query->bindValue("promotion", $promotion);
+        $result = $query->executeQuery()->fetchAssociative();
+        return $result ? [$result] : [];
+    }
+
+    public function findUserStartingWithString(string $string) : ?array
+    {
+        return $this->createQueryBuilder("u")
+                    ->select("u.id", "u.username, u.thename,u.thesurname")
+                    ->where("u.thename LIKE :name OR u.thesurname LIKE :surname")
+                    ->andwhere("JSON_CONTAINS(u.roles, '\"ROLE_USER\"') = 1")
+                    ->andwhere("JSON_LENGTH(u . roles) = 1")
+                    ->andWhere("u.thestatus = 1")
+                    ->setParameter("name", "%$string%")
+                    ->setParameter("surname", "%$string%")
+                    ->getQuery()
+                    ->getResult(QUERY::HYDRATE_ARRAY);
+    }
+
+    public function findUserWithNameAndSurnameStartingWithString(string $name, string $surname) : ?array
+    {
+        return $this->createQueryBuilder("u")
+                    ->select("u.id", "u.username, u.thename,u.thesurname")
+                    ->where("u.thename = :name AND u.thesurname LIKE :surname")
+                    ->andwhere("JSON_CONTAINS(u.roles, '\"ROLE_USER\"') = 1")
+                    ->andwhere("JSON_LENGTH(u . roles) = 1")
+                    ->andWhere("u.thestatus = 1")
+                    ->setParameter("name", $name)
+                    ->setParameter("surname", "%$surname%")
+                    ->getQuery()
+                    ->getResult(QUERY::HYDRATE_ARRAY);
+    }
+
+    public function findOneByUsername(string $username) : ?array
+    {
+        return $this->createQueryBuilder('u')
+                    ->select('u.id', 'u.username', 'u.roles', 'u.thename', 'u.thesurname', 'u.themail', 'u.thestatus')
+                    ->andWhere('u.username = :username')
+                    ->setParameter('username', $username)
+                    ->getQuery()
+                    ->getOneOrNullResult();
+    }
+
     //    /**
     //     * @return User[] Returns an array of User objects
     //     */

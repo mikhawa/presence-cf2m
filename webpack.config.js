@@ -1,3 +1,4 @@
+const path   = require('path');
 const Encore = require('@symfony/webpack-encore');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
@@ -21,6 +22,11 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('JsonThis', './assets/js/scripts/JsonThis.js')
+    .addEntry("appPierre", "./assets/js/apps/appPierre/main.js")
+    .addAliases({
+        "@imagesPierre": path.resolve(__dirname, 'assets/images')
+    })
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -52,24 +58,27 @@ Encore
     // enables @babel/preset-env polyfills
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = 'usage';
-        config.corejs = 3;
+        config.corejs      = 3;
     })
 
-    // enables Sass/SCSS support
-    //.enableSassLoader()
+    //Vue.Js
+    .enableVueLoader()
 
-    // uncomment if you use TypeScript
-    //.enableTypeScriptLoader()
+// enables Sass/SCSS support
+//.enableSassLoader()
 
-    // uncomment if you use React
-    //.enableReactPreset()
+// uncomment if you use TypeScript
+//.enableTypeScriptLoader()
 
-    // uncomment to get integrity="..." attributes on your script & link tags
-    // requires WebpackEncoreBundle 1.4 or higher
-    //.enableIntegrityHashes(Encore.isProduction())
+// uncomment if you use React
+//.enableReactPreset()
 
-    // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+// uncomment to get integrity="..." attributes on your script & link tags
+// requires WebpackEncoreBundle 1.4 or higher
+//.enableIntegrityHashes(Encore.isProduction())
+
+// uncomment if you're having problems with a jQuery plugin
+//.autoProvidejQuery()
 ;
 
 module.exports = Encore.getWebpackConfig();
