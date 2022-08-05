@@ -11,7 +11,6 @@
     :width="width"
     :height="height"
   />
-  
 </template>
 
 <script>
@@ -24,42 +23,13 @@ ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 export default {
   name: 'chartJs',
   components: { Bar },
-  props: {
-    chartId: {
-      type: String,
-      default: 'bar-chart'
-    },
-    datasetIdKey: {
-      type: String,
-      default: 'label'
-    },
-    width: {
-      type: Number,
-      default: 400
-    },
-    height: {
-      type: Number,
-      default: 400
-    },
-    cssClasses: {
-      default: '',
-      type: String
-    },
-    styles: {
-      type: Object,
-      default: () => {}
-    },
-    plugins: {
-      type: Object,
-      default: () => {}
-    }
-  },
+
   data() {
     return {
       chartData: {
         labels: [],
         datasets: [ { 
-          data: [40, 20, 12],
+          data: [40,20,12],
           backgroundColor: '#f87979',
         } ]
       },

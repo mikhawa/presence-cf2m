@@ -6,5 +6,31 @@
     <div id="GraphStats" class="text-center">
         <stats></stats>
     </div>
+    <button onclick="updateChart()">Fetch now</button>
+
+<script>
+
+function updateChart(){
+async function fetchData(){
+        const url = 'https://127.0.0.1:8000/api/users';
+        const response = await fetch(url)
+        const datapoints = await response.json();
+        //console.log(datapoints);
+        return datapoints;
+        };
+
+        fetchData().then(datapoints => {
+            const thename = datapoints.map(
+                function(index){
+                    return index.username;
+                })
+                console.log(thename);
+
+        GraphStats.labels = thename;
+        //GraphStats.update();
+        });
+}
+    
+</script>
 
 {% endblock %}

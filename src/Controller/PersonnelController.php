@@ -42,9 +42,11 @@ class PersonnelController extends AbstractController
     {
         
         $users = $user->findAll();
+        $chartData = [];
 
         return $this->render('apps/charts/stats_interns.html.twig', [
-            "users" => $users
+            "users" => $users,
+            "chartData" => json_encode($chartData)
         ]);
     }
 }
